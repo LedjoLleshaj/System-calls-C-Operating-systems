@@ -12,38 +12,38 @@
 #include "shared_memory.h"
 
 
-int alloc_shared_memory(key_t shmKey, size_t size) {
+int shmGet_CreateShmid(key_t shmKey, size_t size) {
     // get, or create, a shared memory segment
     int shmid = shmget(shmKey, size, IPC_CREAT | S_IRUSR | S_IWUSR);
     if (shmid == -1) {
-        ErrExit("shmget failed");
+        errExit("shmget failed");
     }
 
     return shmid;
 }
 
 
-void *get_shared_memory(int shmid, int shmflg) {
+void *shmat_AttachMemory(int shmid, int shmflg) {
     // attach the shared memory
     int *ptr_sh = (int *) shmat(shmid, NULL, shmflg);
 
     if (ptr_sh == (int *) -1){
-        ErrExit("shmat failed");
+        errExit("shmat failed");
     }
 
     return ptr_sh;
 }
 
 
-void free_shared_memory(void *ptr_sh) {
+void shmdt_DettachMemory(void *ptr_sh) {
     // detach the shared memory segments
     if (shmdt(ptr_sh) == -1)
-        ErrExit("shmdt failed");
+        errExit("shmdt failed");
 }
 
 
-void remove_shared_memory(int shmid) {
+void shmCtl_RemoveShm(int shmid) {
     // delete the shared memory segment
     if (shmctl(shmid, IPC_RMID, NULL) == -1)
-        ErrExit("shmctl failed");
+        errExit("shmctl failed");
 }

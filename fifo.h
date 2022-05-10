@@ -3,3 +3,27 @@
 ///         funzioni specifiche per la gestione delle FIFO.
 
 #pragma once
+
+/**
+ * @brief Crea o ottiene una IPC FIFO usando mkfifo.
+ *
+ * @param path Percorso file usato dalla FIFO.
+*/
+void make_fifo(char * path);
+
+
+/**
+ * @brief Apertura di una fifo in modalita' lettura.
+ *
+ * @param path Percorso file usato dalla FIFO.
+ * @return int fileDespritor della fifo
+ */
+int openFifoRDONLY(char *path);
+
+/**
+ * @brief Apertura di una fifo in modalita' scrittura.
+ *
+ * @param path Percorso file usato dalla FIFO.
+ * @return int fileDespritor della fifo
+ */
+int openFifoWRONLY(char *path);

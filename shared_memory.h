@@ -13,7 +13,7 @@
  * @param size Dimensione della memoria condivisa
  * @return int Identificativo della memoria condivisa
 */
-int alloc_shared_memory(key_t shmKey, size_t size);
+int shmGet_CreateShmid(key_t shmKey, size_t size);
 
 
 /**
@@ -23,7 +23,7 @@ int alloc_shared_memory(key_t shmKey, size_t size);
  * @param shmflg Flag
  * @return void* Puntatore per accedere alla memoria condivisa
 */
-void * get_shared_memory(int shmid, int shmflg);
+void * shmat_AttachMemory(int shmid, int shmflg);
 
 
 /**
@@ -31,7 +31,7 @@ void * get_shared_memory(int shmid, int shmflg);
  *
  * @param ptr_sh Puntatore per accedere alla memoria condivisa
 */
-void free_shared_memory(void *ptr_sh);
+void shmdt_DettachMemory(void *ptr_sh);
 
 
 /**
@@ -39,4 +39,4 @@ void free_shared_memory(void *ptr_sh);
  *
  * @param shmid Identificativo della memoria condivisa
 */
-void remove_shared_memory(int shmid);
+void shmCtl_RemoveShm(int shmid);
