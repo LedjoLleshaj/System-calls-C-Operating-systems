@@ -6,7 +6,7 @@
 
 #define BUFFER_SZ 255
 
-extern char EXECUTABLE_DIR[BUFFER_SZ];//ndrro emrin ne fund
+extern char workingDirectory[BUFFER_SZ];//ndrro emrin ne fund
 
 /// Percorso file FIFO 1
 #define PATH_FIFO1 "/home/lleshaj/Desktop/Sistemi-operativi/fifo1_file.txt"

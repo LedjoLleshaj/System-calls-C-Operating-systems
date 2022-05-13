@@ -1,0 +1,177 @@
+\hypertarget{server_8c}{}\doxysection{server.\+c File Reference}
+\label{server_8c}\index{server.c@{server.c}}
+
+
+Contiene l\textquotesingle{}implementazione del server.  
+
+
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/msg.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}err\+\_\+exit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}defines.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}shared\+\_\+memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}semaphore.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}fifo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}message\+\_\+queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{server_8c_a48d605ff689f470746c858648f0a98c2}{S\+I\+G\+I\+N\+T\+Signal\+Handler}} (int sig)
+\begin{DoxyCompactList}\small\item\em Chiude tutte le I\+PC e termina. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{server_8c_ab53aa0eb44ad55d2e189f18d3bd6017b}{string\+\_\+to\+\_\+int}} (char $\ast$string)
+\item 
+void \mbox{\hyperlink{server_8c_ac94aa68fd5fccbf448cfe8788bd46225}{aggiungi\+A\+Matrice}} (msg\+\_\+t a, int righe)
+\item 
+void \mbox{\hyperlink{server_8c_a6a3979b89e7153de6f4e9c4308d60403}{find\+And\+Make\+Full\+Files}} (int righe)
+\item 
+char $\ast$ \mbox{\hyperlink{server_8c_aefaefec035e6211d28b35a6d2ce3b3fa}{costruisci\+Stringa}} (msg\+\_\+t a)
+\item 
+int \mbox{\hyperlink{server_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{server_8c_a709c4fcdc1217a8f8785cb59e85beee5}\label{server_8c_a709c4fcdc1217a8f8785cb59e85beee5}} 
+char \mbox{\hyperlink{server_8c_a709c4fcdc1217a8f8785cb59e85beee5}{E\+X\+E\+C\+U\+T\+A\+B\+L\+E\+\_\+\+D\+IR}} \mbox{[}B\+U\+F\+F\+E\+R\+\_\+\+SZ\mbox{]} = \char`\"{}\char`\"{}
+\begin{DoxyCompactList}\small\item\em Percorso cartella eseguibile. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}\label{server_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}} 
+int \mbox{\hyperlink{server_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}{fifo1\+\_\+fd}} = -\/1
+\begin{DoxyCompactList}\small\item\em file descriptor della F\+I\+FO 1 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a4a1b7b9ae118e79117db0755b4588077}\label{server_8c_a4a1b7b9ae118e79117db0755b4588077}} 
+int \mbox{\hyperlink{server_8c_a4a1b7b9ae118e79117db0755b4588077}{fifo2\+\_\+fd}} = -\/1
+\begin{DoxyCompactList}\small\item\em file descriptor della F\+I\+FO 2 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_ae73e6a837794db6e63f23db2d64a8130}\label{server_8c_ae73e6a837794db6e63f23db2d64a8130}} 
+int \mbox{\hyperlink{server_8c_ae73e6a837794db6e63f23db2d64a8130}{msqid}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier della message queue \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a7c35ac5305085cf7360645b8d52988b5}\label{server_8c_a7c35ac5305085cf7360645b8d52988b5}} 
+int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier del set di semafori \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_ac8807d215d2ee6d9779d76aeb1147430}\label{server_8c_ac8807d215d2ee6d9779d76aeb1147430}} 
+int \mbox{\hyperlink{server_8c_ac8807d215d2ee6d9779d76aeb1147430}{shmid}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier della memoria condivisa contenente i messaggi \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a0b268ec51e0860874f687d0d1ffcd0e2}\label{server_8c_a0b268ec51e0860874f687d0d1ffcd0e2}} 
+msg\+\_\+t $\ast$ \mbox{\hyperlink{server_8c_a0b268ec51e0860874f687d0d1ffcd0e2}{shm\+\_\+ptr}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em puntatore alla memoria condivisa contenente i messaggi \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_aef99f0b2f4ff9b59d2e02bf8e9349d04}\label{server_8c_aef99f0b2f4ff9b59d2e02bf8e9349d04}} 
+int \mbox{\hyperlink{server_8c_aef99f0b2f4ff9b59d2e02bf8e9349d04}{shm\+\_\+check\+\_\+id}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier della memoria condivisa contenente le flag cella libera/occupata \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a687e40faeef71a19cdd81e1bb787ca77}\label{server_8c_a687e40faeef71a19cdd81e1bb787ca77}} 
+int $\ast$ \mbox{\hyperlink{server_8c_a687e40faeef71a19cdd81e1bb787ca77}{shm\+\_\+check\+\_\+ptr}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em puntatore alla memoria condivisa contenente le flag cella libera/occupata \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a1aaec567099944b97df11e662b3b4611}\label{server_8c_a1aaec567099944b97df11e662b3b4611}} 
+msg\+\_\+t $\ast$$\ast$ \mbox{\hyperlink{server_8c_a1aaec567099944b97df11e662b3b4611}{matrice\+File}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em e\textquotesingle{} una matrice che per ogni riga contiene le 4 parti di un file \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contiene l\textquotesingle{}implementazione del server. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Spostare le funzioni non main fuori dal file \mbox{\hyperlink{server_8c}{server.\+c}} 
+
+Creare una funzione che fa cio\textquotesingle{} che e\textquotesingle{} nel while(true)\end{DoxyRefDesc}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{server_8c_ac94aa68fd5fccbf448cfe8788bd46225}\label{server_8c_ac94aa68fd5fccbf448cfe8788bd46225}} 
+\index{server.c@{server.c}!aggiungiAMatrice@{aggiungiAMatrice}}
+\index{aggiungiAMatrice@{aggiungiAMatrice}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{aggiungiAMatrice()}{aggiungiAMatrice()}}
+{\footnotesize\ttfamily void aggiungi\+A\+Matrice (\begin{DoxyParamCaption}\item[{msg\+\_\+t}]{a,  }\item[{int}]{righe }\end{DoxyParamCaption})}
+
+Aggiunge un messaggio alla matrice buffer. Il buffer verra\textquotesingle{} usato per recuperare i pezzi di file quando verra\textquotesingle{} ricostruito il file di output.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Messaggio da inserire nel buffer \\
+\hline
+{\em righe} & Numero di righe nella matrice \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{server_8c_aefaefec035e6211d28b35a6d2ce3b3fa}\label{server_8c_aefaefec035e6211d28b35a6d2ce3b3fa}} 
+\index{server.c@{server.c}!costruisciStringa@{costruisciStringa}}
+\index{costruisciStringa@{costruisciStringa}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{costruisciStringa()}{costruisciStringa()}}
+{\footnotesize\ttfamily char$\ast$ costruisci\+Stringa (\begin{DoxyParamCaption}\item[{msg\+\_\+t}]{a }\end{DoxyParamCaption})}
+
+Costruisce la stringa da scrivere nel file di output.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Messaggio contenente il pezzo di file arrivato dal client \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char$\ast$ Stringa pronta per essere scritta su file 
+\end{DoxyReturn}
+\mbox{\Hypertarget{server_8c_a6a3979b89e7153de6f4e9c4308d60403}\label{server_8c_a6a3979b89e7153de6f4e9c4308d60403}} 
+\index{server.c@{server.c}!findAndMakeFullFiles@{findAndMakeFullFiles}}
+\index{findAndMakeFullFiles@{findAndMakeFullFiles}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{findAndMakeFullFiles()}{findAndMakeFullFiles()}}
+{\footnotesize\ttfamily void find\+And\+Make\+Full\+Files (\begin{DoxyParamCaption}\item[{int}]{righe }\end{DoxyParamCaption})}
+
+Trova nella matrice buffer 4 pezzi di un file e poi li usa per creare e scrivere un file di output.
+
+
+\begin{DoxyParams}{Parameters}
+{\em righe} & Numero di righe nella matrice \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{server_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{server_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{server.c@{server.c}!main@{main}}
+\index{main@{main}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Esegue operazioni principali del server.
+
+terminazione effettuata con S\+I\+G\+I\+NT\+: Al termine chiudi tutte le I\+PC. \mbox{\Hypertarget{server_8c_a48d605ff689f470746c858648f0a98c2}\label{server_8c_a48d605ff689f470746c858648f0a98c2}} 
+\index{server.c@{server.c}!SIGINTSignalHandler@{SIGINTSignalHandler}}
+\index{SIGINTSignalHandler@{SIGINTSignalHandler}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{SIGINTSignalHandler()}{SIGINTSignalHandler()}}
+{\footnotesize\ttfamily void S\+I\+G\+I\+N\+T\+Signal\+Handler (\begin{DoxyParamCaption}\item[{int}]{sig }\end{DoxyParamCaption})}
+
+
+
+Chiude tutte le I\+PC e termina. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sig} & Intero che rappresenta il segnale catturato dalla funzione \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{server_8c_ab53aa0eb44ad55d2e189f18d3bd6017b}\label{server_8c_ab53aa0eb44ad55d2e189f18d3bd6017b}} 
+\index{server.c@{server.c}!string\_to\_int@{string\_to\_int}}
+\index{string\_to\_int@{string\_to\_int}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{string\_to\_int()}{string\_to\_int()}}
+{\footnotesize\ttfamily int string\+\_\+to\+\_\+int (\begin{DoxyParamCaption}\item[{char $\ast$}]{string }\end{DoxyParamCaption})}
+
+Converte stringa in intero.
+
+
+\begin{DoxyParams}{Parameters}
+{\em string} & Stringa da convertire in intero \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Valore intero ottenuto convertendo la stringa in input 
+\end{DoxyReturn}

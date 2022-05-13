@@ -9,7 +9,7 @@
 #include <string.h>
 
 #include "strings.h"
-#include "files.h"
+#include "file.h"
 #include "err_exit.h"
 
 

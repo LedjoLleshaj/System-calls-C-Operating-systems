@@ -1,0 +1,89 @@
+\hypertarget{defines_8c}{}\doxysection{defines.\+c File Reference}
+\label{defines_8c}\index{defines.c@{defines.c}}
+
+
+Contiene l\textquotesingle{}implementazione delle funzioni specifiche del progetto.  
+
+
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}defines.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}err\+\_\+exit.\+h\char`\"{}}\newline
+Include dependency graph for defines.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{defines_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8c_a83c11a6d365dea45a308bb6ebf17ccee}{get\+Ipc\+Key}} ()
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8c_a411f1253f09713e609b49be873751355}{get\+Ipc\+Key2}} ()
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8c_a12e7466923548f76ca24f563d39377a1}{ftok\+\_\+\+Ipc\+Key}} (char proj\+\_\+id)
+\item 
+void \mbox{\hyperlink{defines_8c_a2ce7c4d064c3b1a3f182c3e830a4c31d}{print\+\_\+msg}} (char $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Visualizza sullo standard output un messaggio utilizzando la write. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contiene l\textquotesingle{}implementazione delle funzioni specifiche del progetto. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{defines_8c_a12e7466923548f76ca24f563d39377a1}\label{defines_8c_a12e7466923548f76ca24f563d39377a1}} 
+\index{defines.c@{defines.c}!ftok\_IpcKey@{ftok\_IpcKey}}
+\index{ftok\_IpcKey@{ftok\_IpcKey}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{ftok\_IpcKey()}{ftok\_IpcKey()}}
+{\footnotesize\ttfamily key\+\_\+t ftok\+\_\+\+Ipc\+Key (\begin{DoxyParamCaption}\item[{char}]{proj\+\_\+id }\end{DoxyParamCaption})}
+
+Restituisce una chiave I\+PC generica per il progetto ottenuta con ftok sulla cartella con gli eseguibili.
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t Chiave I\+PC 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8c_a83c11a6d365dea45a308bb6ebf17ccee}\label{defines_8c_a83c11a6d365dea45a308bb6ebf17ccee}} 
+\index{defines.c@{defines.c}!getIpcKey@{getIpcKey}}
+\index{getIpcKey@{getIpcKey}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{getIpcKey()}{getIpcKey()}}
+{\footnotesize\ttfamily key\+\_\+t get\+Ipc\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Restituisce la prima chiave I\+PC ottenuta con \mbox{\hyperlink{defines_8h_a12e7466923548f76ca24f563d39377a1}{ftok\+\_\+\+Ipc\+Key()}}.
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t Chiave I\+PC 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8c_a411f1253f09713e609b49be873751355}\label{defines_8c_a411f1253f09713e609b49be873751355}} 
+\index{defines.c@{defines.c}!getIpcKey2@{getIpcKey2}}
+\index{getIpcKey2@{getIpcKey2}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{getIpcKey2()}{getIpcKey2()}}
+{\footnotesize\ttfamily key\+\_\+t get\+Ipc\+Key2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Restituisce la seconda chiave I\+PC ottenuta con \mbox{\hyperlink{defines_8h_a12e7466923548f76ca24f563d39377a1}{ftok\+\_\+\+Ipc\+Key()}}.
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t Chiave I\+PC 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8c_a2ce7c4d064c3b1a3f182c3e830a4c31d}\label{defines_8c_a2ce7c4d064c3b1a3f182c3e830a4c31d}} 
+\index{defines.c@{defines.c}!print\_msg@{print\_msg}}
+\index{print\_msg@{print\_msg}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{print\_msg()}{print\_msg()}}
+{\footnotesize\ttfamily void print\+\_\+msg (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Visualizza sullo standard output un messaggio utilizzando la write. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & messaggio da visualizzare \\
+\hline
+\end{DoxyParams}

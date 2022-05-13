@@ -6,11 +6,10 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue May 10 03:25:38 2022
+# Make data base, printed on Fri May 13 12:17:53 2022
 
 # Variables
 
- 
 # 'override' directive
 GNUMAKEFLAGS := 
 # automatic
@@ -52,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 9:62378
+JOURNAL_STREAM = 9:63528
 # makefile (from 'Makefile', line 1)
 CFLAGS = -Wall -std=gnu99
 # environment
@@ -70,13 +69,13 @@ MAKELEVEL := 0
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=a27b0099c0421ceced2a17556269a48a
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-MANAGERPID = 846
+MANAGERPID = 818
 # environment
 FNM_NODE_DIST_MIRROR = https://nodejs.org/dist
 # makefile (from 'Makefile', line 9)
@@ -90,13 +89,13 @@ VSCODE_CWD = /home/lleshaj/Desktop/Sistemi-operativi
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/143896_1652171531524/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
+PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/36903_1652469456195/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
 # makefile (from 'Makefile', line 8)
 SERVER_SRCS = message_queue.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c server.c
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1293,unix/ubuntu:/tmp/.ICE-unix/1293
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1234,unix/ubuntu:/tmp/.ICE-unix/1234
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -110,7 +109,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 8243c182418149169a40240b48eb5e5d
+INVOCATION_ID = 84552108ddde4e4d9e2f7832aaa6a5dc
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -130,7 +129,7 @@ PWD = /home/lleshaj/Desktop/Sistemi-operativi
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1168
+SSH_AGENT_PID = 1132
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -148,11 +147,11 @@ VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /home/lleshaj/.config/Code/CachedData/57fd6d0195bb9b9d1b49f6da5db789060795de47
 # environment
-FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/143896_1652171531524
+FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/36903_1652469456195
 # environment
 LOGNAME = lleshaj
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 NVM_CD_FLAGS = 
 # automatic
@@ -180,7 +179,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-2c8d25df-125f-458c-9cff-0d7dd8e743fb.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-b6477088-df55-4c19-a9dc-445b5c341133.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -197,6 +196,8 @@ XDG_CURRENT_DESKTOP = Unity
 LC_TELEPHONE = it_IT.UTF-8
 # default
 MAKE_COMMAND := make
+# environment
+OLDPWD = /home/lleshaj/Desktop
 # default
 .VARIABLES := 
 # automatic
@@ -222,6 +223,8 @@ GDK_BACKEND = x11
 # environment
 LC_PAPER = it_IT.UTF-8
 # environment
+LC_IDENTIFICATION = it_IT.UTF-8
+# environment
 QT_ACCESSIBILITY = 1
 # default
 MAKEFILES := 
@@ -240,13 +243,13 @@ FNM_DIR = /home/lleshaj/.fnm
 # environment
 LC_ALL = C
 # environment
-DBUS_STARTER_BUS_TYPE = session
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/55e4bb0e_daa1_43b7_b1f8_38fbb973001d
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/d3000077_214b_4661_ab0f_f101ffc15401
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.4119
+GNOME_TERMINAL_SERVICE = :1.360
 # environment
 FNM_ARCH = x64
 # default
@@ -254,12 +257,11 @@ SUFFIXES :=
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
- 
 WINDOWPATH = 2
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-LC_IDENTIFICATION = it_IT.UTF-8
+GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
 # environment
@@ -269,21 +271,20 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 144093
-# environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=a27b0099c0421ceced2a17556269a48a
+VSCODE_PID = 37121
 # variable set hash-table stats:
-# Load=130/1024=13%, Rehash=0, Collisions=20/168=12%
+# Load=131/1024=13%, Rehash=0, Collisions=21/169=12%
 
+ 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
 # Directories
 
-# . (device 2049, inode 657204): 25 files, no impossibilities.
+# . (device 2049, inode 657204): 26 files, no impossibilities.
 
-# 25 files, no impossibilities in 1 directories.
+# 26 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -396,7 +397,6 @@ obj/signals.o:
 #  File has not been updated.
 
 # Not a target:
- 
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -466,13 +466,12 @@ obj/defines.o:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 49 / storage = 510 B / avg = 10 B
-# current buf: size = 8162 B / used = 510 B / count = 49 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 50 / storage = 520 B / avg = 10 B
+# current buf: size = 8162 B / used = 520 B / count = 50 / avg = 10 B
 
- 
-# strcache performance: lookups = 71 / hit rate = 30%
+# strcache performance: lookups = 72 / hit rate = 30%
 # hash-table stats:
-# Load=49/8192=1%, Rehash=0, Collisions=1/71=1%
-# Finished Make data base on Tue May 10 03:25:38 2022
+# Load=50/8192=1%, Rehash=0, Collisions=1/72=1%
+# Finished Make data base on Fri May 13 12:17:53 2022
 
  

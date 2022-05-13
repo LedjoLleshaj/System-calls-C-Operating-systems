@@ -1,0 +1,265 @@
+\hypertarget{semaphore_8h}{}\doxysection{semaphore.\+h File Reference}
+\label{semaphore_8h}\index{semaphore.h@{semaphore.h}}
+
+
+Contiene la definizioni di variabili e funzioni specifiche per la gestione dei S\+E\+M\+A\+F\+O\+RI.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{semaphore_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+union \mbox{\hyperlink{unionsemun}{semun}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{semaphore_8h_ada7d90b376793d719590f25d5f66f3e9}{get\+Semid}} (key\+\_\+t key, int n\+\_\+sem)
+\begin{DoxyCompactList}\small\item\em Ottiene un insieme di semafori gia\textquotesingle{} creato. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{semaphore_8h_a33acc593301214d8d18c198481f4dc2e}{create\+Semid}} (key\+\_\+t key, int n\+\_\+sem)
+\begin{DoxyCompactList}\small\item\em Crea un insieme di semafori. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{semaphore_8h_a77c6570406059144bb6a8ecf04f481da}{sem\+Op}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, unsigned short sem\+\_\+num, short sem\+\_\+op)
+\begin{DoxyCompactList}\small\item\em Funzione di supporto per manipolare i valori di un set di semafori. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{semaphore_8h_a9b9328c3d9e3733d612543e52bd93c80}{sem\+Op\+No\+Wait}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, unsigned short sem\+\_\+num, short sem\+\_\+op)
+\item 
+void \mbox{\hyperlink{semaphore_8h_a70ef7c9fd17cdbf48ff5e416566d2902}{sem\+Op\+Wait\+Zero}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, int sem\+\_\+num)
+\item 
+void \mbox{\hyperlink{semaphore_8h_a9544c39bcdd3f3f317e2c5d0b60f22b6}{sem\+Op\+Wait}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, int sem\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Esegue la wait sul semaforo sem\+\_\+num\+: decrementa il valore di 1 ed eventualmente mette in attesa il processo. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{semaphore_8h_a63ab182d5b1bb2f798dc0f47ddea3d3a}{sem\+Op\+Non\+Bloccante}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, int sem\+\_\+num)
+\item 
+void \mbox{\hyperlink{semaphore_8h_a6c76800819148ddc1309d4326c02fab1}{sem\+Op\+Signal}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, int sem\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Esegue la signal sul semaforo sem\+\_\+num\+: incrementa il valore di 1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{semaphore_8h_ae50006a3373403a22d8091a2c767e31b}{sem\+Ctl\+Set\+Val}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, int sem\+\_\+num, int val)
+\begin{DoxyCompactList}\small\item\em Inizializza il valore del semaforo sem\+\_\+num al valore val. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{semaphore_8h_aa9cebbb60093ee75d85db9c787b5f91c}{sem\+Ctl\+Set\+All}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, short unsigned int values\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Inizializza i valori del set di semafori semid ai valori in values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{semaphore_8h_a677776d9555e6e937cf14a1eee3d7a29}{sem\+Ctl\+Delete}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}})
+\begin{DoxyCompactList}\small\item\em Cancella il set di semafori svegliando eventuali processi in attesa. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{semaphore_8h_a4ad47940231a43bf14ebbc838980bfcd}{sem\+Ctl\+Set\+Permissions}} (int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}}, struct semid\+\_\+ds arg)
+\begin{DoxyCompactList}\small\item\em Imposta i permessi su un set di semafori. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contiene la definizioni di variabili e funzioni specifiche per la gestione dei S\+E\+M\+A\+F\+O\+RI. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{semaphore_8h_a33acc593301214d8d18c198481f4dc2e}\label{semaphore_8h_a33acc593301214d8d18c198481f4dc2e}} 
+\index{semaphore.h@{semaphore.h}!createSemid@{createSemid}}
+\index{createSemid@{createSemid}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{createSemid()}{createSemid()}}
+{\footnotesize\ttfamily int create\+Semid (\begin{DoxyParamCaption}\item[{key\+\_\+t}]{key,  }\item[{int}]{n\+\_\+sem }\end{DoxyParamCaption})}
+
+
+
+Crea un insieme di semafori. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Chiave I\+PC \\
+\hline
+{\em n\+\_\+sem} & Numero semafori da ottenere/creare \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_ada7d90b376793d719590f25d5f66f3e9}\label{semaphore_8h_ada7d90b376793d719590f25d5f66f3e9}} 
+\index{semaphore.h@{semaphore.h}!getSemid@{getSemid}}
+\index{getSemid@{getSemid}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{getSemid()}{getSemid()}}
+{\footnotesize\ttfamily int get\+Semid (\begin{DoxyParamCaption}\item[{key\+\_\+t}]{key,  }\item[{int}]{n\+\_\+sem }\end{DoxyParamCaption})}
+
+
+
+Ottiene un insieme di semafori gia\textquotesingle{} creato. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Chiave I\+PC \\
+\hline
+{\em n\+\_\+sem} & Numero semafori da ottenere/creare \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_a677776d9555e6e937cf14a1eee3d7a29}\label{semaphore_8h_a677776d9555e6e937cf14a1eee3d7a29}} 
+\index{semaphore.h@{semaphore.h}!semCtlDelete@{semCtlDelete}}
+\index{semCtlDelete@{semCtlDelete}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semCtlDelete()}{semCtlDelete()}}
+{\footnotesize\ttfamily void sem\+Ctl\+Delete (\begin{DoxyParamCaption}\item[{int}]{semid }\end{DoxyParamCaption})}
+
+
+
+Cancella il set di semafori svegliando eventuali processi in attesa. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_aa9cebbb60093ee75d85db9c787b5f91c}\label{semaphore_8h_aa9cebbb60093ee75d85db9c787b5f91c}} 
+\index{semaphore.h@{semaphore.h}!semCtlSetAll@{semCtlSetAll}}
+\index{semCtlSetAll@{semCtlSetAll}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semCtlSetAll()}{semCtlSetAll()}}
+{\footnotesize\ttfamily void sem\+Ctl\+Set\+All (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{short unsigned int}]{values\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Inizializza i valori del set di semafori semid ai valori in values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em values} & Array di valori a cui impostare ogni semaforo del set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_a4ad47940231a43bf14ebbc838980bfcd}\label{semaphore_8h_a4ad47940231a43bf14ebbc838980bfcd}} 
+\index{semaphore.h@{semaphore.h}!semCtlSetPermissions@{semCtlSetPermissions}}
+\index{semCtlSetPermissions@{semCtlSetPermissions}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semCtlSetPermissions()}{semCtlSetPermissions()}}
+{\footnotesize\ttfamily void sem\+Ctl\+Set\+Permissions (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{struct semid\+\_\+ds}]{arg }\end{DoxyParamCaption})}
+
+
+
+Imposta i permessi su un set di semafori. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em arg} & Contiene i permessi da impostare \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_ae50006a3373403a22d8091a2c767e31b}\label{semaphore_8h_ae50006a3373403a22d8091a2c767e31b}} 
+\index{semaphore.h@{semaphore.h}!semCtlSetVal@{semCtlSetVal}}
+\index{semCtlSetVal@{semCtlSetVal}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semCtlSetVal()}{semCtlSetVal()}}
+{\footnotesize\ttfamily void sem\+Ctl\+Set\+Val (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{int}]{sem\+\_\+num,  }\item[{int}]{val }\end{DoxyParamCaption})}
+
+
+
+Inizializza il valore del semaforo sem\+\_\+num al valore val. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em sem\+\_\+num} & Indice di un semaforo nel set \\
+\hline
+{\em val} & Valore a cui impostare il semaforo sem\+\_\+num \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_a77c6570406059144bb6a8ecf04f481da}\label{semaphore_8h_a77c6570406059144bb6a8ecf04f481da}} 
+\index{semaphore.h@{semaphore.h}!semOp@{semOp}}
+\index{semOp@{semOp}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semOp()}{semOp()}}
+{\footnotesize\ttfamily void sem\+Op (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{unsigned short}]{sem\+\_\+num,  }\item[{short}]{sem\+\_\+op }\end{DoxyParamCaption})}
+
+
+
+Funzione di supporto per manipolare i valori di un set di semafori. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em sem\+\_\+num} & Indice di un semaforo nel set \\
+\hline
+{\em sem\+\_\+op} & Operazione eseguita sul semaforo sem\+\_\+num \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_a63ab182d5b1bb2f798dc0f47ddea3d3a}\label{semaphore_8h_a63ab182d5b1bb2f798dc0f47ddea3d3a}} 
+\index{semaphore.h@{semaphore.h}!semOpNonBloccante@{semOpNonBloccante}}
+\index{semOpNonBloccante@{semOpNonBloccante}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semOpNonBloccante()}{semOpNonBloccante()}}
+{\footnotesize\ttfamily int sem\+Op\+Non\+Bloccante (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{int}]{sem\+\_\+num }\end{DoxyParamCaption})}
+
+Esegue la wait non bloccante sul semaforo sem\+\_\+num\+: tenta di decrementare il suo valore di 1. Restituisce -\/1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti.
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em sem\+\_\+num} & Indice di un semaforo nel set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti 
+\end{DoxyReturn}
+\mbox{\Hypertarget{semaphore_8h_a9b9328c3d9e3733d612543e52bd93c80}\label{semaphore_8h_a9b9328c3d9e3733d612543e52bd93c80}} 
+\index{semaphore.h@{semaphore.h}!semOpNoWait@{semOpNoWait}}
+\index{semOpNoWait@{semOpNoWait}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semOpNoWait()}{semOpNoWait()}}
+{\footnotesize\ttfamily int sem\+Op\+No\+Wait (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{unsigned short}]{sem\+\_\+num,  }\item[{short}]{sem\+\_\+op }\end{DoxyParamCaption})}
+
+Funzione di supporto per manipolare i valori di un set di semafori in modo non bloccante. Restituisce -\/1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti.
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em sem\+\_\+num} & Indice di un semaforo nel set \\
+\hline
+{\em sem\+\_\+op} & Operazione eseguita sul semaforo sem\+\_\+num \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+-\/1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti 
+\end{DoxyReturn}
+\mbox{\Hypertarget{semaphore_8h_a6c76800819148ddc1309d4326c02fab1}\label{semaphore_8h_a6c76800819148ddc1309d4326c02fab1}} 
+\index{semaphore.h@{semaphore.h}!semOpSignal@{semOpSignal}}
+\index{semOpSignal@{semOpSignal}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semOpSignal()}{semOpSignal()}}
+{\footnotesize\ttfamily void sem\+Op\+Signal (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{int}]{sem\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Esegue la signal sul semaforo sem\+\_\+num\+: incrementa il valore di 1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em sem\+\_\+num} & Indice di un semaforo nel set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_a9544c39bcdd3f3f317e2c5d0b60f22b6}\label{semaphore_8h_a9544c39bcdd3f3f317e2c5d0b60f22b6}} 
+\index{semaphore.h@{semaphore.h}!semOpWait@{semOpWait}}
+\index{semOpWait@{semOpWait}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semOpWait()}{semOpWait()}}
+{\footnotesize\ttfamily void sem\+Op\+Wait (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{int}]{sem\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Esegue la wait sul semaforo sem\+\_\+num\+: decrementa il valore di 1 ed eventualmente mette in attesa il processo. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em sem\+\_\+num} & Indice di un semaforo nel set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{semaphore_8h_a70ef7c9fd17cdbf48ff5e416566d2902}\label{semaphore_8h_a70ef7c9fd17cdbf48ff5e416566d2902}} 
+\index{semaphore.h@{semaphore.h}!semOpWaitZero@{semOpWaitZero}}
+\index{semOpWaitZero@{semOpWaitZero}!semaphore.h@{semaphore.h}}
+\doxysubsubsection{\texorpdfstring{semOpWaitZero()}{semOpWaitZero()}}
+{\footnotesize\ttfamily void sem\+Op\+Wait\+Zero (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{int}]{sem\+\_\+num }\end{DoxyParamCaption})}
+
+Attende che il semaforo sem\+\_\+num raggiunga il valore zero. \begin{quote}
+Prima di usarla per sincronizzare processi richiamare sem\+Wait sullo stesso semaforo. \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em semid} & Identificatore del set di semafori \\
+\hline
+{\em sem\+\_\+num} & Indice di un semaforo nel set \\
+\hline
+\end{DoxyParams}

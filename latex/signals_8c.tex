@@ -1,0 +1,54 @@
+\hypertarget{signals_8c}{}\doxysection{signals.\+c File Reference}
+\label{signals_8c}\index{signals.c@{signals.c}}
+
+
+Contiene le funzioni specifiche per la gestione dei S\+E\+G\+N\+A\+LI.  
+
+
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}signals.\+h\char`\"{}}\newline
+Include dependency graph for signals.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{signals_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{signals_8c_a85be3e178c8b158f4e989d94fad01515}{only\+S\+I\+G\+I\+N\+T\+\_\+\+S\+I\+G\+U\+S\+R1}} ()
+\item 
+void \mbox{\hyperlink{signals_8c_a616410f7652d46678365cf3b383cc767}{block\+All\+Signals}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contiene le funzioni specifiche per la gestione dei S\+E\+G\+N\+A\+LI. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{signals_8c_a616410f7652d46678365cf3b383cc767}\label{signals_8c_a616410f7652d46678365cf3b383cc767}} 
+\index{signals.c@{signals.c}!blockAllSignals@{blockAllSignals}}
+\index{blockAllSignals@{blockAllSignals}!signals.c@{signals.c}}
+\doxysubsubsection{\texorpdfstring{blockAllSignals()}{blockAllSignals()}}
+{\footnotesize\ttfamily void block\+All\+Signals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Blocca tutti i segnali\+:
+\begin{DoxyItemize}
+\item creando un set di tutti i segnali
+\item impostando la maschera per bloccare i segnali del set 
+\end{DoxyItemize}\mbox{\Hypertarget{signals_8c_a85be3e178c8b158f4e989d94fad01515}\label{signals_8c_a85be3e178c8b158f4e989d94fad01515}} 
+\index{signals.c@{signals.c}!onlySIGINT\_SIGUSR1@{onlySIGINT\_SIGUSR1}}
+\index{onlySIGINT\_SIGUSR1@{onlySIGINT\_SIGUSR1}!signals.c@{signals.c}}
+\doxysubsubsection{\texorpdfstring{onlySIGINT\_SIGUSR1()}{onlySIGINT\_SIGUSR1()}}
+{\footnotesize\ttfamily void only\+S\+I\+G\+I\+N\+T\+\_\+\+S\+I\+G\+U\+S\+R1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Blocca tutti i segnali meno S\+I\+G\+I\+NT e S\+I\+G\+U\+S\+R1\+:
+\begin{DoxyItemize}
+\item creando un set di tutti i segnali
+\item togliendo S\+I\+G\+I\+NT e S\+I\+G\+U\+S\+R1 dal set
+\item impostando la maschera per bloccare i segnali del set 
+\end{DoxyItemize}

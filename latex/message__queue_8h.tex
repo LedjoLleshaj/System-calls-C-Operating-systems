@@ -1,0 +1,74 @@
+\hypertarget{message__queue_8h}{}\doxysection{message\+\_\+queue.\+h File Reference}
+\label{message__queue_8h}\index{message\_queue.h@{message\_queue.h}}
+
+
+Contiene la definizioni di variabili e funzioni specifiche per la gestione delle C\+O\+DE D\+EI M\+E\+S\+S\+A\+G\+GI.  
+
+
+{\ttfamily \#include $<$sys/msg.\+h$>$}\newline
+Include dependency graph for message\+\_\+queue.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=185pt]{message__queue_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{message__queue_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct msqid\+\_\+ds \mbox{\hyperlink{message__queue_8h_a44cf73ec1a691075e3365f17416bfa33}{msg\+Queue\+Get\+Stats}} (int \mbox{\hyperlink{server_8c_ae73e6a837794db6e63f23db2d64a8130}{msqid}})
+\begin{DoxyCompactList}\small\item\em Restituisce statistiche della coda dei messaggi. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{message__queue_8h_a84d75223d993855e7bc6c8e15d035fa0}{msg\+Queue\+Set\+Stats}} (int \mbox{\hyperlink{server_8c_ae73e6a837794db6e63f23db2d64a8130}{msqid}}, struct msqid\+\_\+ds ds)
+\begin{DoxyCompactList}\small\item\em Imposta nuove configurazioni sulla coda dei messaggi. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contiene la definizioni di variabili e funzioni specifiche per la gestione delle C\+O\+DE D\+EI M\+E\+S\+S\+A\+G\+GI. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{message__queue_8h_a44cf73ec1a691075e3365f17416bfa33}\label{message__queue_8h_a44cf73ec1a691075e3365f17416bfa33}} 
+\index{message\_queue.h@{message\_queue.h}!msgQueueGetStats@{msgQueueGetStats}}
+\index{msgQueueGetStats@{msgQueueGetStats}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{msgQueueGetStats()}{msgQueueGetStats()}}
+{\footnotesize\ttfamily struct msqid\+\_\+ds msg\+Queue\+Get\+Stats (\begin{DoxyParamCaption}\item[{int}]{msqid }\end{DoxyParamCaption})}
+
+
+
+Restituisce statistiche della coda dei messaggi. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msqid} & Identifier coda dei messaggi \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+struct msqid\+\_\+ds Struttura con statistiche della coda dei messaggi 
+\end{DoxyReturn}
+\mbox{\Hypertarget{message__queue_8h_a84d75223d993855e7bc6c8e15d035fa0}\label{message__queue_8h_a84d75223d993855e7bc6c8e15d035fa0}} 
+\index{message\_queue.h@{message\_queue.h}!msgQueueSetStats@{msgQueueSetStats}}
+\index{msgQueueSetStats@{msgQueueSetStats}!message\_queue.h@{message\_queue.h}}
+\doxysubsubsection{\texorpdfstring{msgQueueSetStats()}{msgQueueSetStats()}}
+{\footnotesize\ttfamily void msg\+Queue\+Set\+Stats (\begin{DoxyParamCaption}\item[{int}]{msqid,  }\item[{struct msqid\+\_\+ds}]{ds }\end{DoxyParamCaption})}
+
+
+
+Imposta nuove configurazioni sulla coda dei messaggi. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msqid} & Identifier coda dei messaggi \\
+\hline
+{\em ds} & Struttura con nuove statistiche della coda dei messaggi \\
+\hline
+\end{DoxyParams}

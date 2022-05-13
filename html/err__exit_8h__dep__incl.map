@@ -1,0 +1,10 @@
+<map id="err_exit.h" name="err_exit.h">
+<area shape="rect" id="node1" title="Contiene la definizione della funzione di stampa degli errori." alt="" coords="323,5,407,32"/>
+<area shape="rect" id="node2" href="$defines_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche del progetto." alt="" coords="5,80,85,107"/>
+<area shape="rect" id="node3" href="$err__exit_8c.html" title="Contiene l&#39;implementazione della funzione di stampa degli errori." alt="" coords="109,80,192,107"/>
+<area shape="rect" id="node4" href="$fifo_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione delle FIFO." alt="" coords="217,80,271,107"/>
+<area shape="rect" id="node5" href="$message__queue_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione delle CODE DEI MESSAGGI." alt="" coords="296,80,435,107"/>
+<area shape="rect" id="node6" href="$semaphore_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione dei SEMAFORI." alt="" coords="459,80,565,107"/>
+<area shape="rect" id="node7" href="$server_8c.html" title="Contiene l&#39;implementazione del server." alt="" coords="590,80,663,107"/>
+<area shape="rect" id="node8" href="$shared__memory_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione della MEMORIA CONDIVISA." alt="" coords="687,80,825,107"/>
+</map>

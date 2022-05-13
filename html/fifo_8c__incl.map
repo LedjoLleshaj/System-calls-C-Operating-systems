@@ -1,0 +1,13 @@
+<map id="fifo.c" name="fifo.c">
+<area shape="rect" id="node1" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione delle FIFO." alt="" coords="453,5,508,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,76,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,80,167,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="192,80,271,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="295,80,381,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="405,80,468,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="492,80,560,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="585,80,659,107"/>
+<area shape="rect" id="node9" href="$err__exit_8h.html" title="Contiene la definizione della funzione di stampa degli errori." alt="" coords="684,80,768,107"/>
+<area shape="rect" id="node10" href="$fifo_8h.html" title="Contiene la definizioni di variabili e funzioni specifiche per la gestione delle FIFO." alt="" coords="792,80,847,107"/>
+<area shape="rect" id="node11" href="$defines_8h.html" title="Contiene la definizioni di variabili e funzioni specifiche del progetto." alt="" coords="871,80,952,107"/>
+</map>

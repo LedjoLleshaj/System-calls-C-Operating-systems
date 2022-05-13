@@ -23,7 +23,7 @@ key_t getIpcKey2() {
 
 
 key_t ftok_IpcKey(char proj_id) {
-    key_t key = ftok(EXECUTABLE_DIR, proj_id);
+    key_t key = ftok(workingDirectory, proj_id);
 
     if (key == -1)
         errExit("ftok failed");

@@ -1,0 +1,44 @@
+\hypertarget{unionsemun}{}\doxysection{semun Union Reference}
+\label{unionsemun}\index{semun@{semun}}
+
+
+{\ttfamily \#include $<$semaphore.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{unionsemun_ac6121ecb6d04a024e07e12bd71b94031}{val}}
+\item 
+struct semid\+\_\+ds $\ast$ \mbox{\hyperlink{unionsemun_ac6b6428d07d4147fd2cc698b53555bed}{buf}}
+\item 
+unsigned short $\ast$ \mbox{\hyperlink{unionsemun_aca23b8e730a0553205813c0cb7692b54}{array}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Union usata dalla system call semctl(). 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{unionsemun_aca23b8e730a0553205813c0cb7692b54}\label{unionsemun_aca23b8e730a0553205813c0cb7692b54}} 
+\index{semun@{semun}!array@{array}}
+\index{array@{array}!semun@{semun}}
+\doxysubsubsection{\texorpdfstring{array}{array}}
+{\footnotesize\ttfamily unsigned short$\ast$ semun\+::array}
+
+per eseguire operazioni su tutti i semafori. Usato dalle operazioni G\+E\+T\+A\+LL e S\+E\+T\+A\+LL \mbox{\Hypertarget{unionsemun_ac6b6428d07d4147fd2cc698b53555bed}\label{unionsemun_ac6b6428d07d4147fd2cc698b53555bed}} 
+\index{semun@{semun}!buf@{buf}}
+\index{buf@{buf}!semun@{semun}}
+\doxysubsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily struct semid\+\_\+ds$\ast$ semun\+::buf}
+
+usato per lavorare sullo stato globale del semaforo. Usato dalle operazioni I\+P\+C\+\_\+\+S\+T\+AT e I\+P\+C\+\_\+\+S\+ET \mbox{\Hypertarget{unionsemun_ac6121ecb6d04a024e07e12bd71b94031}\label{unionsemun_ac6121ecb6d04a024e07e12bd71b94031}} 
+\index{semun@{semun}!val@{val}}
+\index{val@{val}!semun@{semun}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily int semun\+::val}
+
+usato se si lavora su un singolo semaforo. Usato dalla operazione S\+E\+T\+V\+AL 
+
+The documentation for this union was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{semaphore_8h}{semaphore.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,10 @@
+<map id="shared_memory.c" name="shared_memory.c">
+<area shape="rect" id="node1" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione della MEMORIA CONDIVISA." alt="" coords="240,5,377,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,76,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,80,189,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="213,80,298,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="323,80,401,107"/>
+<area shape="rect" id="node6" href="$err__exit_8h.html" title="Contiene la definizione della funzione di stampa degli errori." alt="" coords="425,80,509,107"/>
+<area shape="rect" id="node7" href="$shared__memory_8h.html" title="Contiene la definizioni di variabili e funzioni specifiche per la gestione della MEMORIA CONDIVISA." alt="" coords="534,80,673,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="555,155,651,181"/>
+</map>
