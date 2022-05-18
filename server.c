@@ -48,7 +48,7 @@ int shm_check_id = -1;
 /// puntatore alla memoria condivisa contenente le flag cella libera/occupata
 int *shm_check_ptr = NULL;
 
-/// e' una matrice che per ogni riga contiene le 4 parti di un file
+/// e' una matrice che PER OGNI RIGA contiene le 4 parti di un file
 msg_struct **matriceFile = NULL;
 
 void SIGINTSignalHandler(int sig)
@@ -59,12 +59,12 @@ void SIGINTSignalHandler(int sig)
     {
         if (close(fifo1_fd) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] close FIFO1 failed");
+            errExit("[server.c:SIGINTSignalHandler] close FIFO1 failed");
         }
 
         if (unlink(PATH_FIFO1) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] unlink FIFO1 failed");
+            errExit("[server.c:SIGINTSignalHandler] unlink FIFO1 failed");
         }
     }
 
@@ -73,38 +73,38 @@ void SIGINTSignalHandler(int sig)
     {
         if (close(fifo2_fd) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] close FIFO2 failed");
+            errExit("[server.c:SIGINTSignalHandler] close FIFO2 failed");
         }
 
         if (unlink(PATH_FIFO2) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] unlink FIFO2 failed");
+            errExit("[server.c:SIGINTSignalHandler] unlink FIFO2 failed");
         }
     }
 
     // chiudi e dealloca memorie condivise
     if (shm_ptr != NULL)
-        free_shared_memory(shm_ptr);
+        shmdt_DettachMemory(shm_ptr);
     if (shmid != -1)
-        remove_shared_memory(shmid);
+        shmCtl_RemoveShm(shmid);
 
     if (shm_check_ptr != NULL)
-        free_shared_memory(shm_check_ptr);
+        shmdt_DettachMemory(shm_check_ptr);
     if (shm_check_id != -1)
-        remove_shared_memory(shm_check_id);
+        shmCtl_RemoveShm(shm_check_id);
 
     // chiudi coda dei messaggi
     if (msqid != -1)
     {
         if (msgctl(msqid, IPC_RMID, NULL) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] msgctl failed");
+            errExit("[server.c:SIGINTSignalHandler] msgctl failed");
         }
     }
 
     // chiudi semafori
     if (semid != -1)
-        semDelete(semid);
+        semCtlDelete(semid);
 
     exit(0);
 }
@@ -115,17 +115,97 @@ int string_to_int(char *string)
     return atoi(string);
 }
 
-/*
-char *costruisciStringa(msg_struct a)
-{
-    char buffer[20]; // serve per convertire il pid
-    sprintf(buffer, "%d", a.sender_pid);
+void aggiungiAMatrice(msg_struct MsgStruct,int righe){
 
-    char *stringa = (char *)malloc((strlen(a.message) + strlen(a.filePath) + strlen(buffer) + 61) * sizeof(char));
+    bool aggiunto=false;
+    //cerco se ce gia nella matrice
+    for(int i=0; i<righe && aggiunto==false; i++)
+        for(int j=0; j<4 && aggiunto==false; j++){
+            if(strcmp(matriceFile[i][j].filePath,MsgStruct.filePath)==0){
+                //mtype-2 perche inizo le mtype delle diversi parti da 2
+                //salvo nell pos mtype -2
+                matriceFile[i][MsgStruct.mtype-2]=MsgStruct;
+                aggiunto=true;
+            }
+        }
+    //se non era nella matrice lo aggiungo
+    for(int i=0; i<righe && aggiunto==false; i++){
+        //cerco la prima riga vuota
+        if(matriceFile[i][0].mtype==INIZIALIZZAZIONE_MTYPE && matriceFile[i][1].mtype==INIZIALIZZAZIONE_MTYPE && matriceFile[i][2].mtype==INIZIALIZZAZIONE_MTYPE && matriceFile[i][3].mtype==INIZIALIZZAZIONE_MTYPE){
+            matriceFile[i][MsgStruct.mtype-2]=MsgStruct;
+            aggiunto=true;
+        }
+    }
+}
+
+
+void findAndMakeFullFiles(int righe){
+    for(int i=0; i<righe; i++){
+        // cerca righe complete
+        bool fullLine = true;
+        for (int j=0; j < 4 && fullLine; j++) {
+            if(matriceFile[i][j].mtype==INIZIALIZZAZIONE_MTYPE){
+                fullLine = false;
+            }
+        }
+
+        if (!fullLine){
+            //non e completo ancora il messagio perche ci sono MTYPE = -1
+            // mancano dei pezzi di file, passa alla prossima riga
+            continue;
+        }
+
+        // recupera path del file completo, aggiungi "_out" e aprilo
+        char *temp = (char *)malloc((strlen(matriceFile[i][0].filePath)+5)*sizeof(char)); // aggiungo lo spazio per "_out"
+        if (temp == NULL){
+            print_msg("[server.c:main] malloc failed\n");
+            exit(1);
+        }
+        strcpy(temp, matriceFile[i][0].filePath);
+        strcat(temp, "_out"); // aggiungo _out
+        int file = open(temp, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+
+        if (file == -1) {
+            errExit("open failed");
+        }
+
+        // prepara l'output e scrivilo sul file
+        for(int j=0; j<4;j++){
+            char * stampa = costruisciStringa(matriceFile[i][j]);
+            if (write(file, stampa, strlen(stampa) * sizeof(char)) == -1){
+                errExit("write output file failed");
+            }
+
+            if (write(file, "\n\n", 2) == -1){
+                errExit("write newline to output file failed");
+            }
+            free(stampa);
+        }
+
+        close(file);
+        free(temp);
+
+        // segna la riga come letta
+        for (int j=0; j < 4; j++) {
+            matriceFile[i][j].mtype = INIZIALIZZAZIONE_MTYPE;
+        }
+
+        // se cerco file completi ad ogni arrivo di una parte di file,
+        // trovero' sempre al massimo un file completo: smetti di scorrere la matrice
+        break;
+    }
+}
+
+char *costruisciStringa(msg_struct MsgStruct)
+{
+    char pid[20]; // serve per convertire il pid
+    sprintf(pid, "%d", MsgStruct.sender_pid);
+
+    char *stringa = (char *)malloc((strlen(MsgStruct.message) + strlen(MsgStruct.filePath) + strlen(pid) + 61) * sizeof(char));
 
     strcpy(stringa, "[Parte ");
 
-    switch (a.mtype)
+    switch (MsgStruct.mtype)
     {
     case CONTAINS_FIFO1_FILE_PART:
         strcat(stringa, "1, del file ");
@@ -147,12 +227,12 @@ char *costruisciStringa(msg_struct a)
         break;
     }
 
-    strcat(stringa, a.filePath);
+    strcat(stringa, MsgStruct.filePath);
     strcat(stringa, " spedita dal processo ");
-    strcat(stringa, buffer);
+    strcat(stringa, pid);
     strcat(stringa, " tramite ");
 
-    switch (a.mtype)
+    switch (MsgStruct.mtype)
     {
     case CONTAINS_FIFO1_FILE_PART:
         strcat(stringa, "FIFO1]\n");
@@ -170,9 +250,9 @@ char *costruisciStringa(msg_struct a)
         break;
     }
 
-    strcat(stringa, a.message);
+    strcat(stringa, MsgStruct.message);
     return stringa;
-}*/
+}
 
 int main(int argc, char *argv[])
 {
@@ -180,14 +260,14 @@ int main(int argc, char *argv[])
     // memorizza il percorso dell'eseguibile per ftok()
     if (getcwd(workingDirectory, sizeof(workingDirectory)) == NULL)
     {
-        ErrExit("getcwd");
+        errExit("getcwd");
     }
 
     // imposta signal handler per gestire la chiusura dei canali di comunicazione
 
     if (signal(SIGINT, SIGINTSignalHandler) == SIG_ERR)
     {
-        ErrExit("change signal handler failed");
+        errExit("change signal handler failed");
     }
 
     printf("Ho impostato l'handler di segnali\n");
@@ -198,34 +278,34 @@ int main(int argc, char *argv[])
     // segmento di memoria condivisa (ShdMem) ed un set di semafori per gestire la concorrenza su
     // alcuni di questi strumenti di comunicazione.
 
-    printf("Recuperata la chiave IPC: %x\n", get_ipc_key());
+    printf("Recuperata la chiave IPC: %x\n", getIpcKey());
 
-    shmid = alloc_shared_memory(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(msg_struct));
-    shm_ptr = (msg_struct *)get_shared_memory(shmid, IPC_CREAT | S_IRUSR | S_IWUSR);
+    shmid = shmGet_CreateShmid(getIpcKey(), MAX_MSG_PER_CHANNEL * sizeof(msg_struct));
+    shm_ptr = (msg_struct *)shmat_AttachMemory(shmid, IPC_CREAT | S_IRUSR | S_IWUSR);
     printf("Memoria condivisa: allocata e connessa\n");
-
-    shm_check_id = alloc_shared_memory(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
-    shm_check_ptr = (int *)get_shared_memory(shm_check_id, S_IRUSR | S_IWUSR);
+    //paralele
+    shm_check_id = shmGet_CreateShmid(getIpcKey2(), MAX_MSG_PER_CHANNEL * sizeof(int));
+    shm_check_ptr = (int *)shmat_AttachMemory(shm_check_id, S_IRUSR | S_IWUSR);
     printf("Memoria condivisa flag: allocata e connessa\n");
 
-    semid = createSemaphores(get_ipc_key(), 10);
+    semid = createSemid(getIpcKey(), 10);
     short unsigned int semValues[10] = {1, 0, 0, 0, 0, 0, 1, MAX_MSG_PER_CHANNEL, MAX_MSG_PER_CHANNEL, MAX_MSG_PER_CHANNEL};
-    semSetAll(semid, semValues);
+    semCtlSetAll(semid, semValues);
     printf("Semafori: creati e inizializzati\n");
 
-    fifo1_fd = create_fifo(PATH_FIFO1, 'r');
+    fifo1_fd = createAndOpenFifo(PATH_FIFO1, 'r');
     printf("Mi sono collegato alla FIFO 1\n"); // collegamento a fifo1
 
-    fifo2_fd = create_fifo(PATH_FIFO2, 'r'); // collegamento a fifo2
+    fifo2_fd = createAndOpenFifo(PATH_FIFO2, 'r'); // collegamento a fifo2
     printf("Mi sono collegato alla FIFO 2\n");
 
-    msqid = msgget(get_ipc_key(), IPC_CREAT | S_IRUSR | S_IWUSR); // collegamento alla coda di messaggi
+    msqid = msgget(getIpcKey(), IPC_CREAT | S_IRUSR | S_IWUSR); // collegamento alla message queue
     printf("Mi sono collegato alla coda dei messaggi\n");
 
     // limito la coda per contenere 50 messaggi
     struct msqid_ds ds = msgQueueGetStats(msqid);
     ds.msg_qbytes = sizeof(msg_struct) * MAX_MSG_PER_CHANNEL;
-    msqSetStats(msqid, ds);
+    msgQueueSetStats(msqid, ds);
 
     while (true)
     {
@@ -233,21 +313,24 @@ int main(int argc, char *argv[])
         msg_struct n_msg;
         if (read(fifo1_fd, &n_msg, sizeof(msg_struct)) == -1)
         {
-            ErrExit("read failed");
+            errExit("read failed");
         }
 
         printf("Il client mi ha inviato un messaggio che dice che ci sono '%s' file da ricevere\n", n_msg.message);
         int n = string_to_int(n_msg.message);
-        // inizializzo la matrice contenente i pezzi di file
+        // inizializzo la matrice contenente i pezzi di file        
         matriceFile = (msg_struct **)malloc(n * sizeof(msg_struct *));
+
         for (int i = 0; i < n; i++)
             matriceFile[i] = (msg_struct *)malloc(4 * sizeof(msg_struct));
 
         msg_struct vuoto;
         vuoto.mtype = INIZIALIZZAZIONE_MTYPE;
         // inizializzo i valori del percorso per evitare di fare confronti con null
+        //memset?
         for (int i = 0; i < BUFFER_SZ + 1; i++)
             vuoto.filePath[i] = '\0';
+
         // riempio la matrice con una struttura che mi dice se le celle sono vuote
         for (int i = 0; i < n; i++)
             for (int j = 0; j < 4; j++)
@@ -258,34 +341,34 @@ int main(int argc, char *argv[])
         // inizializzazione semaforo dei figli
         for (int i = 0; i < 2; i++)
         {
-            semSignal(semid, 1);
-            semSignal(semid, 2);
-            semSignal(semid, 3);
-            semSignal(semid, 4);
+            semOpSignal(semid, 1);
+            semOpSignal(semid, 2);
+            semOpSignal(semid, 3);
+            semOpSignal(semid, 4);
         }
 
         // semaforo per far attendere i figli
         for (int i = 0; i < n; i++)
-            semSignal(semid, 5);
+            semOpSignal(semid, 5);
 
         // scrive un messaggio di conferma su ShdMem
         msg_struct received_msg = {.message = "OK", .mtype = CONTAINS_N, .sender_pid = getpid()};
 
-        semWait(semid, 0);
+        semOpWait(semid, 0);
         // zona mutex
         shm_ptr[0] = received_msg;
         // fine zona mutex
-        semSignal(semid, 0);
+        semOpSignal(semid, 0);
         printf("Ho mandato al client il messaggio di conferma.\n");
 
         // rendi fifo non bloccanti
         printf("Rendi fifo non bloccanti\n");
-        semWait(semid, 1);
-        semWaitZero(semid, 1);
+        semOpWait(semid, 1);
+        semOpWaitZero(semid, 1);
         blockFD(fifo1_fd, 0);
         blockFD(fifo2_fd, 0);
-        semWait(semid, 2);
-        semWaitZero(semid, 2);
+        semOpWait(semid, 2);
+        semOpWaitZero(semid, 2);
         printf("Rese fifo non bloccanti\n");
 
         // si mette in ricezione ciclicamente su ciascuno dei quattro canali.
@@ -295,6 +378,8 @@ int main(int argc, char *argv[])
         // > Il file verrà chiamato con lo stesso nome e percorso del file originale ma con l'aggiunta del postfisso "_out"
         int arrived_parts_counter = 0;
         int n_tries = 0;
+
+        //n nr di file * 4 parti ciascun file
         while (arrived_parts_counter < n * 4)
         {
 
@@ -306,7 +391,7 @@ int main(int argc, char *argv[])
             if (read(fifo1_fd, &supporto1, sizeof(supporto1)) != -1)
             {
                 printf("[Parte1, del file %s spedita dal processo %d tramite FIFO1]\n%s\n", supporto1.filePath, supporto1.sender_pid, supporto1.message);
-                semSignal(semid, 7);
+                semOpSignal(semid, 7);
                 aggiungiAMatrice(supporto1, n);
                 findAndMakeFullFiles(n);
                 arrived_parts_counter++;
@@ -316,7 +401,7 @@ int main(int argc, char *argv[])
             if (read(fifo2_fd, &supporto2, sizeof(supporto2)) != -1)
             {
                 printf("[Parte2,del file %s spedita dal processo %d tramite FIFO2]\n%s\n", supporto2.filePath, supporto2.sender_pid, supporto2.message);
-                semSignal(semid, 8);
+                semOpSignal(semid, 8);
                 aggiungiAMatrice(supporto2, n);
                 findAndMakeFullFiles(n);
                 arrived_parts_counter++;
@@ -326,7 +411,7 @@ int main(int argc, char *argv[])
             if (msgrcv(msqid, &supporto3, sizeof(struct msg_struct) - sizeof(long), CONTAINS_MSGQUEUE_FILE_PART, IPC_NOWAIT) != -1)
             {
                 printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", supporto3.filePath, supporto3.sender_pid, supporto3.message);
-                semSignal(semid, 9);
+                semOpSignal(semid, 9);
                 aggiungiAMatrice(supporto3, n);
                 findAndMakeFullFiles(n);
                 arrived_parts_counter++;
@@ -334,7 +419,7 @@ int main(int argc, char *argv[])
 
             // leggi dalla memoria condivisa
             printf("Tenta di entrare nella memoria condivisa\n");
-            if (semWaitNoBlocc(semid, 6) == 0)
+            if (semOpNonBloccante(semid, 6) == 0)
             {
                 printf("Sono entrato nella memoria condivisa\n");
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++)
@@ -349,17 +434,18 @@ int main(int argc, char *argv[])
                     }
                 }
                 printf("Tenta di uscire nella memoria condivisa\n");
-                semSignal(semid, 6);
+                semOpSignal(semid, 6);
                 printf("Sono uscito dalla memoria condivisa\n");
             }
-
+            
             if (n_tries % 5000 == 0)
             {
-                printf("Ancora un altro tentativo... Counter = %d\n", arrived_parts_counter);
+                printf("Ancora un altro tentativo... Counter =  %d\n", arrived_parts_counter);
             }
             n_tries++;
+        
+            
         }
-
         // quando ha ricevuto e salvato tutti i file invia un messaggio di terminazione sulla coda di
         // messaggi, in modo che possa essere riconosciuto da Client_0 come messaggio
         printf("Invio messaggio di fine al client\n");
@@ -369,12 +455,12 @@ int main(int argc, char *argv[])
 
         // rendi fifo bloccanti
         printf("Rendi fifo bloccanti\n");
-        semWait(semid, 3);
-        semWaitZero(semid, 3);
+        semOpWait(semid, 3);
+        semOpWaitZero(semid, 3);
         blockFD(fifo1_fd, 1);
         blockFD(fifo2_fd, 1);
-        semWait(semid, 4);
-        semWaitZero(semid, 4);
+        semOpWait(semid, 4);
+        semOpWaitZero(semid, 4);
         printf("Rese fifo bloccanti\n");
 
         // libera memoria della matrice buffer

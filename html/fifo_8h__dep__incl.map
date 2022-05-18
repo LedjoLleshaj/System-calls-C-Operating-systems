@@ -1,5 +1,0 @@
-<map id="fifo.h" name="fifo.h">
-<area shape="rect" id="node1" title="Contiene la definizioni di variabili e funzioni specifiche per la gestione delle FIFO." alt="" coords="49,5,104,32"/>
-<area shape="rect" id="node2" href="$fifo_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione delle FIFO." alt="" coords="5,80,60,107"/>
-<area shape="rect" id="node3" href="$server_8c.html" title="Contiene l&#39;implementazione del server." alt="" coords="84,80,157,107"/>
-</map>

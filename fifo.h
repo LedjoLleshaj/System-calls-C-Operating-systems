@@ -27,3 +27,12 @@ int openFifoRDONLY(char *path);
  * @return int fileDespritor della fifo
  */
 int openFifoWRONLY(char *path);
+
+/**
+ * @brief Facilita la creazione di una FIFO (o ne ottiene una esistente) in modalita' lettura o scrittura.
+ *
+ * @param path Percorso file usato dalla FIFO.
+ * @param mode 'r' (read) oppure 'w' (write)
+ * @return int Descrittore della FIFO
+ */
+int createAndOpenFifo(char * path, char mode);

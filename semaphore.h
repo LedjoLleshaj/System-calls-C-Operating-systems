@@ -76,7 +76,7 @@ void semOpWaitZero(int semid, int sem_num);
 void semOpWait(int semid, int sem_num);
 
 /**
- * Esegue la wait non bloccante sul semaforo sem_num: tenta di decrementare il suo valore di 1.
+ * Esegue la semOpNoWait con IPC_NOWAIT non bloccante sul semaforo sem_num: tenta di decrementare il suo valore di 1.
  * Restituisce -1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti.
  *
  * @param semid Identificatore del set di semafori

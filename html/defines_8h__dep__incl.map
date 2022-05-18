@@ -1,7 +1,0 @@
-<map id="defines.h" name="defines.h">
-<area shape="rect" id="node1" title="Contiene la definizioni di variabili e funzioni specifiche del progetto." alt="" coords="129,5,210,32"/>
-<area shape="rect" id="node2" href="$defines_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche del progetto." alt="" coords="5,80,85,107"/>
-<area shape="rect" id="node3" href="$fifo_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione delle FIFO." alt="" coords="110,80,165,107"/>
-<area shape="rect" id="node4" href="$server_8c.html" title="Contiene l&#39;implementazione del server." alt="" coords="203,155,277,181"/>
-<area shape="rect" id="node5" href="$server_8h.html" title="Contiene la definizioni di variabili e funzioni specifiche del SERVER." alt="" coords="240,80,315,107"/>
-</map>

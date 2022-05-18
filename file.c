@@ -25,7 +25,6 @@ void print_list(files_list * head) {
     }
 }
 
-
 files_list * appendFilepath(files_list * head, char * path) {
     files_list * next = malloc(sizeof(files_list));
 
@@ -53,7 +52,7 @@ files_list * appendFilepath(files_list * head, char * path) {
 }
 
 
-void free_list(files_list * head) {
+void delete_list(files_list * head) {
 
     if (head != NULL) {
         files_list * current = head;
@@ -139,7 +138,7 @@ files_list * find_sendme_files(char *searchPath, files_list * head) {
             // if match is 1, then a research ...
             if (matchFileName == 1 && matchSize == 1) {
                 // printf("Trovato nuovo file, lo aggiungo alla lista: %s\n", searchPath);
-                head = append(head, searchPath);
+                head = appendFilepath(head, searchPath);
             }
 
             // reset current searchPath

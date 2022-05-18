@@ -35,7 +35,7 @@ files_list * appendfilepath(files_list * head, char * path);
  *
  * @param head Nodo di testa della coda
  */
-void free_list(files_list * head);
+void delete_list(files_list * head);
 
 /**
  * @brief Conta il numero di file nella lista concatenata di filePath

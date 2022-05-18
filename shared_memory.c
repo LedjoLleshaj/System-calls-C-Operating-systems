@@ -21,8 +21,6 @@ int shmGet_CreateShmid(key_t shmKey, size_t size) {
 
     return shmid;
 }
-
-
 void *shmat_AttachMemory(int shmid, int shmflg) {
     // attach the shared memory
     int *ptr_sh = (int *) shmat(shmid, NULL, shmflg);
@@ -40,7 +38,6 @@ void shmdt_DettachMemory(void *ptr_sh) {
     if (shmdt(ptr_sh) == -1)
         errExit("shmdt failed");
 }
-
 
 void shmCtl_RemoveShm(int shmid) {
     // delete the shared memory segment

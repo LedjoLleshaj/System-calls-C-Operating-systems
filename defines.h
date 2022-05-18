@@ -4,6 +4,10 @@
 
 #pragma once
 
+#include <stdbool.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+
 #define BUFFER_SZ 255
 
 extern char workingDirectory[BUFFER_SZ];//ndrro emrin ne fund
@@ -81,6 +85,16 @@ key_t getIpcKey();
 */
 key_t getIpcKey2();
 
+/**
+ * @brief Restituisce vero se l'array contiene tutti true
+ *
+ * @param arr array di booleani
+ * @param len lunghezza array
+ * @return true arr contiene tutti true
+ * @return false arr contiene almeno un false
+*/
+bool arrayContainsAllTrue(bool arr[], int len);
+
 
 /**
  * Restituisce una chiave IPC generica per il progetto
@@ -95,3 +109,12 @@ key_t ftok_IpcKey(char proj_id);
  * @param msg messaggio da visualizzare
 */
 void print_msg(char * msg);
+
+/**
+ * @brief Rende bloccante oppure non bloccante un file descriptor.
+ *
+ * @param fd file descriptor
+ * @param blocking 0: non bloccante, 1: bloccante
+ * @return int Vale 0 se fallisce
+ */
+int blockFD(int fd, int blocking);

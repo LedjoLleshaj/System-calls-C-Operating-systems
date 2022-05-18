@@ -25,7 +25,7 @@ void msgQueueSetStats(int msqid, struct msqid_ds ds){
             errExit("msgctl SET");
         }
         else {
-            printf("Message Queue IPC_SET failed\n");
+            errExit("Message Queue IPC_SET failed\n");
         }
     }
 }

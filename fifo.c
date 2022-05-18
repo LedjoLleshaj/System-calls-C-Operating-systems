@@ -24,7 +24,31 @@ void make_fifo(char *path)
         }
     }
 }
+int createAndOpenFifo(char * path, char mode) {
+    int fifo1_fd = -1;
 
+    make_fifo(path);
+    printf("Ho creato/ottenuto la FIFO\n");
+
+    if (mode == 'r') {
+        fifo1_fd = open(path, O_RDONLY);
+        if (fifo1_fd == -1) {
+            errExit("[fifo.c:create_fifo] open FIFO1 failed (read mode)");
+        }
+    }
+    else if (mode == 'w') {
+        fifo1_fd = open(path, O_WRONLY);
+        if (fifo1_fd == -1) {
+            errExit("[fifo.c:create_fifo] open FIFO1 failed (write mode)");
+        }
+    }
+    else {
+        print_msg("[fifo.c:create_fifo] mode should be 'r' or 'w'\n");
+        exit(1);
+    }
+
+    return fifo1_fd;
+}
 int openFifoRDONLY(char *path)
 {
     int fifo_fd = -1;

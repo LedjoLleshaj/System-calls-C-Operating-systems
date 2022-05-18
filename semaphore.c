@@ -8,7 +8,6 @@
 
 #include "err_exit.h"
 #include "semaphore.h"
-
 int createSemid(key_t key, int n_sem)
 {
     int semid = semget(key, n_sem, IPC_CREAT | S_IRUSR | S_IWUSR);
@@ -17,7 +16,6 @@ int createSemid(key_t key, int n_sem)
         errExit("semget failed");
     return semid;
 }
-
 int getSemid(key_t key, int n_sem)
 {
     int semid = semget(key, n_sem, S_IRUSR | S_IWUSR);
@@ -52,7 +50,6 @@ int semOpNoWait(int semid, unsigned short sem_num, short sem_op)
 
     return 0;
 }
-
 void semOpWaitZero(int semid, int sem_num)
 {
     semOp(semid, sem_num, 0);
@@ -106,5 +103,5 @@ void semCtlDelete(int semid)
 void semCtlSetPermissions(int semid, struct semid_ds arg)
 {
     if (semctl(semid, 0 /*semnum: ignored*/, IPC_SET, arg) == -1)
-        ErrExit("semctl IPC_SET failed");
+        errExit("semctl IPC_SET failed");
 }

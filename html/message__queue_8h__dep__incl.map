@@ -1,5 +1,0 @@
-<map id="message_queue.h" name="message_queue.h">
-<area shape="rect" id="node1" title="Contiene la definizioni di variabili e funzioni specifiche per la gestione delle CODE DEI MESSAGGI." alt="" coords="70,5,210,32"/>
-<area shape="rect" id="node2" href="$message__queue_8c.html" title="Contiene l&#39;implementazione delle funzioni specifiche per la gestione delle CODE DEI MESSAGGI." alt="" coords="5,80,144,107"/>
-<area shape="rect" id="node3" href="$server_8c.html" title="Contiene l&#39;implementazione del server." alt="" coords="169,80,242,107"/>
-</map>
