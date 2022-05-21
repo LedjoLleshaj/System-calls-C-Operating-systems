@@ -1,4 +1,4 @@
-/// @file client_0.h
+/// @file client.h
 /// @brief Contiene la definizioni di variabili
 ///         e funzioni specifiche del CLIENT.
 
@@ -64,7 +64,7 @@ void SIGUSR1SignalHandler(int sig);
  * @param filePath Percorso del file da suddividere
  * @param parte Numero identificativo della porzione di messaggio
 */
-void divide(int fd, char *buf, size_t count, char *filePath, int parte);
+void dividi(int fd, char *buf, size_t count, char *filePath, int parte);
 
 /**
  * @brief Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server.

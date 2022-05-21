@@ -15,33 +15,33 @@ typedef struct files_list{
 } files_list;
 
 /**
- * @brief Visualizza tutti i file path contenuti nella lista 
+ * @brief Visualizza il contenuto della lista concatenata di filePath.
  *
  * @param head Nodo di testa della coda
  */
 void print_list(files_list * head);
 
 /**
- * @brief Aggiunge in fondo alla lista un nuovo filePath passato come parametro
+ * @brief Aggiunge in fondo alla coda un nuovo filePath
  *
  * @param head Nodo di testa della coda
  * @param path filePath da aggiungere in fondo
  * @return files_list* Nodo di testa della coda (se head == NULL verra' creato il primo nodo)
 */
-files_list * appendfilepath(files_list * head, char * path);
+files_list * append(files_list * head, char * path);
 
 /**
  * @brief Libera la memoria dello HEAP occupata dalla lista di filePath
  *
  * @param head Nodo di testa della coda
  */
-void delete_list(files_list * head);
+void free_list(files_list * head);
 
 /**
  * @brief Conta il numero di file nella lista concatenata di filePath
  *
  * @param head Nodo di testa della coda
- * @return int file count
+ * @return int Numero di file
  */
 int count_files(files_list * head);
 

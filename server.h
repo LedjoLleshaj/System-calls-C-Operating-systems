@@ -29,7 +29,7 @@ int string_to_int(char * string);
  * @param a Messaggio da inserire nel buffer
  * @param righe Numero di righe nella matrice
 */
-void aggiungiAMatrice(msg_struct a,int righe);
+void aggiungiAMatrice(msg_t a,int righe);
 
 /**
  * Trova nella matrice buffer 4 pezzi di un file
@@ -45,7 +45,7 @@ void findAndMakeFullFiles(int righe);
  * @param a Messaggio contenente il pezzo di file arrivato dal client
  * @return char* Stringa pronta per essere scritta su file
 */
-char * costruisciStringa(msg_struct a);
+char * costruisciStringa(msg_t a);
 
 /**
  * Esegue operazioni principali del server.

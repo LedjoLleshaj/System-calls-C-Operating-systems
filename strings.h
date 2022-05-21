@@ -1,12 +1,10 @@
-// @file strings.h
+/// @file strings.h
 /// @brief Contiene la definizioni di variabili e funzioni
 ///         specifiche per la gestione delle STRINGHE.
 
 #pragma once
 
 #include <stdbool.h>
-#include <sys/types.h>
-
 
 /**
  * @brief Concatena la cartella directory al percorso path.
@@ -18,12 +16,11 @@
 size_t append2Path(char *path, char *directory);
 
 /**
- * @brief Restituisce vero se la stringa string1 inizia 
- *        con la sotto stringa string2
- * 
- * @param string1
- * @param string2
+ * @brief Restituisce vero se la stringa a inizia con la sotto stringa b
+ *
+ * @param a
+ * @param b
  * @return true
  * @return false
  */
-bool StartsWith(const char *string1, const char *string2);
+bool StartsWith(const char *a, const char *b);

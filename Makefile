@@ -2,7 +2,7 @@ CFLAGS   = -Wall -std=gnu99
 INCLUDES = -I .
 OBJDIR   = obj
 
-CLIENT_SRCS = message_queue.c file.c strings.c signals.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c client_0.c
+CLIENT_SRCS = message_queue.c files.c strings.c signals.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c client.c
 CLIENT_OBJS = $(addprefix $(OBJDIR)/, $(CLIENT_SRCS:.c=.o))
 
 SERVER_SRCS = message_queue.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c server.c

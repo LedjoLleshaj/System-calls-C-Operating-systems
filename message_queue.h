@@ -1,4 +1,4 @@
-/// @file message_queue.h
+
 /// @brief Contiene la definizioni di variabili e funzioni
 ///         specifiche per la gestione delle CODE DEI MESSAGGI.
 
@@ -12,7 +12,7 @@
  * @param msqid Identifier coda dei messaggi
  * @return struct msqid_ds Struttura con statistiche della coda dei messaggi
  */
-struct msqid_ds msgQueueGetStats(int msqid);
+struct msqid_ds msqGetStats(int msqid);
 
 /**
  * @brief Imposta nuove configurazioni sulla coda dei messaggi
@@ -20,4 +20,4 @@ struct msqid_ds msgQueueGetStats(int msqid);
  * @param msqid Identifier coda dei messaggi
  * @param ds Struttura con nuove statistiche della coda dei messaggi
  */
-void msgQueueSetStats(int msqid, struct msqid_ds ds);
+void msqSetStats(int msqid, struct msqid_ds ds);

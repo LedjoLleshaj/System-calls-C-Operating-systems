@@ -2,34 +2,35 @@
 /// @brief Contiene l'implementazione delle funzioni
 ///         specifiche del progetto.
 
-
+#include <sys/ipc.h>
+#include <stdbool.h>
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/ipc.h>
-#include <stdbool.h>
+
 #include "defines.h"
 #include "err_exit.h"
 
 
-key_t getIpcKey() {
-    return ftok_IpcKey('L');
+key_t get_ipc_key() {
+    return get_project_ipc_key('b');
 }
 
 
-key_t getIpcKey2() {
-    return ftok_IpcKey('S');
+key_t get_ipc_key2() {
+    return get_project_ipc_key('G');
 }
 
 
-key_t ftok_IpcKey(char proj_id) {
-    key_t key = ftok(workingDirectory, proj_id);
+key_t get_project_ipc_key(char proj_id) {
+    key_t key = ftok(EXECUTABLE_DIR, proj_id);
 
     if (key == -1)
-        errExit("ftok failed");
+        ErrExit("ftok failed");
 
     return key;
 }
+
 
 bool arrayContainsAllTrue(bool arr[], int len){
     for (int i = 0; i < len; i++){
@@ -40,11 +41,6 @@ bool arrayContainsAllTrue(bool arr[], int len){
     return true;
 }
 
-void print_msg(char * msg){
-    if (write(STDOUT_FILENO, msg, strlen(msg)) == -1){
-        errExit("write stdout failed");
-    }
-}
 
 int blockFD(int fd, int blocking) {
     /* Save the current flags */
@@ -58,4 +54,11 @@ int blockFD(int fd, int blocking) {
         flags |= O_NONBLOCK;
 
     return fcntl(fd, F_SETFL, flags) != -1;
+}
+
+
+void print_msg(char * msg){
+    if (write(STDOUT_FILENO, msg, strlen(msg)) == -1){
+        ErrExit("write stdout failed");
+    }
 }

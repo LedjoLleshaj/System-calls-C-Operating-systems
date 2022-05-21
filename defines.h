@@ -8,14 +8,15 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 
+/// Buffer usato da getcwd()
 #define BUFFER_SZ 255
 
-extern char workingDirectory[BUFFER_SZ];//ndrro emrin ne fund
+extern char EXECUTABLE_DIR[BUFFER_SZ];
 
 /// Percorso file FIFO 1
-#define PATH_FIFO1 "/home/lleshaj/Desktop/Sistemi-operativi/fifo1_file.txt"
+#define FIFO1_PATH "/tmp/fifo1_file.txt"
 /// Percorso file FIFO 2
-#define PATH_FIFO2 "/home/lleshaj/Desktop/Sistemi-operativi/fifo2_file.txt"
+#define FIFO2_PATH "/tmp/fifo2_file.txt"
 /// mtype messaggio che contiene numero di file "sendme_"
 #define CONTAINS_N 1
 /// mtype messaggio che contiene prima parte del contenuto del file "sendme_"
@@ -51,7 +52,7 @@ extern char workingDirectory[BUFFER_SZ];//ndrro emrin ne fund
  * il numero di file inviati dal client
  * oppure il messaggio "ok" quando il server ha ricevuto il numero di file.
 */
-typedef struct msg_struct {
+typedef struct msg_t {
 
     /// tipo del messaggio: campo usato dalla coda dei messaggi
     long mtype;
@@ -60,30 +61,40 @@ typedef struct msg_struct {
     pid_t sender_pid;
 
     /// Percorso file
-    char filePath[BUFFER_SZ+2];
+    char file_path[BUFFER_SZ+2];
 
     /// Contenuto messaggio
-    char message[MSG_BUFFER_SZ+2];
+    char msg_body[MSG_BUFFER_SZ+2];
 
-} msg_struct;
+} msg_t;
 
 
 /**
  * Restituisce la prima chiave IPC
- * ottenuta con ftok_IpcKey().
+ * ottenuta con get_project_ipc_key().
  *
  * @return key_t Chiave IPC
 */
-key_t getIpcKey();
+key_t get_ipc_key();
 
 
 /**
  * Restituisce la seconda chiave IPC
- * ottenuta con ftok_IpcKey().
+ * ottenuta con get_project_ipc_key().
  *
  * @return key_t Chiave IPC
 */
-key_t getIpcKey2();
+key_t get_ipc_key2();
+
+
+/**
+ * Restituisce una chiave IPC generica per il progetto
+ * ottenuta con ftok sulla cartella con gli eseguibili.
+ *
+ * @return key_t Chiave IPC
+*/
+key_t get_project_ipc_key(char proj_id);
+
 
 /**
  * @brief Restituisce vero se l'array contiene tutti true
@@ -97,20 +108,6 @@ bool arrayContainsAllTrue(bool arr[], int len);
 
 
 /**
- * Restituisce una chiave IPC generica per il progetto
- * ottenuta con ftok sulla cartella con gli eseguibili.
- *
- * @return key_t Chiave IPC
-*/
-key_t ftok_IpcKey(char proj_id);
-
-/**
- * @brief Visualizza sullo standard output un messaggio utilizzando la write
- * @param msg messaggio da visualizzare
-*/
-void print_msg(char * msg);
-
-/**
  * @brief Rende bloccante oppure non bloccante un file descriptor.
  *
  * @param fd file descriptor
@@ -118,3 +115,9 @@ void print_msg(char * msg);
  * @return int Vale 0 se fallisce
  */
 int blockFD(int fd, int blocking);
+
+/**
+ * @brief Visualizza sullo standard output un messaggio utilizzando la write
+ * @param msg messaggio da visualizzare
+*/
+void print_msg(char * msg);

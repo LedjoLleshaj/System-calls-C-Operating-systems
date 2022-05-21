@@ -1,6 +1,3 @@
-/// @file files.c
-/// @brief Contiene le funzioni specifiche per la gestione dei FILE.
-
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <dirent.h>
@@ -9,7 +6,7 @@
 #include <string.h>
 
 #include "strings.h"
-#include "file.h"
+#include "files.h"
 #include "err_exit.h"
 
 
@@ -25,15 +22,16 @@ void print_list(files_list * head) {
     }
 }
 
-files_list * appendFilepath(files_list * head, char * path) {
+
+files_list * append(files_list * head, char * path) {
     files_list * next = malloc(sizeof(files_list));
 
     next->next = NULL;
 
-    //step 1. allocate memory to hold path
+    //step 1. allocate memory to hold word
     next->path = malloc(strlen(path)+1);
 
-    //step 2. copy the current path
+    //step 2. copy the current word
     strcpy(next->path, path);
 
     // printf("Sto aggiungendo %s che diventera': %s\n", path, next->path);
@@ -52,7 +50,7 @@ files_list * appendFilepath(files_list * head, char * path) {
 }
 
 
-void delete_list(files_list * head) {
+void free_list(files_list * head) {
 
     if (head != NULL) {
         files_list * current = head;
@@ -71,15 +69,15 @@ void delete_list(files_list * head) {
 
 
 int count_files(files_list * head) {
-    int fileCount = 0;
+    int num = 0;
     files_list * current = head;
 
     while (current != NULL) {
-        fileCount++;
+        num++;
         current = current->next;
     }
 
-    return fileCount;
+    return num;
 }
 
 
@@ -138,7 +136,7 @@ files_list * find_sendme_files(char *searchPath, files_list * head) {
             // if match is 1, then a research ...
             if (matchFileName == 1 && matchSize == 1) {
                 // printf("Trovato nuovo file, lo aggiungo alla lista: %s\n", searchPath);
-                head = appendFilepath(head, searchPath);
+                head = append(head, searchPath);
             }
 
             // reset current searchPath
@@ -158,10 +156,10 @@ files_list * find_sendme_files(char *searchPath, files_list * head) {
     }
 
     if (errno != 0)
-        errExit("readdir failed");
+        ErrExit("readdir failed");
 
     if (closedir(dirp) == -1)
-        errExit("closedir failed");
+        ErrExit("closedir failed");
 
     return head;
 }

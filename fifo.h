@@ -4,6 +4,7 @@
 
 #pragma once
 
+
 /**
  * @brief Crea o ottiene una IPC FIFO usando mkfifo.
  *
@@ -13,26 +14,10 @@ void make_fifo(char * path);
 
 
 /**
- * @brief Apertura di una fifo in modalita' lettura.
- *
- * @param path Percorso file usato dalla FIFO.
- * @return int fileDespritor della fifo
- */
-int openFifoRDONLY(char *path);
-
-/**
- * @brief Apertura di una fifo in modalita' scrittura.
- *
- * @param path Percorso file usato dalla FIFO.
- * @return int fileDespritor della fifo
- */
-int openFifoWRONLY(char *path);
-
-/**
  * @brief Facilita la creazione di una FIFO (o ne ottiene una esistente) in modalita' lettura o scrittura.
  *
  * @param path Percorso file usato dalla FIFO.
  * @param mode 'r' (read) oppure 'w' (write)
  * @return int Descrittore della FIFO
  */
-int createAndOpenFifo(char * path, char mode);
+int create_fifo(char * path, char mode);

@@ -16,8 +16,8 @@ size_t append2Path(char *path, char *directory) {
 }
 
 
-bool StartsWith(const char *string1, const char *string2) {
-    if(strncmp(string1, string2, strlen(string2)) == 0)  {
+bool StartsWith(const char *a, const char *b) {
+    if(strncmp(a, b, strlen(b)) == 0)  {
         return 1;
     }
     return 0;
