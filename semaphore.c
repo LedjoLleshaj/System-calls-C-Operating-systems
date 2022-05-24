@@ -86,13 +86,13 @@ void semSetAll(int semid, short unsigned int values[]) {
 
 
 void semDelete(int semid) {
-    if (semctl(semid, 0/*semnum: ignored*/, IPC_RMID, 0/*arg: ignored*/) == -1) {
+    if (semctl(semid, 0, IPC_RMID, 0) == -1) {
         errExit("semctl failed");
     }
 }
 
 
 void semSetPerm(int semid, struct semid_ds arg) {
-    if (semctl(semid, 0 /*semnum: ignored*/, IPC_SET, arg) == -1)
+    if (semctl(semid, 0 , IPC_SET, arg) == -1)
         errExit("semctl IPC_SET failed");
 }

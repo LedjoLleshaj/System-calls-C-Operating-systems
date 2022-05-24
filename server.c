@@ -131,7 +131,7 @@ void aggiungiAMatrice(message_t a, int righe)
     for (int i = 0; i < righe && added == false; i++)
     {
         // cerco la prima riga vuota
-        if (matriceFile[i][0].mtype == INIZIALIZZAZIONE_MTYPE && matriceFile[i][1].mtype == INIZIALIZZAZIONE_MTYPE && matriceFile[i][2].mtype == INIZIALIZZAZIONE_MTYPE && matriceFile[i][3].mtype == INIZIALIZZAZIONE_MTYPE)
+        if (matriceFile[i][0].mtype == EMPTY_MTYPE && matriceFile[i][1].mtype == EMPTY_MTYPE && matriceFile[i][2].mtype == EMPTY_MTYPE && matriceFile[i][3].mtype == EMPTY_MTYPE)
         {
             matriceFile[i][a.mtype - 2] = a;
             added = true;
@@ -147,7 +147,7 @@ void findAndMakeFullFiles(int righe)
         bool fullLine = true;
         for (int j = 0; j < 4 && fullLine; j++)
         {
-            if (matriceFile[i][j].mtype == INIZIALIZZAZIONE_MTYPE)
+            if (matriceFile[i][j].mtype == EMPTY_MTYPE)
             {
                 fullLine = false;
             }
@@ -197,7 +197,7 @@ void findAndMakeFullFiles(int righe)
         // segna la riga come letta
         for (int j = 0; j < 4; j++)
         {
-            matriceFile[i][j].mtype = INIZIALIZZAZIONE_MTYPE;
+            matriceFile[i][j].mtype = EMPTY_MTYPE;
         }
 
         // se cerco file completi ad ogni arrivo di una parte di file,
@@ -217,19 +217,19 @@ char *costruisciStringa(message_t a)
 
     switch (a.mtype)
     {
-    case CONTAINS_FIFO1_FILE_PART:
+    case FIFO1_PART:
         strcat(stringa, "1, del file ");
         break;
 
-    case CONTAINS_FIFO2_FILE_PART:
+    case FIFO2_PART:
         strcat(stringa, "2, del file ");
         break;
 
-    case CONTAINS_MSGQUEUE_FILE_PART:
+    case MSGQUEUE_PART:
         strcat(stringa, "3, del file ");
         break;
 
-    case CONTAINS_SHM_FILE_PART:
+    case SHARED_MEMORY_PART:
         strcat(stringa, "4, del file ");
         break;
 
@@ -244,16 +244,16 @@ char *costruisciStringa(message_t a)
 
     switch (a.mtype)
     {
-    case CONTAINS_FIFO1_FILE_PART:
+    case FIFO1_PART:
         strcat(stringa, "FIFO1]\n");
         break;
-    case CONTAINS_FIFO2_FILE_PART:
+    case FIFO2_PART:
         strcat(stringa, "FIFO2]\n");
         break;
-    case CONTAINS_MSGQUEUE_FILE_PART:
+    case MSGQUEUE_PART:
         strcat(stringa, "MsgQueue]\n");
         break;
-    case CONTAINS_SHM_FILE_PART:
+    case SHARED_MEMORY_PART:
         strcat(stringa, "ShdMem]\n");
         break;
     default:
@@ -334,7 +334,7 @@ int main(int argc, char *argv[])
             matriceFile[i] = (message_t *)malloc(4 * sizeof(message_t));
 
         message_t vuoto;
-        vuoto.mtype = INIZIALIZZAZIONE_MTYPE;
+        vuoto.mtype = EMPTY_MTYPE;
         // inizializzo i valori del percorso per evitare di fare confronti con null
         for (int i = 0; i < BUFFER_SZ + 1; i++)
             vuoto.file_path[i] = '\0';
@@ -363,7 +363,7 @@ int main(int argc, char *argv[])
             semSignal(semid, 5);
 
         // scrive un messaggio di conferma su ShdMem
-        message_t received_msg = {.msg_body = "OK", .mtype = CONTAINS_N, .sender_pid = getpid()};
+        message_t received_msg = {.msg_body = "OK", .mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
 
         semWait(semid, 0);
         // zona mutex
@@ -417,7 +417,7 @@ int main(int argc, char *argv[])
             }
 
             // leggo dalla coda di messaggi la terza parte del file
-            if (msgrcv(msqid, &supporto3, sizeof(struct message_t) - sizeof(long), CONTAINS_MSGQUEUE_FILE_PART, IPC_NOWAIT) != -1)
+            if (msgrcv(msqid, &supporto3, sizeof(struct message_t) - sizeof(long), MSGQUEUE_PART, IPC_NOWAIT) != -1)
             {
                 printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", supporto3.file_path, supporto3.sender_pid, supporto3.msg_body);
                 semSignal(semid, 9);
@@ -457,7 +457,7 @@ int main(int argc, char *argv[])
         // quando ha ricevuto e salvato tutti i file invia un messaggio di terminazione sulla coda di
         // messaggi, in modo che possa essere riconosciuto da Client_0 come messaggio
         printf("Invio messaggio di fine al client\n");
-        message_t end_msg = {.msg_body = "DONE", .mtype = CONTAINS_DONE, .sender_pid = getpid()};
+        message_t end_msg = {.msg_body = "DONE", .mtype = DONE, .sender_pid = getpid()};
         msgsnd(msqid, &end_msg, sizeof(struct message_t) - sizeof(long), 0);
         printf("Inviato messaggio di fine al client\n");
 

@@ -62,15 +62,15 @@ long getFileSize(char * filePath);
 int checkFileSize(char * filePath);
 
 /**
- * @brief Restituisce 1 se il percorso inizia con "sendme_", 0 altrimenti.
+ * @brief Restituisce 1 se il nome del file inizia con "sendme_" e !contains "_out", altrimenti 0.
  *
  * @param fileName Percorso del file
- * @return int Vale 1 se il percorso inizia con "sendme_", 0 altrimenti
+ * @return int Vale 1 se il nome del file inizia con "sendme_" e !contains "_out", altrimenti 0
 */
 int checkFileName(char * fileName);
 
 /**
- * Ricerca ricorsivamente nel percorso searchPath i file che inizianano con "sendme_"
+ * Ricerca ricorsivamente nel percorso searchPath i file che inizianano con "sendme_" e !contains "_out"
  * e che hanno la dimensione <= 4 KB.
  *
  * @param searchPath Percorso in cui ricercare i file

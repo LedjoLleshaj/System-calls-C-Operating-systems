@@ -146,7 +146,7 @@ void operazioni_client0() {
 
     // invia il numero di file tramite FIFO1 al server
     char * n_string = int_to_string(n);
-    message_t n_msg = {.mtype = CONTAINS_N, .sender_pid = getpid()};
+    message_t n_msg = {.mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
     strcpy(n_msg.msg_body, n_string);
     printf("msg body '%s' \n", n_msg.msg_body);
     printf("n string '%s' \n", n_string);
@@ -166,7 +166,7 @@ void operazioni_client0() {
 
         semWait(semid, 0);
         // zona mutex
-        if (shm_message[0].mtype == CONTAINS_N) {
+        if (shm_message[0].mtype == FILE_NR_MTYPE) {
             if (strEquals(shm_message[0].msg_body, "OK")) {
                 n_received = true;
             }
@@ -229,7 +229,7 @@ void operazioni_client0() {
     // informa che tutti i file di output sono stati creati dal server stesso e che il server ha concluso le sue operazioni.
     printf("Attendo di ricevere messaggio di fine.\n");
     message_t end_msg;
-    msgrcv(msqid, &end_msg, sizeof(struct message_t)-sizeof(long), CONTAINS_DONE, 0);  // lettura bloccante
+    msgrcv(msqid, &end_msg, sizeof(struct message_t)-sizeof(long), DONE, 0);  // lettura bloccante
     printf("Ricevuto messaggio di fine: '%s'\n", end_msg.msg_body);
 
     // attendi fine dei processi figlio
@@ -354,7 +354,7 @@ void operazioni_figlio(char * filePath){
         if (sent[0] == false) {
             // invia il primo messaggio a FIFO1
             // > invia anche il proprio PID ed il nome del file "sendme_" (con percorso completo)
-            supporto.mtype = CONTAINS_FIFO1_FILE_PART;
+            supporto.mtype = FIFO1_PART;
             supporto.sender_pid = getpid();
             strcpy(supporto.file_path,filePath);
             strcpy(supporto.msg_body,msg_buffer[0]);
@@ -375,7 +375,7 @@ void operazioni_figlio(char * filePath){
         if (sent[1] == false) {
             // invia il secondo messaggio a FIFO2
             // > invia anche il proprio PID ed il nome del file "sendme_" (con percorso completo)
-            supporto.mtype = CONTAINS_FIFO2_FILE_PART;
+            supporto.mtype = FIFO2_PART;
             supporto.sender_pid = getpid();
             strcpy(supporto.file_path,filePath);
             strcpy(supporto.msg_body,msg_buffer[1]);
@@ -396,7 +396,7 @@ void operazioni_figlio(char * filePath){
         if (sent[2] == false) {
             // invia il terzo a MsgQueue (coda dei messaggi)
             // > invia anche il proprio PID ed il nome del file "sendme_" (con percorso completo)
-            supporto.mtype = CONTAINS_MSGQUEUE_FILE_PART;
+            supporto.mtype = MSGQUEUE_PART;
             supporto.sender_pid = getpid();
             strcpy(supporto.file_path,filePath);
             strcpy(supporto.msg_body,msg_buffer[2]);
@@ -419,7 +419,7 @@ void operazioni_figlio(char * filePath){
             // invia il quarto a ShdMem (memoria condivisa)
             // > invia anche il proprio PID ed il nome del file "sendme_" (con percorso completo)
 
-            supporto.mtype = CONTAINS_SHM_FILE_PART;
+            supporto.mtype = SHARED_MEMORY_PART;
             supporto.sender_pid = getpid();
             strcpy(supporto.file_path,filePath);
             strcpy(supporto.msg_body,msg_buffer[3]);

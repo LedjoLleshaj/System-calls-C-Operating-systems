@@ -107,7 +107,7 @@ int checkFileSize(char *filePath)
 
 int checkFileName(char *fileName)
 {
-    // 1 se il nome del file inizia con "sendme_", 0 altrimenti
+    // 1 se il nome del file inizia con "sendme_" e !contains "_out", altrimenti 0
     
     return StartsWith_EndsWith(fileName, "sendme_" , "_out");
 }

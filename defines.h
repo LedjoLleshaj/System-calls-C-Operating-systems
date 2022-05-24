@@ -18,19 +18,19 @@ extern char CURRENT_DIRECTORY[BUFFER_SZ];
 /// Percorso file FIFO 2
 #define FIFO2_PATH "/tmp/fifo2_file.txt"
 /// mtype messaggio che contiene numero di file "sendme_"
-#define CONTAINS_N 1
+#define FILE_NR_MTYPE 1
 /// mtype messaggio che contiene prima parte del contenuto del file "sendme_"
-#define CONTAINS_FIFO1_FILE_PART 2
+#define FIFO1_PART 2
 /// mtype messaggio che contiene seconda parte del contenuto del file "sendme_"
-#define CONTAINS_FIFO2_FILE_PART 3
+#define FIFO2_PART 3
 /// mtype messaggio che contiene terza parte del contenuto del file "sendme_"
-#define CONTAINS_MSGQUEUE_FILE_PART 4
+#define MSGQUEUE_PART 4
 /// mtype messaggio che contiene quarta parte del contenuto del file "sendme_"
-#define CONTAINS_SHM_FILE_PART 5
+#define SHARED_MEMORY_PART 5
 /// mtype messaggio che contiene il messaggio di fine proveniente dal server
-#define CONTAINS_DONE 6
+#define DONE 6
 /// mtype messaggio che contiene il valore usato per inizializzare la matrice contenente i file finali
-#define INIZIALIZZAZIONE_MTYPE -1
+#define EMPTY_MTYPE -1
 
 /// numero massimo di messaggi per canale di comunicazione
 #define MAX_MSG_PER_CHANNEL 50
