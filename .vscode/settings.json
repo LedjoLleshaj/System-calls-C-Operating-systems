@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "string.h": "c",
-        "cinttypes": "c"
+        "cinttypes": "c",
+        "cstdio": "c"
     },
     "editor.wordWrap": "on",
 }

@@ -84,29 +84,29 @@ void operazioni_client0() {
         shmid = sharedMemoryGet(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(message_t));
     if (shm_message == NULL)
         shm_message = (message_t *) sharedMemoryAttach(shmid, S_IRUSR | S_IWUSR);
-    printf("Memoria condivisa: allocata e connessa\n");
+    print_msg("Memoria condivisa: allocata e connessa\n");
 
     if (shm_flag_ID < 0)
         shm_flag_ID = sharedMemoryGet(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
     if (shm_flag == NULL)
         shm_flag = (int *) sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
-    printf("Memoria condivisa flag: allocata e connessa\n");
+    print_msg("Memoria condivisa flag: allocata e connessa\n");
 
     if (semid < 0)
         semid = semGetID(get_ipc_key(), 10);
-    printf("Semafori: ottenuto il set di semafori\n");
+    print_msg("Semafori: ottenuto il set di semafori\n");
 
     if (fifo1_fd < 0)
         fifo1_fd = create_fifo(FIFO1_PATH, 'w');
-    printf("Mi sono collegato alla FIFO 1\n");
+    print_msg("Mi sono collegato alla FIFO 1\n");
 
     if (fifo2_fd < 0)
         fifo2_fd = create_fifo(FIFO2_PATH, 'w');
-    printf("Mi sono collegato alla FIFO 2\n");  // collegamento a fifo2
+    print_msg("Mi sono collegato alla FIFO 2\n");  // collegamento a fifo2
 
     if (msqid < 0)
         msqid = msgget(get_ipc_key(), IPC_CREAT | S_IRUSR | S_IWUSR);  // creo la coda dei messaggi
-    printf("Mi sono collegato alla coda dei messaggi\n");
+    print_msg("Mi sono collegato alla coda dei messaggi\n");
 
     // imposta la sua directory corrente ad un path passato da linea di comando all’avvio del programma
     if (chdir(searchPath) == -1) {
@@ -137,7 +137,7 @@ void operazioni_client0() {
     // e la dimensione e' inferiore a 4KByte e memorizzali
     files_list * sendme_files = NULL;
     sendme_files = find_sendme_files(searchPath, sendme_files);
-    printf("trovati i seguenti file:\n");
+    print_msg("trovati i seguenti file:\n");
     print_list(sendme_files);
 
     // determina il numero <n> di questi file
@@ -156,7 +156,7 @@ void operazioni_client0() {
     if (write(fifo1_fd, &n_msg, sizeof(n_msg)) == -1)
         errExit("write FIFO 1 failed");
 
-    printf("Ho inviato al server tramite FIFO1 il numero di file\n");
+    print_msg("Ho inviato al server tramite FIFO1 il numero di file\n");
 
     printf("Recuperata la chiave IPC: %x\n", get_ipc_key());
 
@@ -175,17 +175,17 @@ void operazioni_client0() {
         semSignal(semid, 0);
     }
 
-    printf("Il server ha confermato di aver ricevuto l'informazione\n");
+    print_msg("Il server ha confermato di aver ricevuto l'informazione\n");
 
     // rendi fifo non bloccanti
-    printf("rendi fifo non bloccanti\n");
+    print_msg("rendi fifo non bloccanti\n");
     semWait(semid, 1);
     semWaitZero(semid, 1);
     blockFD(fifo1_fd, 0);
     blockFD(fifo2_fd, 0);
     semWait(semid, 2);
     semWaitZero(semid, 2);
-    printf("Rese fifo non bloccanti\n");
+    print_msg("Rese fifo non bloccanti\n");
 
     // genera <n> processi figlio Client_i (uno per ogni file "sendme_")
     files_list * sendme_file = sendme_files;
@@ -227,7 +227,7 @@ void operazioni_client0() {
 
     // si mette in attesa sulla MsgQueue di un messaggio da parte del server che lo
     // informa che tutti i file di output sono stati creati dal server stesso e che il server ha concluso le sue operazioni.
-    printf("Attendo di ricevere messaggio di fine.\n");
+    print_msg("Attendo di ricevere messaggio di fine.\n");
     message_t end_msg;
     msgrcv(msqid, &end_msg, sizeof(struct message_t)-sizeof(long), DONE, 0);  // lettura bloccante
     printf("Ricevuto messaggio di fine: '%s'\n", end_msg.msg_body);
@@ -239,14 +239,14 @@ void operazioni_client0() {
     free_list(sendme_files);
 
     // rendi fifo bloccanti
-    printf("rendi fifo bloccanti\n");
+    print_msg("rendi fifo bloccanti\n");
     semWait(semid, 3);
     semWaitZero(semid, 3);
     blockFD(fifo1_fd, 1);
     blockFD(fifo2_fd, 1);
     semWait(semid, 4);
     semWaitZero(semid, 4);
-    printf("rese fifo bloccanti\n");
+    print_msg("rese fifo bloccanti\n");
 }
 
 
@@ -485,14 +485,14 @@ int main(int argc, char * argv[]) {
 
         // blocca tutti i segnali (compresi SIGUSR1 e SIGINT) modificando la maschera
         blockAllSignals();
-        printf("Ho bloccato tutti i segnali\n");
+        print_msg("Ho bloccato tutti i segnali\n");
 
         // esegui le operazioni del client_0
         operazioni_client0();
 
-        printf("\n");
-        printf("==========================================================\n");
-        printf("\n");
+        print_msg("\n");
+        print_msg("==========================================================\n");
+        print_msg("\n");
 
         // sblocca i segnali SIGINT e SIGUSR1
         allowOnlySIGINT_SIGUSR1();
