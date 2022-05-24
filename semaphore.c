@@ -14,7 +14,7 @@ int createSemaphores(key_t key, int n_sem) {
     int semid = semget(key, n_sem, IPC_CREAT | S_IRUSR | S_IWUSR);
 
     if (semid == -1)
-        ErrExit("semget failed");
+        errExit("semget failed");
     return semid;
 }
 
@@ -22,7 +22,7 @@ int getSemaphores(key_t key, int n_sem) {
     int semid = semget(key, n_sem, S_IRUSR | S_IWUSR);
 
     if (semid == -1)
-        ErrExit("semget failed");
+        errExit("semget failed");
     return semid;
 }
 
@@ -31,7 +31,7 @@ void semOp(int semid, unsigned short sem_num, short sem_op) {
     struct sembuf sop = {.sem_num = sem_num, .sem_op = sem_op, .sem_flg = 0};
 
     if (semop(semid, &sop, 1) == -1)
-        ErrExit("semop failed");
+        errExit("semop failed");
 }
 
 int semOpNoBlocc(int semid, unsigned short sem_num, short sem_op) {
@@ -41,7 +41,7 @@ int semOpNoBlocc(int semid, unsigned short sem_num, short sem_op) {
             return -1;
         }
         else{
-            ErrExit("semop failed");
+            errExit("semop failed");
         }
     }
 
@@ -70,7 +70,7 @@ void semSetVal(int semid, int sem_num, int val) {
     arg.val = val;
 
     if (semctl(semid, sem_num, SETVAL, arg) == -1) {
-        ErrExit("semctl SETVAL");
+        errExit("semctl SETVAL");
     }
 }
 
@@ -81,18 +81,18 @@ void semSetAll(int semid, short unsigned int values[]) {
 
     // Inizializza il set di semafori
     if (semctl(semid, 0/*semnum: ignored*/, SETALL, arg) == -1)
-        ErrExit("semctl SETALL");
+        errExit("semctl SETALL");
 }
 
 
 void semDelete(int semid) {
     if (semctl(semid, 0/*semnum: ignored*/, IPC_RMID, 0/*arg: ignored*/) == -1) {
-        ErrExit("semctl failed");
+        errExit("semctl failed");
     }
 }
 
 
 void semSetPerm(int semid, struct semid_ds arg) {
     if (semctl(semid, 0 /*semnum: ignored*/, IPC_SET, arg) == -1)
-        ErrExit("semctl IPC_SET failed");
+        errExit("semctl IPC_SET failed");
 }

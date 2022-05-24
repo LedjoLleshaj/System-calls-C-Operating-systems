@@ -13,7 +13,7 @@
 void make_fifo(char * path) {
     if (mkfifo(path, S_IRUSR | S_IWUSR) == -1) {
         if (errno != EEXIST) {
-            ErrExit("[fifo.c:make_fifo] mkfifo failed");
+            errExit("[fifo.c:make_fifo] mkfifo failed");
         }
     }
 }
@@ -28,13 +28,13 @@ int create_fifo(char * path, char mode) {
     if (mode == 'r') {
         fifo1_fd = open(path, O_RDONLY);
         if (fifo1_fd == -1) {
-            ErrExit("[fifo.c:create_fifo] open FIFO1 failed (read mode)");
+            errExit("[fifo.c:create_fifo] open FIFO1 failed (read mode)");
         }
     }
     else if (mode == 'w') {
         fifo1_fd = open(path, O_WRONLY);
         if (fifo1_fd == -1) {
-            ErrExit("[fifo.c:create_fifo] open FIFO1 failed (write mode)");
+            errExit("[fifo.c:create_fifo] open FIFO1 failed (write mode)");
         }
     }
     else {

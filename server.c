@@ -29,7 +29,7 @@
 #include "server.h"
 
 /// Percorso cartella eseguibile
-char EXECUTABLE_DIR[BUFFER_SZ] = "";
+char CURRENT_DIRECTORY[BUFFER_SZ] = "";
 
 /// file descriptor della FIFO 1
 int fifo1_fd = -1;
@@ -42,14 +42,14 @@ int semid = -1;
 /// identifier della memoria condivisa contenente i messaggi
 int shmid = -1;
 /// puntatore alla memoria condivisa contenente i messaggi
-msg_t *shm_ptr = NULL;
+message_t *shm_message = NULL;
 /// identifier della memoria condivisa contenente le flag cella libera/occupata
-int shm_check_id = -1;
+int shm_flag_ID = -1;
 /// puntatore alla memoria condivisa contenente le flag cella libera/occupata
-int *shm_check_ptr = NULL;
+int *shm_flag = NULL;
 
 /// e' una matrice che per ogni riga contiene le 4 parti di un file
-msg_t **matriceFile = NULL;
+message_t **matriceFile = NULL;
 
 void SIGINTSignalHandler(int sig)
 {
@@ -59,12 +59,12 @@ void SIGINTSignalHandler(int sig)
     {
         if (close(fifo1_fd) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] close FIFO1 failed");
+            errExit("[server.c:SIGINTSignalHandler] close FIFO1 failed");
         }
 
         if (unlink(FIFO1_PATH) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] unlink FIFO1 failed");
+            errExit("[server.c:SIGINTSignalHandler] unlink FIFO1 failed");
         }
     }
 
@@ -73,32 +73,32 @@ void SIGINTSignalHandler(int sig)
     {
         if (close(fifo2_fd) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] close FIFO2 failed");
+            errExit("[server.c:SIGINTSignalHandler] close FIFO2 failed");
         }
 
         if (unlink(FIFO2_PATH) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] unlink FIFO2 failed");
+            errExit("[server.c:SIGINTSignalHandler] unlink FIFO2 failed");
         }
     }
 
     // chiudi e dealloca memorie condivise
-    if (shm_ptr != NULL)
-        free_shared_memory(shm_ptr);
+    if (shm_message != NULL)
+        sharedMemoryDetach(shm_message);
     if (shmid != -1)
-        remove_shared_memory(shmid);
+        sharedMemoryRemove(shmid);
 
-    if (shm_check_ptr != NULL)
-        free_shared_memory(shm_check_ptr);
-    if (shm_check_id != -1)
-        remove_shared_memory(shm_check_id);
+    if (shm_flag != NULL)
+        sharedMemoryDetach(shm_flag);
+    if (shm_flag_ID != -1)
+        sharedMemoryRemove(shm_flag_ID);
 
     // chiudi coda dei messaggi
     if (msqid != -1)
     {
         if (msgctl(msqid, IPC_RMID, NULL) == -1)
         {
-            ErrExit("[server.c:SIGINTSignalHandler] msgctl failed");
+            errExit("[server.c:SIGINTSignalHandler] msgctl failed");
         }
     }
 
@@ -115,7 +115,7 @@ int string_to_int(char *string)
     return atoi(string);
 }
 
-void aggiungiAMatrice(msg_t a, int righe)
+void aggiungiAMatrice(message_t a, int righe)
 {
     bool added = false;
     for (int i = 0; i < righe && added == false; i++)
@@ -172,7 +172,7 @@ void findAndMakeFullFiles(int righe)
 
         if (file == -1)
         {
-            ErrExit("open failed");
+            errExit("open failed");
         }
 
         // prepara l'output e scrivilo sul file
@@ -181,12 +181,12 @@ void findAndMakeFullFiles(int righe)
             char *stampa = costruisciStringa(matriceFile[i][j]);
             if (write(file, stampa, strlen(stampa) * sizeof(char)) == -1)
             {
-                ErrExit("write output file failed");
+                errExit("write output file failed");
             }
 
             if (write(file, "\n\n", 2) == -1)
             {
-                ErrExit("write newline to output file failed");
+                errExit("write newline to output file failed");
             }
             free(stampa);
         }
@@ -206,7 +206,7 @@ void findAndMakeFullFiles(int righe)
     }
 }
 
-char *costruisciStringa(msg_t a)
+char *costruisciStringa(message_t a)
 {
     char buffer[20]; // serve per convertire il pid
     sprintf(buffer, "%d", a.sender_pid);
@@ -268,16 +268,16 @@ int main(int argc, char *argv[])
 {
 
     // memorizza il percorso dell'eseguibile per ftok()
-    if (getcwd(EXECUTABLE_DIR, sizeof(EXECUTABLE_DIR)) == NULL)
+    if (getcwd(CURRENT_DIRECTORY, sizeof(CURRENT_DIRECTORY)) == NULL)
     {
-        ErrExit("getcwd");
+        errExit("getcwd");
     }
 
     // imposta signal handler per gestire la chiusura dei canali di comunicazione
 
     if (signal(SIGINT, SIGINTSignalHandler) == SIG_ERR)
     {
-        ErrExit("change signal handler failed");
+        errExit("change signal handler failed");
     }
 
     printf("Ho impostato l'handler di segnali\n");
@@ -290,12 +290,12 @@ int main(int argc, char *argv[])
 
     printf("Recuperata la chiave IPC: %x\n", get_ipc_key());
 
-    shmid = alloc_shared_memory(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(msg_t));
-    shm_ptr = (msg_t *)get_shared_memory(shmid, IPC_CREAT | S_IRUSR | S_IWUSR);
+    shmid = sharedMemoryGet(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(message_t));
+    shm_message = (message_t *)sharedMemoryAttach(shmid, IPC_CREAT | S_IRUSR | S_IWUSR);
     printf("Memoria condivisa: allocata e connessa\n");
 
-    shm_check_id = alloc_shared_memory(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
-    shm_check_ptr = (int *)get_shared_memory(shm_check_id, S_IRUSR | S_IWUSR);
+    shm_flag_ID = sharedMemoryGet(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
+    shm_flag = (int *)sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
     printf("Memoria condivisa flag: allocata e connessa\n");
 
     semid = createSemaphores(get_ipc_key(), 10);
@@ -314,26 +314,26 @@ int main(int argc, char *argv[])
 
     // limito la coda
     struct msqid_ds ds = msqGetStats(msqid);
-    ds.msg_qbytes = sizeof(msg_t) * MAX_MSG_PER_CHANNEL;
+    ds.msg_qbytes = sizeof(message_t) * MAX_MSG_PER_CHANNEL;
     msqSetStats(msqid, ds);
 
     while (true)
     {
         // Attendo il valore <n> dal Client_0 su FIFO1 e lo memorizzo
-        msg_t n_msg;
-        if (read(fifo1_fd, &n_msg, sizeof(msg_t)) == -1)
+        message_t n_msg;
+        if (read(fifo1_fd, &n_msg, sizeof(message_t)) == -1)
         {
-            ErrExit("read failed");
+            errExit("read failed");
         }
 
         printf("Il client mi ha inviato un messaggio che dice che ci sono '%s' file da ricevere\n", n_msg.msg_body);
         int n = string_to_int(n_msg.msg_body);
         // inizializzo la matrice contenente i pezzi di file
-        matriceFile = (msg_t **)malloc(n * sizeof(msg_t *));
+        matriceFile = (message_t **)malloc(n * sizeof(message_t *));
         for (int i = 0; i < n; i++)
-            matriceFile[i] = (msg_t *)malloc(4 * sizeof(msg_t));
+            matriceFile[i] = (message_t *)malloc(4 * sizeof(message_t));
 
-        msg_t vuoto;
+        message_t vuoto;
         vuoto.mtype = INIZIALIZZAZIONE_MTYPE;
         // inizializzo i valori del percorso per evitare di fare confronti con null
         for (int i = 0; i < BUFFER_SZ + 1; i++)
@@ -363,11 +363,11 @@ int main(int argc, char *argv[])
             semSignal(semid, 5);
 
         // scrive un messaggio di conferma su ShdMem
-        msg_t received_msg = {.msg_body = "OK", .mtype = CONTAINS_N, .sender_pid = getpid()};
+        message_t received_msg = {.msg_body = "OK", .mtype = CONTAINS_N, .sender_pid = getpid()};
 
         semWait(semid, 0);
         // zona mutex
-        shm_ptr[0] = received_msg;
+        shm_message[0] = received_msg;
         // fine zona mutex
         semSignal(semid, 0);
         printf("Ho mandato al client il messaggio di conferma.\n");
@@ -394,7 +394,7 @@ int main(int argc, char *argv[])
 
             // memorizza il PID del processo mittente, il nome del file con percorso completo ed il pezzo
             // di file trasmesso
-            msg_t supporto1, supporto2, supporto3;
+            message_t supporto1, supporto2, supporto3;
 
             // leggo da fifo1 la prima parte del file
             if (read(fifo1_fd, &supporto1, sizeof(supporto1)) != -1)
@@ -417,7 +417,7 @@ int main(int argc, char *argv[])
             }
 
             // leggo dalla coda di messaggi la terza parte del file
-            if (msgrcv(msqid, &supporto3, sizeof(struct msg_t) - sizeof(long), CONTAINS_MSGQUEUE_FILE_PART, IPC_NOWAIT) != -1)
+            if (msgrcv(msqid, &supporto3, sizeof(struct message_t) - sizeof(long), CONTAINS_MSGQUEUE_FILE_PART, IPC_NOWAIT) != -1)
             {
                 printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", supporto3.file_path, supporto3.sender_pid, supporto3.msg_body);
                 semSignal(semid, 9);
@@ -433,11 +433,11 @@ int main(int argc, char *argv[])
                 printf("Sono entrato nella memoria condivisa\n");
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++)
                 {
-                    if (shm_check_ptr[i] == 1)
+                    if (shm_flag[i] == 1)
                     {
-                        printf("Trovata posizione da leggere %d, messaggio: '%s'\n", i, shm_ptr[i].msg_body);
-                        shm_check_ptr[i] = 0;
-                        aggiungiAMatrice(shm_ptr[i], n);
+                        printf("Trovata posizione da leggere %d, messaggio: '%s'\n", i, shm_message[i].msg_body);
+                        shm_flag[i] = 0;
+                        aggiungiAMatrice(shm_message[i], n);
                         findAndMakeFullFiles(n);
                         arrived_parts_counter++;
                     }
@@ -457,8 +457,8 @@ int main(int argc, char *argv[])
         // quando ha ricevuto e salvato tutti i file invia un messaggio di terminazione sulla coda di
         // messaggi, in modo che possa essere riconosciuto da Client_0 come messaggio
         printf("Invio messaggio di fine al client\n");
-        msg_t end_msg = {.msg_body = "DONE", .mtype = CONTAINS_DONE, .sender_pid = getpid()};
-        msgsnd(msqid, &end_msg, sizeof(struct msg_t) - sizeof(long), 0);
+        message_t end_msg = {.msg_body = "DONE", .mtype = CONTAINS_DONE, .sender_pid = getpid()};
+        msgsnd(msqid, &end_msg, sizeof(struct message_t) - sizeof(long), 0);
         printf("Inviato messaggio di fine al client\n");
 
         // rendi fifo bloccanti

@@ -17,7 +17,7 @@ size_t append2Path(char *path, char *directory) {
 
 
 bool StartsWith_EndsWith(const char *filename, const char *sendme,const char *out) {
-     //if filename contain "_sendme" && !contains _out return true
+     //if       filename contain "_sendme"                  &&     !contains _out return true
    return ((strncmp(filename, sendme, strlen(sendme)) == 0) && (strstr(filename, out) == NULL));
         
 }

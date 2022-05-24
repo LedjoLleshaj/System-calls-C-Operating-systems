@@ -23,10 +23,10 @@ key_t get_ipc_key2() {
 
 
 key_t get_project_ipc_key(char proj_id) {
-    key_t key = ftok(EXECUTABLE_DIR, proj_id);
+    key_t key = ftok(CURRENT_DIRECTORY, proj_id);
 
     if (key == -1)
-        ErrExit("ftok failed");
+        errExit("ftok failed");
 
     return key;
 }
@@ -59,6 +59,6 @@ int blockFD(int fd, int blocking) {
 
 void print_msg(char * msg){
     if (write(STDOUT_FILENO, msg, strlen(msg)) == -1){
-        ErrExit("write stdout failed");
+        errExit("write stdout failed");
     }
 }

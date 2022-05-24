@@ -170,10 +170,10 @@ files_list *find_sendme_files(char *searchPath, files_list *head)
     }
 
     if (errno != 0)
-        ErrExit("readdir failed");
+        errExit("readdir failed");
 
     if (closedir(dirp) == -1)
-        ErrExit("closedir failed");
+        errExit("closedir failed");
 
     return head;
 }

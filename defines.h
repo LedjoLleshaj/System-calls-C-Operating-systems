@@ -11,7 +11,7 @@
 /// Buffer usato da getcwd()
 #define BUFFER_SZ 255
 
-extern char EXECUTABLE_DIR[BUFFER_SZ];
+extern char CURRENT_DIRECTORY[BUFFER_SZ];
 
 /// Percorso file FIFO 1
 #define FIFO1_PATH "/tmp/fifo1_file.txt"
@@ -52,7 +52,7 @@ extern char EXECUTABLE_DIR[BUFFER_SZ];
  * il numero di file inviati dal client
  * oppure il messaggio "ok" quando il server ha ricevuto il numero di file.
 */
-typedef struct msg_t {
+typedef struct message_t {
 
     /// tipo del messaggio: campo usato dalla coda dei messaggi
     long mtype;
@@ -66,7 +66,7 @@ typedef struct msg_t {
     /// Contenuto messaggio
     char msg_body[MSG_BUFFER_SZ+2];
 
-} msg_t;
+} message_t;
 
 
 /**

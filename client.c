@@ -38,14 +38,14 @@ int semid = -1;
 /// id memoria condivisa messaggi
 int shmid = -1;
 /// puntatore memoria condivisa messaggi
-msg_t * shm_ptr = NULL;
+message_t * shm_message = NULL;
 /// id memoria condivisa flag lettura/scrittura messaggi
-int shm_check_id = -1;
+int shm_flag_ID = -1;
 /// puntatore memoria condivisa flag lettura/scrittura messaggi
-int * shm_check_ptr = NULL;
+int * shm_flag = NULL;
 
 /// Percorso cartella eseguibile
-char EXECUTABLE_DIR[BUFFER_SZ] = "";
+char CURRENT_DIRECTORY[BUFFER_SZ] = "";
 
 /// contiene percorso passato come parametro
 char * searchPath = NULL;
@@ -81,15 +81,15 @@ void operazioni_client0() {
 
     // Connettiti alle IPC e alle FIFO
     if (shmid < 0)
-        shmid = alloc_shared_memory(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(msg_t));
-    if (shm_ptr == NULL)
-        shm_ptr = (msg_t *) get_shared_memory(shmid, S_IRUSR | S_IWUSR);
+        shmid = sharedMemoryGet(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(message_t));
+    if (shm_message == NULL)
+        shm_message = (message_t *) sharedMemoryAttach(shmid, S_IRUSR | S_IWUSR);
     printf("Memoria condivisa: allocata e connessa\n");
 
-    if (shm_check_id < 0)
-        shm_check_id = alloc_shared_memory(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
-    if (shm_check_ptr == NULL)
-        shm_check_ptr = (int *) get_shared_memory(shm_check_id, S_IRUSR | S_IWUSR);
+    if (shm_flag_ID < 0)
+        shm_flag_ID = sharedMemoryGet(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
+    if (shm_flag == NULL)
+        shm_flag = (int *) sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
     printf("Memoria condivisa flag: allocata e connessa\n");
 
     if (semid < 0)
@@ -110,7 +110,7 @@ void operazioni_client0() {
 
     // imposta la sua directory corrente ad un path passato da linea di comando all’avvio del programma
     if (chdir(searchPath) == -1) {
-        ErrExit("chdir failed");
+        errExit("chdir failed");
     }
 
     // saluta l'utente stampando un messaggio a video
@@ -120,7 +120,7 @@ void operazioni_client0() {
 
     char CURRDIR[BUFFER_SZ];
     if (getcwd(CURRDIR, sizeof(CURRDIR)) == NULL) {
-        ErrExit("getcwd");
+        errExit("getcwd");
     }
 
     char *buffer = (char *)malloc((strlen(CURRDIR)+strlen(USER)+50)*sizeof(char));
@@ -146,7 +146,7 @@ void operazioni_client0() {
 
     // invia il numero di file tramite FIFO1 al server
     char * n_string = int_to_string(n);
-    msg_t n_msg = {.mtype = CONTAINS_N, .sender_pid = getpid()};
+    message_t n_msg = {.mtype = CONTAINS_N, .sender_pid = getpid()};
     strcpy(n_msg.msg_body, n_string);
     printf("msg body '%s' \n", n_msg.msg_body);
     printf("n string '%s' \n", n_string);
@@ -154,7 +154,7 @@ void operazioni_client0() {
 
     //scrivo il numero delle file sendme che ho strovato e li mando al server tramite fifo1
     if (write(fifo1_fd, &n_msg, sizeof(n_msg)) == -1)
-        ErrExit("write FIFO 1 failed");
+        errExit("write FIFO 1 failed");
 
     printf("Ho inviato al server tramite FIFO1 il numero di file\n");
 
@@ -166,8 +166,8 @@ void operazioni_client0() {
 
         semWait(semid, 0);
         // zona mutex
-        if (shm_ptr[0].mtype == CONTAINS_N) {
-            if (strEquals(shm_ptr[0].msg_body, "OK")) {
+        if (shm_message[0].mtype == CONTAINS_N) {
+            if (strEquals(shm_message[0].msg_body, "OK")) {
                 n_received = true;
             }
         }
@@ -193,7 +193,7 @@ void operazioni_client0() {
         printf("Creo figlio e gli ordino di gestire il file: %s\n", sendme_file->path);
         pid_t pid = fork();
         if (pid == -1) {
-            ErrExit("fork failed");
+            errExit("fork failed");
         }
         else if (pid == 0) {
             // copio il percorso in una nuova variabile per liberare la lista del figlio
@@ -228,8 +228,8 @@ void operazioni_client0() {
     // si mette in attesa sulla MsgQueue di un messaggio da parte del server che lo
     // informa che tutti i file di output sono stati creati dal server stesso e che il server ha concluso le sue operazioni.
     printf("Attendo di ricevere messaggio di fine.\n");
-    msg_t end_msg;
-    msgrcv(msqid, &end_msg, sizeof(struct msg_t)-sizeof(long), CONTAINS_DONE, 0);  // lettura bloccante
+    message_t end_msg;
+    msgrcv(msqid, &end_msg, sizeof(struct message_t)-sizeof(long), CONTAINS_DONE, 0);  // lettura bloccante
     printf("Ricevuto messaggio di fine: '%s'\n", end_msg.msg_body);
 
     // attendi fine dei processi figlio
@@ -256,21 +256,21 @@ void SIGUSR1SignalHandler(int sig) {
     // NOTA: non e' possibile chiudere senza eliminare i semafori
     //       e la coda dei messaggi. Quello sara' il compito del server
 
-    if (shm_ptr != NULL)
-        free_shared_memory(shm_ptr);
+    if (shm_message != NULL)
+        sharedMemoryDetach(shm_message);
 
-    if (shm_check_ptr != NULL)
-        free_shared_memory(shm_check_ptr);
+    if (shm_flag != NULL)
+        sharedMemoryDetach(shm_flag);
 
     if (fifo1_fd != -1) {
         if (close(fifo1_fd) == -1){
-            ErrExit("[client.c:SIGUSR1SignalHandler] close FIFO1 failed");
+            errExit("[client.c:SIGUSR1SignalHandler] close FIFO1 failed");
         }
     }
 
     if (fifo2_fd != -1) {
         if (close(fifo2_fd) == -1){
-            ErrExit("[client.c:SIGUSR1SignalHandler] close FIFO2 failed");
+            errExit("[client.c:SIGUSR1SignalHandler] close FIFO2 failed");
         }
     }
 
@@ -300,7 +300,7 @@ void operazioni_figlio(char * filePath){
 
     // controllo che non ci siano errori
     if (fd == -1) {
-	    ErrExit("open failed");
+	    errExit("open failed");
     }
 
     // determina il numero di caratteri totali
@@ -348,7 +348,7 @@ void operazioni_figlio(char * filePath){
 
     while (!arrayContainsAllTrue(sent, MSG_PARTS_NUM)) {
 
-        msg_t supporto;
+        message_t supporto;
         memset(&supporto, 0, sizeof(supporto));
 
         if (sent[0] == false) {
@@ -404,7 +404,7 @@ void operazioni_figlio(char * filePath){
             printf("Tenta invio messaggio [ %s, %d, %s] su msgQueue\n",supporto.msg_body,supporto.sender_pid,supporto.file_path);
 
             if(semWaitNoBlocc(semid,9) == 0){
-                if (msgsnd(msqid, &supporto, sizeof(struct msg_t)-sizeof(long), IPC_NOWAIT) != -1) {
+                if (msgsnd(msqid, &supporto, sizeof(struct message_t)-sizeof(long), IPC_NOWAIT) != -1) {
                     // la scrittura ha avuto successo
                     sent[2] = true;
                 }
@@ -428,11 +428,11 @@ void operazioni_figlio(char * filePath){
             if (semWaitNoBlocc(semid, 6) == 0){
                 printf("Sono dentro la memoria condivisa (figlio %d)\n", getpid());
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++) {
-                    if (shm_check_ptr[i] == 0) {
+                    if (shm_flag[i] == 0) {
                         printf("Trovata posizione libera %d per inviare: %s\n", i, supporto.msg_body);
-                        shm_check_ptr[i] = 1;
+                        shm_flag[i] = 1;
                         sent[3] = true;
-                        shm_ptr[i] = supporto;
+                        shm_message[i] = supporto;
                         break;
                     }
                 }
@@ -446,7 +446,7 @@ void operazioni_figlio(char * filePath){
 
     // chiude il file
     if (close(fd) == -1) {
-        ErrExit("close failed");
+        errExit("close failed");
     }
 
     // termina: gestito fuori dalla funzione
@@ -456,8 +456,8 @@ void operazioni_figlio(char * filePath){
 int main(int argc, char * argv[]) {
 
     // memorizza il percorso dell'eseguibile per ftok()
-    if (getcwd(EXECUTABLE_DIR, sizeof(EXECUTABLE_DIR)) == NULL) {
-        ErrExit("getcwd");
+    if (getcwd(CURRENT_DIRECTORY, sizeof(CURRENT_DIRECTORY)) == NULL) {
+        errExit("getcwd");
     }
 
     // assicurati che sia stato passato un percorso come parametro e memorizzalo
@@ -474,7 +474,7 @@ int main(int argc, char * argv[]) {
     // imposta due signal handler: uno per SIGINT per eseguire le operazioni
     // principali di Client 0 e uno per SIGUSR1 per terminare il programma
     if (signal(SIGINT, SIGINTSignalHandler) == SIG_ERR || signal(SIGUSR1, SIGUSR1SignalHandler) == SIG_ERR) {
-        ErrExit("change signal handler failed");
+        errExit("change signal handler failed");
     }
 
     // sospendi processo fino all'esecuzione di un signal handler.

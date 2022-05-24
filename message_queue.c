@@ -15,7 +15,7 @@ struct msqid_ds msqGetStats(int msqid){
     struct msqid_ds ds;
 
     if (msgctl(msqid, IPC_STAT, &ds) == -1)
-        ErrExit("msgctl STAT");
+        errExit("msgctl STAT");
 
     return ds;
 }
@@ -25,7 +25,7 @@ void msqSetStats(int msqid, struct msqid_ds ds){
 
     if (msgctl(msqid, IPC_SET, &ds) == -1) {
         if(errno != EPERM) {
-            ErrExit("msgctl SET");
+            errExit("msgctl SET");
         }
         else {
             print_msg("Couldn't set new config: not enough permissions. Continuing anyway\n");
