@@ -52,8 +52,10 @@ char * searchPath = NULL;
 
 
 char * int_to_string(int value){
+    //con NULL,0 sprintf da il numero di char neccessari per il convertire il numero
     int needed = snprintf(NULL, 0, "%d", value);
 
+    //needed +1 per \0
     char * string = (char *) malloc(needed+1);
     if (string == NULL){
         print_msg("[client.c:int_to_string] malloc failed\n");
@@ -150,6 +152,7 @@ void operazioni_client0() {
     printf("n string '%s' \n", n_string);
     free(n_string);  // libera memoria occupata da <n> in formato stringa
 
+    //scrivo il numero delle file sendme che ho strovato e li mando al server tramite fifo1
     if (write(fifo1_fd, &n_msg, sizeof(n_msg)) == -1)
         ErrExit("write FIFO 1 failed");
 
@@ -309,18 +312,22 @@ void operazioni_figlio(char * filePath){
     // divide il file in quattro parti contenenti lo stesso numero di caratteri (l'ultimo file puo' avere meno caratteri)
     long msg_lengths[MSG_PARTS_NUM];
 
+    //divido il file in quatro parti tutti numeri uguali
     for (int i = 0; i < MSG_PARTS_NUM; i++) {
         msg_lengths[i] = numChar / MSG_PARTS_NUM;
     }
 
-    for (int i = 0; i < (numChar % MSG_PARTS_NUM) && i < MSG_PARTS_NUM; i++) {
+    //aggiungo il resto iniziando dalla prima parte del file
+    for (int i = 0; i < (numChar % MSG_PARTS_NUM); i++) {
         msg_lengths[i] += 1;
     }
 
     printf("Il file %s contiene verra' diviso in parti con questi caratteri: %ld %ld %ld %ld\n", filePath, msg_lengths[0], msg_lengths[1], msg_lengths[2], msg_lengths[3]);
 
-    // prepara i quattro messaggi (4 porzioni del contenuto del file) per l’invio
+    //setto il puntatore al inizio del file
     lseek(fd, 0, SEEK_SET);
+    // prepara i quattro messaggi (4 porzioni del contenuto del file) per l’invio
+
     char msg_buffer[MSG_PARTS_NUM][MSG_BUFFER_SZ + 1];
 
     for (int i = 0; i < MSG_PARTS_NUM; i++){

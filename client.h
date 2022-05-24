@@ -9,30 +9,9 @@
  *
  * Non vengono eseguite in SIGINTSignalHandler() per il seguente motivo: https://man7.org/linux/man-pages/man7/signal-safety.7.html
  *
- * @todo Potrebbe essere necessario ottimizzare l'uso dello HEAP nel client 0.
- *       Attualmente la dimensione massima occupata dal client e':
- *       $$100 file * dim. path + 100 file * dim. pointer$$.
- *       Assumento dim. path massima = 250 caratteri e dim. pointer 4 byte (32 bit):
- *       $$100 * 250 + 100 * 4 = 25400$$
- *       Quindi solo lato client si occupano 25 KByte.
- *       Quando viene creato un client esso eredita momentaneamente la lista creando al massimo un'altra lista concatenata.
- *       Quindi in pratica si occupano:
- *       $$25 * 2 = 50$$
- *       Ovvero 50 KB.
- *
- * @warning Per ottimizzare l'uso dello HEAP nel client 0 si potrebbe
- *          prima cercare e contare quanti file sono presenti senza creare una lista concatenata
- *          e poi ricercare i file e man mano che si trovano file send_me si puo' creare il
- *          processo figlio per inviare il file. Per fare questo BISOGNA sapere se il numero di file
- *          puo' cambiare durante l'esecuzione di questa funzione:
- *          se trovo 3 file e dopo un file viene cancellato cosa succede? <br>
- *          NOTA: questo problema puo' esserci anche nella situazione attuale...
- *
- * @warning Il client 0 deve attendere i processi figlio? La specifica indica solo che bisogna attendere il messaggio di fine dal server...
+ * 
+ * @note Il client 0 deve attendere i processi figlio? La specifica indica solo che bisogna attendere il messaggio di fine dal server...
  *          Attualmente prima si attendere il messaggio di fine e poi si aspetta che tutti i figlio terminino.
- *
- * @warning Il percorso passato al client deve essere assoluto o puo' essere relativo? Se si passa un percorso relativo chdir() fallira' alla seconda esecuzione. <br>
- *          SOLUZIONE: si potrebbe usare un altro chdir() a fine funzione per tornare al percorso di esecuzione iniziale anticipando il chdir() successivo.
  *
 */
 void operazioni_client0();

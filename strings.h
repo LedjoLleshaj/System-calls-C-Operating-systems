@@ -16,11 +16,12 @@
 size_t append2Path(char *path, char *directory);
 
 /**
- * @brief Restituisce vero se la stringa a inizia con la sotto stringa b
+ * @brief Restituisce vero se la stringa filename inizia con la sotto stringa "_sendme" e !contains "_out"
  *
- * @param a
- * @param b
+ * @param filename
+ * @param sendme
+ * @param out
  * @return true
  * @return false
  */
-bool StartsWith(const char *a, const char *b);
+bool StartsWith_EndsWith(const char *filename, const char *sendme,const char *out);
