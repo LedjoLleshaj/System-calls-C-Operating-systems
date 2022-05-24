@@ -469,7 +469,7 @@ int main(int argc, char * argv[]) {
     searchPath = argv[1];
 
     // crea una maschera che gli consente di ricevere solo i segnali SIGINT e SIGUSR1
-    block_sig_no_SIGINT_SIGUSR1();
+    allowOnlySIGINT_SIGUSR1();
 
     // imposta due signal handler: uno per SIGINT per eseguire le operazioni
     // principali di Client 0 e uno per SIGUSR1 per terminare il programma
@@ -484,7 +484,7 @@ int main(int argc, char * argv[]) {
         pause();
 
         // blocca tutti i segnali (compresi SIGUSR1 e SIGINT) modificando la maschera
-        block_all_signals();
+        blockAllSignals();
         printf("Ho bloccato tutti i segnali\n");
 
         // esegui le operazioni del client_0
@@ -495,7 +495,7 @@ int main(int argc, char * argv[]) {
         printf("\n");
 
         // sblocca i segnali SIGINT e SIGUSR1
-        block_sig_no_SIGINT_SIGUSR1();
+        allowOnlySIGINT_SIGUSR1();
     }
 
     return 0;

@@ -5,7 +5,7 @@
 #include "signals.h"
 
 
-void block_sig_no_SIGINT_SIGUSR1(){
+void allowOnlySIGINT_SIGUSR1(){
     sigset_t signalSet, prevSignalSet;
     sigfillset(&signalSet);                                // inizializzo signalSet che contiene tutti i segnali
     sigdelset(&signalSet, SIGINT);                         // elimino SIGINT dalla lista dei segnali bloccati
@@ -14,7 +14,7 @@ void block_sig_no_SIGINT_SIGUSR1(){
 }
 
 
-void block_all_signals(){
+void blockAllSignals(){
     sigset_t signalSet, prevSignalSet;
     sigfillset(&signalSet);                                // inizializzo signalSet che contiene tutti i segnali
     sigprocmask(SIG_SETMASK, &signalSet, &prevSignalSet);  // imposto nuova maschera dei segnali

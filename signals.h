@@ -11,7 +11,7 @@
  * - impostando la maschera per bloccare i segnali del set
  *
 */
-void block_sig_no_SIGINT_SIGUSR1();
+void allowOnlySIGINT_SIGUSR1();
 
 
 /**
@@ -19,4 +19,4 @@ void block_sig_no_SIGINT_SIGUSR1();
  * - creando un set di tutti i segnali
  * - impostando la maschera per bloccare i segnali del set
 */
-void block_all_signals();
+void blockAllSignals();
