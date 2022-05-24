@@ -168,7 +168,10 @@ void findAndMakeFullFiles(int righe)
         }
         strcpy(temp, matriceFile[i][0].file_path);
         strcat(temp, "_out"); // aggiungo _out
-        int file = open(temp, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+        
+        //aprire il file in modalita scritura e anche O_TRUNC cosi se bisogna sovrascrivere un file
+        //non diventa un casino
+        int file = open(temp, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 
         if (file == -1)
         {
@@ -280,7 +283,7 @@ int main(int argc, char *argv[])
         errExit("change signal handler failed");
     }
 
-    printf("Ho impostato l'handler di segnali\n");
+    print_msg("Ho impostato l'handler di segnali\n");
 
     // -- APERTURA CANALI DI COMUNICAZIONE
 
@@ -292,25 +295,25 @@ int main(int argc, char *argv[])
 
     shmid = sharedMemoryGet(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(message_t));
     shm_message = (message_t *)sharedMemoryAttach(shmid, IPC_CREAT | S_IRUSR | S_IWUSR);
-    printf("Memoria condivisa: allocata e connessa\n");
+    print_msg("Memoria condivisa: allocata e connessa\n");
 
     shm_flag_ID = sharedMemoryGet(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
     shm_flag = (int *)sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
-    printf("Memoria condivisa flag: allocata e connessa\n");
+    print_msg("Memoria condivisa flag: allocata e connessa\n");
 
     semid = semGetCreate(get_ipc_key(), 10);
     short unsigned int semValues[10] = {1, 0, 0, 0, 0, 0, 1, 50, 50, 50};
     semSetAll(semid, semValues);
-    printf("Semafori: creati e inizializzati\n");
+    print_msg("Semafori: creati e inizializzati\n");
 
     fifo1_fd = create_fifo(FIFO1_PATH, 'r');
-    printf("Mi sono collegato alla FIFO 1\n"); // collegamento a fifo1
+    print_msg("Mi sono collegato alla FIFO 1\n"); // collegamento a fifo1
 
     fifo2_fd = create_fifo(FIFO2_PATH, 'r'); // collegamento a fifo2
-    printf("Mi sono collegato alla FIFO 2\n");
+    print_msg("Mi sono collegato alla FIFO 2\n");
 
     msqid = msgget(get_ipc_key(), IPC_CREAT | S_IRUSR | S_IWUSR); // collegamento alla coda di messaggi
-    printf("Mi sono collegato alla coda dei messaggi\n");
+    print_msg("Mi sono collegato alla coda dei messaggi\n");
 
     // limito la coda
     struct msqid_ds ds = msqGetStats(msqid);
@@ -370,17 +373,17 @@ int main(int argc, char *argv[])
         shm_message[0] = received_msg;
         // fine zona mutex
         semSignal(semid, 0);
-        printf("Ho mandato al client il messaggio di conferma.\n");
+        print_msg("Ho mandato al client il messaggio di conferma.\n");
 
         // rendi fifo non bloccanti
-        printf("Rendi fifo non bloccanti\n");
+        print_msg("Rendi fifo non bloccanti\n");
         semWait(semid, 1);
         semWaitZero(semid, 1);
         blockFD(fifo1_fd, 0);
         blockFD(fifo2_fd, 0);
         semWait(semid, 2);
         semWaitZero(semid, 2);
-        printf("Rese fifo non bloccanti\n");
+        print_msg("Rese fifo non bloccanti\n");
 
         // si mette in ricezione ciclicamente su ciascuno dei quattro canali.
         // una volta ricevute tutte e quattro le parti di un file le riunisce nell’ordine corretto e
@@ -427,10 +430,10 @@ int main(int argc, char *argv[])
             }
 
             // leggi dalla memoria condivisa
-            printf("Tenta di entrare nella memoria condivisa\n");
+            print_msg("Tenta di entrare nella memoria condivisa\n");
             if (semWait_NOWAIT(semid, 6) == 0)
             {
-                printf("Sono entrato nella memoria condivisa\n");
+                print_msg("Sono entrato nella memoria condivisa\n");
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++)
                 {
                     if (shm_flag[i] == 1)
@@ -442,9 +445,9 @@ int main(int argc, char *argv[])
                         arrived_parts_counter++;
                     }
                 }
-                printf("Tenta di uscire nella memoria condivisa\n");
+                print_msg("Tenta di uscire nella memoria condivisa\n");
                 semSignal(semid, 6);
-                printf("Sono uscito dalla memoria condivisa\n");
+                print_msg("Sono uscito dalla memoria condivisa\n");
             }
 
             if (n_tries % 5000 == 0)
@@ -456,20 +459,20 @@ int main(int argc, char *argv[])
 
         // quando ha ricevuto e salvato tutti i file invia un messaggio di terminazione sulla coda di
         // messaggi, in modo che possa essere riconosciuto da Client_0 come messaggio
-        printf("Invio messaggio di fine al client\n");
+        print_msg("Invio messaggio di fine al client\n");
         message_t end_msg = {.msg_body = "DONE", .mtype = DONE, .sender_pid = getpid()};
         msgsnd(msqid, &end_msg, sizeof(struct message_t) - sizeof(long), 0);
-        printf("Inviato messaggio di fine al client\n");
+        print_msg("Inviato messaggio di fine al client\n");
 
         // rendi fifo bloccanti
-        printf("Rendi fifo bloccanti\n");
+        print_msg("Rendi fifo bloccanti\n");
         semWait(semid, 3);
         semWaitZero(semid, 3);
         blockFD(fifo1_fd, 1);
         blockFD(fifo2_fd, 1);
         semWait(semid, 4);
         semWaitZero(semid, 4);
-        printf("Rese fifo bloccanti\n");
+        print_msg("Rese fifo bloccanti\n");
 
         // libera memoria della matrice buffer
         for (int i = 0; i < n; i++)
@@ -479,9 +482,9 @@ int main(int argc, char *argv[])
         free(matriceFile);
 
         // si rimette in attesa su FIFO 1 di un nuovo valore n tornando all'inizio del ciclo
-        printf("\n");
-        printf("==========================================================\n");
-        printf("\n");
+        print_msg("\n");
+        print_msg("==========================================================\n");
+        print_msg("\n");
     }
 
     return 0;
