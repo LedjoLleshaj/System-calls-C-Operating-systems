@@ -93,7 +93,7 @@ void operazioni_client0() {
     printf("Memoria condivisa flag: allocata e connessa\n");
 
     if (semid < 0)
-        semid = getSemaphores(get_ipc_key(), 10);
+        semid = semGetID(get_ipc_key(), 10);
     printf("Semafori: ottenuto il set di semafori\n");
 
     if (fifo1_fd < 0)
@@ -361,7 +361,7 @@ void operazioni_figlio(char * filePath){
 
             printf("Tenta invio messaggio [ %s, %d, %s] su FIFO1\n",supporto.msg_body,supporto.sender_pid,supporto.file_path);
 
-            if(semWaitNoBlocc(semid,7) == 0){
+            if(semWait_NOWAIT(semid,7) == 0){
                 if (write(fifo1_fd,&supporto,sizeof(supporto)) != -1){
                     // la scrittura ha avuto successo
                     sent[0] = true;
@@ -382,7 +382,7 @@ void operazioni_figlio(char * filePath){
 
             printf("Tenta invio messaggio [ %s, %d, %s] su FIFO2\n",supporto.msg_body,supporto.sender_pid,supporto.file_path);
 
-            if(semWaitNoBlocc(semid,8) == 0){
+            if(semWait_NOWAIT(semid,8) == 0){
                 if (write(fifo2_fd,&supporto,sizeof(supporto)) != -1){
                     // la scrittura ha avuto successo
                     sent[1] = true;
@@ -403,7 +403,7 @@ void operazioni_figlio(char * filePath){
 
             printf("Tenta invio messaggio [ %s, %d, %s] su msgQueue\n",supporto.msg_body,supporto.sender_pid,supporto.file_path);
 
-            if(semWaitNoBlocc(semid,9) == 0){
+            if(semWait_NOWAIT(semid,9) == 0){
                 if (msgsnd(msqid, &supporto, sizeof(struct message_t)-sizeof(long), IPC_NOWAIT) != -1) {
                     // la scrittura ha avuto successo
                     sent[2] = true;
@@ -425,7 +425,7 @@ void operazioni_figlio(char * filePath){
             strcpy(supporto.msg_body,msg_buffer[3]);
 
             printf("Tento di entrare nella memoria condivisa (figlio %d)\n", getpid());
-            if (semWaitNoBlocc(semid, 6) == 0){
+            if (semWait_NOWAIT(semid, 6) == 0){
                 printf("Sono dentro la memoria condivisa (figlio %d)\n", getpid());
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++) {
                     if (shm_flag[i] == 0) {

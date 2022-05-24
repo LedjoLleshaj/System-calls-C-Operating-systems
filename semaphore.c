@@ -10,7 +10,7 @@
 #include "semaphore.h"
 
 
-int createSemaphores(key_t key, int n_sem) {
+int semGetCreate(key_t key, int n_sem) {
     int semid = semget(key, n_sem, IPC_CREAT | S_IRUSR | S_IWUSR);
 
     if (semid == -1)
@@ -18,7 +18,7 @@ int createSemaphores(key_t key, int n_sem) {
     return semid;
 }
 
-int getSemaphores(key_t key, int n_sem) {
+int semGetID(key_t key, int n_sem) {
     int semid = semget(key, n_sem, S_IRUSR | S_IWUSR);
 
     if (semid == -1)
@@ -34,7 +34,7 @@ void semOp(int semid, unsigned short sem_num, short sem_op) {
         errExit("semop failed");
 }
 
-int semOpNoBlocc(int semid, unsigned short sem_num, short sem_op) {
+int semOp_NOWAIT(int semid, unsigned short sem_num, short sem_op) {
     struct sembuf sop = {.sem_num = sem_num, .sem_op = sem_op, .sem_flg = IPC_NOWAIT};
     if (semop(semid, &sop, 1) == -1){
         if (errno == EAGAIN){
@@ -56,8 +56,8 @@ void semWait(int semid, int sem_num) {
     semOp(semid, sem_num, -1);
 }
 
-int semWaitNoBlocc(int semid, int sem_num) {
-    return semOpNoBlocc(semid, sem_num, -1);
+int semWait_NOWAIT(int semid, int sem_num) {
+    return semOp_NOWAIT(semid, sem_num, -1);
 }
 
 void semSignal(int semid, int sem_num) {

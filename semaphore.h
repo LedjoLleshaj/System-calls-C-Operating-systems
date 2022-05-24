@@ -28,7 +28,7 @@ union semun {
  * @param key Chiave IPC
  * @param n_sem Numero semafori da ottenere/creare
 */
-int getSemaphores(key_t key, int n_sem);
+int semGetID(key_t key, int n_sem);
 
 /**
  * @brief Crea un insieme di semafori
@@ -36,7 +36,7 @@ int getSemaphores(key_t key, int n_sem);
  * @param key Chiave IPC
  * @param n_sem Numero semafori da ottenere/creare
 */
-int createSemaphores(key_t key, int n_sem);
+int semGetCreate(key_t key, int n_sem);
 
 
 /**
@@ -57,7 +57,7 @@ void semOp(int semid, unsigned short sem_num, short sem_op);
  * @param sem_op Operazione eseguita sul semaforo sem_num
  * @return -1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti
 */
-int semOpNoBlocc(int semid, unsigned short sem_num, short sem_op);
+int semOp_NOWAIT(int semid, unsigned short sem_num, short sem_op);
 
 /**
  * Attende che il semaforo sem_num raggiunga il valore zero.
@@ -85,7 +85,7 @@ void semWait(int semid, int sem_num);
  * @param sem_num Indice di un semaforo nel set
  * @return -1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti
 */
-int semWaitNoBlocc(int semid, int sem_num);
+int semWait_NOWAIT(int semid, int sem_num);
 
 /**
  * @brief Esegue la signal sul semaforo sem_num: incrementa il valore di 1.

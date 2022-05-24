@@ -298,7 +298,7 @@ int main(int argc, char *argv[])
     shm_flag = (int *)sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
     printf("Memoria condivisa flag: allocata e connessa\n");
 
-    semid = createSemaphores(get_ipc_key(), 10);
+    semid = semGetCreate(get_ipc_key(), 10);
     short unsigned int semValues[10] = {1, 0, 0, 0, 0, 0, 1, 50, 50, 50};
     semSetAll(semid, semValues);
     printf("Semafori: creati e inizializzati\n");
@@ -428,7 +428,7 @@ int main(int argc, char *argv[])
 
             // leggi dalla memoria condivisa
             printf("Tenta di entrare nella memoria condivisa\n");
-            if (semWaitNoBlocc(semid, 6) == 0)
+            if (semWait_NOWAIT(semid, 6) == 0)
             {
                 printf("Sono entrato nella memoria condivisa\n");
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++)
