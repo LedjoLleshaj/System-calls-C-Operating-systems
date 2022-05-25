@@ -23,6 +23,20 @@ void print_list(files_list *head)
     }
 }
 
+size_t append2Path(char *path, char *directory) {
+    size_t lastPathEnd = strlen(path);
+    // extends current seachPath: seachPath + / + directory
+    strcat(strcat(&path[lastPathEnd], "/"), directory);
+    return lastPathEnd;
+}
+
+
+bool StartsWith_EndsWith(const char *filename, const char *sendme,const char *out) {
+     //if       filename contain "_sendme"                  &&     !contains _out return true
+   return ((strncmp(filename, sendme, strlen(sendme)) == 0) && (strstr(filename, out) == NULL));
+        
+}
+
 files_list *append(files_list *head, char *path)
 {
     files_list *next = malloc(sizeof(files_list));
