@@ -35,6 +35,8 @@ int fifo2_fd = -1;
 int msqid = -1;
 /// id set di semafori
 int semid = -1;
+/// id semaphore per i file fifo blocanti/!blocanti
+int semidFifo = -1;
 /// id memoria condivisa messaggi
 int shmid = -1;
 /// puntatore memoria condivisa messaggi
@@ -107,7 +109,7 @@ void operazioni_client0() {
     print_msg("Memoria condivisa flag: allocata e connessa\n");
 
     if (semid < 0)
-        semid = semGetID(get_ipc_key(), 10);
+        semid = semGetID(get_ipc_key(), 6);
     print_msg("Semafori: ottenuto il set di semafori\n");
 
     if (fifo1_fd < 0)
@@ -121,6 +123,11 @@ void operazioni_client0() {
     if (msqid < 0)
         msqid = msgget(get_ipc_key(), IPC_CREAT | S_IRUSR | S_IWUSR);  // creo la coda dei messaggi
     print_msg("Mi sono collegato alla coda dei messaggi\n");
+
+    if (semidFifo < 0)
+        semidFifo = semGetID(get_ipc_key2(), 4);
+    print_msg("Semafori: ottenuto il set di semafori per le fifo\n");   
+
 
     // imposta la sua directory corrente ad un path passato da linea di comando all’avvio del programma
     if (chdir(searchPath) == -1) {
@@ -155,11 +162,11 @@ void operazioni_client0() {
     print_list(sendme_files);
 
     // determina il numero <n> di questi file
-    int n = count_files(sendme_files);
-    printf("ci sono %d file 'sendme_'\n", n);
+    int filenr = count_files(sendme_files);
+    printf("ci sono %d file 'sendme_'\n", filenr);
 
     // invia il numero di file tramite FIFO1 al server
-    char * n_string = int_to_string(n);
+    char * n_string = int_to_string(filenr);
     message_t n_msg = {.mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
     strcpy(n_msg.msg_body, n_string);
     printf("msg body '%s' \n", n_msg.msg_body);
@@ -193,12 +200,12 @@ void operazioni_client0() {
 
     // rendi fifo non bloccanti
     print_msg("rendi fifo non bloccanti\n");
-    semWait(semid, 1);
-    semWaitZero(semid, 1);
+    semWait(semidFifo, 0);
+    semWaitZero(semidFifo, 0);
     blockFD(fifo1_fd, 0);
     blockFD(fifo2_fd, 0);
-    semWait(semid, 2);
-    semWaitZero(semid, 2);
+    semWait(semidFifo, 1);
+    semWaitZero(semidFifo, 1);
     print_msg("Rese fifo non bloccanti\n");
 
     // genera <n> processi figlio Client_i (uno per ogni file "sendme_")
@@ -254,12 +261,13 @@ void operazioni_client0() {
 
     // rendi fifo bloccanti
     print_msg("rendi fifo bloccanti\n");
-    semWait(semid, 3);
-    semWaitZero(semid, 3);
+    semWait(semidFifo, 2);
+    semWaitZero(semidFifo, 2);
     blockFD(fifo1_fd, 1);
     blockFD(fifo2_fd, 1);
-    semWait(semid, 4);
-    semWaitZero(semid, 4);
+    //aspettiamo anche server
+    semWait(semidFifo, 3);
+    semWaitZero(semidFifo, 3);
     print_msg("rese fifo bloccanti\n");
 }
 
@@ -269,7 +277,7 @@ void SIGUSR1SignalHandler(int sig) {
     //
     // NOTA: non e' possibile chiudere senza eliminare i semafori
     //       e la coda dei messaggi. Quello sara' il compito del server
-
+    print_msg("CLient is dead\n");
     if (shm_message != NULL)
         sharedMemoryDetach(shm_message);
 
@@ -351,8 +359,8 @@ void operazioni_figlio(char * filePath){
     // si blocca su un semaforo fino a quando tutti i client sono arrivati a questo punto
     // > Attesa con semop() finche' non arriva a zero.
     printf("Sono il figlio %d, decremento il semaforo di sincronizzazione con gli altri figli e attendo\n", getpid());
-    semWait(semid, 5);
-    semWaitZero(semid, 5);
+    semWait(semid, 1);
+    semWaitZero(semid, 1);
     printf("Sono arrivati tutti i fratelli, parto a inviare il mio file (pid %d)\n", getpid());
 
     // -- INVIO 4 MESSAGGI
@@ -375,13 +383,13 @@ void operazioni_figlio(char * filePath){
 
             printf("Tenta invio messaggio [ %s, %d, %s] su FIFO1\n",supporto.msg_body,supporto.sender_pid,supporto.file_path);
 
-            if(semWait_NOWAIT(semid,7) == 0){
+            if(semWait_NOWAIT(semid,3) == 0){
                 if (write(fifo1_fd,&supporto,sizeof(supporto)) != -1){
                     // la scrittura ha avuto successo
                     sent[0] = true;
                 }
                 else{
-                    semSignal(semid, 7);
+                    semSignal(semid, 3);
                 }
             }
         }
@@ -396,13 +404,13 @@ void operazioni_figlio(char * filePath){
 
             printf("Tenta invio messaggio [ %s, %d, %s] su FIFO2\n",supporto.msg_body,supporto.sender_pid,supporto.file_path);
 
-            if(semWait_NOWAIT(semid,8) == 0){
+            if(semWait_NOWAIT(semid,4) == 0){
                 if (write(fifo2_fd,&supporto,sizeof(supporto)) != -1){
                     // la scrittura ha avuto successo
                     sent[1] = true;
                 }
                 else{
-                    semSignal(semid, 8);
+                    semSignal(semid, 4);
                 }
             }
         }
@@ -417,13 +425,13 @@ void operazioni_figlio(char * filePath){
 
             printf("Tenta invio messaggio [ %s, %d, %s] su msgQueue\n",supporto.msg_body,supporto.sender_pid,supporto.file_path);
 
-            if(semWait_NOWAIT(semid,9) == 0){
+            if(semWait_NOWAIT(semid,5) == 0){
                 if (msgsnd(msqid, &supporto, sizeof(struct message_t)-sizeof(long), IPC_NOWAIT) != -1) {
                     // la scrittura ha avuto successo
                     sent[2] = true;
                 }
                 else{
-                    semSignal(semid, 9);
+                    semSignal(semid, 5);
                     perror("msgsnd failed");
                 }
             }
@@ -439,7 +447,7 @@ void operazioni_figlio(char * filePath){
             strcpy(supporto.msg_body,msg_buffer[3]);
 
             printf("Tento di entrare nella memoria condivisa (figlio %d)\n", getpid());
-            if (semWait_NOWAIT(semid, 6) == 0){
+            if (semWait_NOWAIT(semid, 2) == 0){
                 printf("Sono dentro la memoria condivisa (figlio %d)\n", getpid());
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++) {
                     if (shm_flag[i] == 0) {
@@ -450,7 +458,7 @@ void operazioni_figlio(char * filePath){
                         break;
                     }
                 }
-                semSignal(semid, 6);
+                semSignal(semid, 2);
                 printf("Sono fuori dalla memoria condivisa (figlio %d)\n", getpid());
             }
         }

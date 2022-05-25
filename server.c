@@ -39,6 +39,8 @@ int fifo2_fd = -1;
 int msqid = -1;
 /// identifier del set di semafori
 int semid = -1;
+/// id semaphore per i file fifo blocanti/!blocanti
+int semidFifo = -1;
 /// identifier della memoria condivisa contenente i messaggi
 int shmid = -1;
 /// puntatore alla memoria condivisa contenente i messaggi
@@ -53,7 +55,8 @@ message_t **matriceFile = NULL;
 
 void SIGINTSignalHandler(int sig)
 {
-
+    printf("=========>  Oh no you killed me  <===========\n\tClosing everything.\n");
+    fflush(stdout);
     // chiudi FIFO1
     if (fifo1_fd != -1)
     {
@@ -105,6 +108,9 @@ void SIGINTSignalHandler(int sig)
     // chiudi semafori
     if (semid != -1)
         semDelete(semid);
+
+    if (semidFifo != -1)
+        semDelete(semidFifo);
 
     exit(0);
 }
@@ -303,7 +309,7 @@ int main(int argc, char *argv[])
     print_msg("Memoria condivisa flag: allocata e connessa\n");
 
     semid = semGetCreate(get_ipc_key(), 10);
-    short unsigned int semValues[10] = {1, 0, 0, 0, 0, 0, 1, 50, 50, 50};
+    short unsigned int semValues[6] = {1, 0, 1, 50, 50, 50};
     semSetAll(semid, semValues);
     print_msg("Semafori: creati e inizializzati\n");
 
@@ -315,6 +321,11 @@ int main(int argc, char *argv[])
 
     msqid = msgget(get_ipc_key(), IPC_CREAT | S_IRUSR | S_IWUSR); // collegamento alla coda di messaggi
     print_msg("Mi sono collegato alla coda dei messaggi\n");
+
+    semidFifo = semGetCreate(get_ipc_key2(),4);
+    short unsigned int semFifoValues[4] = {0, 0, 0, 0};
+    semSetAll(semidFifo, semFifoValues);
+    print_msg("Semafori per le fifo: creati e inizializzati\n");
 
     // limito la coda
     struct msqid_ds ds = msqGetStats(msqid);
@@ -353,10 +364,10 @@ int main(int argc, char *argv[])
         // inizializzazione semaforo dei figli
         for (int i = 0; i < 2; i++)
         {
-            semSignal(semid, 1);
-            semSignal(semid, 2);
-            semSignal(semid, 3);
-            semSignal(semid, 4);
+            semSignal(semidFifo, 0);
+            semSignal(semidFifo, 1);
+            semSignal(semidFifo, 2);
+            semSignal(semidFifo, 3);
         }
 
         /*
@@ -365,26 +376,24 @@ int main(int argc, char *argv[])
         proprio file in 4 parti prima di mandarle sulle IPC o FIFO
         */
         for (int i = 0; i < filenr; i++)
-            semSignal(semid, 5);
+            semSignal(semid, 1);
 
         // scrive un messaggio di conferma su ShdMem
         message_t received_msg = {.msg_body = "OK", .mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
-
+        //sto entrando nella shared memory 
         semWait(semid, 0);
-        // zona mutex
         shm_message[0] = received_msg;
-        // fine zona mutex
         semSignal(semid, 0);
         print_msg("Ho mandato al client il messaggio di conferma.\n");
 
         // rendi fifo non bloccanti
         print_msg("Rendi fifo non bloccanti\n");
-        semWait(semid, 1);
-        semWaitZero(semid, 1);
+        semWait(semidFifo, 0);
+        semWaitZero(semidFifo, 0);
         blockFD(fifo1_fd, 0);
         blockFD(fifo2_fd, 0);
-        semWait(semid, 2);
-        semWaitZero(semid, 2);
+        semWait(semidFifo, 1);
+        semWaitZero(semidFifo, 1);
         print_msg("Rese fifo non bloccanti\n");
 
         // si mette in ricezione ciclicamente su ciascuno dei quattro canali.
@@ -405,7 +414,7 @@ int main(int argc, char *argv[])
             if (read(fifo1_fd, &fifo1_message, sizeof(fifo1_message)) != -1)
             {
                 printf("[Parte1, del file %s spedita dal processo %d tramite FIFO1]\n%s\n", fifo1_message.file_path, fifo1_message.sender_pid, fifo1_message.msg_body);
-                semSignal(semid, 7);
+                semSignal(semid, 3);
                 aggiungiAMatrice(fifo1_message, filenr);
                 findAndMakeFullFiles(filenr);
                 arrivedParts++;
@@ -415,7 +424,7 @@ int main(int argc, char *argv[])
             if (read(fifo2_fd, &fifo2_message, sizeof(fifo2_message)) != -1)
             {
                 printf("[Parte2,del file %s spedita dal processo %d tramite FIFO2]\n%s\n", fifo2_message.file_path, fifo2_message.sender_pid, fifo2_message.msg_body);
-                semSignal(semid, 8);
+                semSignal(semid, 4);
                 aggiungiAMatrice(fifo2_message, filenr);
                 findAndMakeFullFiles(filenr);
                 arrivedParts++;
@@ -425,39 +434,32 @@ int main(int argc, char *argv[])
             if (msgrcv(msqid, &message_queue_part, sizeof(struct message_t) - sizeof(long), MSGQUEUE_PART, IPC_NOWAIT) != -1)
             {
                 printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", message_queue_part.file_path, message_queue_part.sender_pid, message_queue_part.msg_body);
-                semSignal(semid, 9);
+                semSignal(semid, 5);
                 aggiungiAMatrice(message_queue_part, filenr);
                 findAndMakeFullFiles(filenr);
                 arrivedParts++;
             }
 
             // leggi dalla memoria condivisa
-            print_msg("Tenta di entrare nella memoria condivisa\n");
-            if (semWait_NOWAIT(semid, 6) == 0)
+            //print_msg("Tenta di entrare nella memoria condivisa\n");
+            if (semWait_NOWAIT(semid, 2) == 0)
             {
-                print_msg("Sono entrato nella memoria condivisa\n");
+                //print_msg("Sono entrato nella memoria condivisa\n");
                 for (int i = 0; i < MAX_MSG_PER_CHANNEL; i++)
                 {
                     if (shm_flag[i] == 1)
                     {
-                        printf("Trovata posizione da leggere %d, messaggio: '%s'\n", i, shm_message[i].msg_body);
+                        printf("\nSHAREDMEMORY cycle %d,\n\nTrovata posizione da leggere %d, messaggio: '%s'\n\n\n",i, i, shm_message[i].msg_body);
                         shm_flag[i] = 0;
                         aggiungiAMatrice(shm_message[i], filenr);
                         findAndMakeFullFiles(filenr);
                         arrivedParts++;
                     }
                 }
-                print_msg("Tenta di uscire nella memoria condivisa\n");
-                semSignal(semid, 6);
-                print_msg("Sono uscito dalla memoria condivisa\n");
+                //print_msg("Tenta di uscire nella memoria condivisa\n");
+                semSignal(semid, 2);
+                //print_msg("Sono uscito dalla memoria condivisa\n");
             }
-                /*
-            if (n_tries % 5000 == 0)
-            {
-                printf("Ancora un altro tentativo... Counter = %d\n", arrivedParts);
-            }
-            n_tries++;
-            */
         }
 
         // quando ha ricevuto e salvato tutti i file invia un messaggio di terminazione sulla coda di
@@ -469,12 +471,12 @@ int main(int argc, char *argv[])
 
         // rendi fifo bloccanti
         print_msg("Rendi fifo bloccanti\n");
-        semWait(semid, 3);
-        semWaitZero(semid, 3);
-        //blockFD(fifo1_fd, 1);
-        //blockFD(fifo2_fd, 1);
-        semWait(semid, 4);
-        semWaitZero(semid, 4);
+        semWait(semidFifo, 2);
+        semWaitZero(semidFifo, 2);
+        blockFD(fifo1_fd, 1);
+        blockFD(fifo2_fd, 1);
+        semWait(semidFifo, 3);
+        semWaitZero(semidFifo, 3);
         print_msg("Rese fifo bloccanti\n");
 
         // libera memoria della matrice buffer
