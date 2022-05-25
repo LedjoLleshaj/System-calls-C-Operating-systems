@@ -27,8 +27,8 @@ void msqSetStats(int msqid, struct msqid_ds ds){
         if(errno != EPERM) {
             errExit("msgctl SET");
         }
-        else {
-            print_msg("Couldn't set new config: not enough permissions. Continuing anyway\n");
-        }
+        //else {
+        //   print_msg("Couldn't set new config: not enough permissions. Continuing anyway\n");
+        //}
     }
 }
