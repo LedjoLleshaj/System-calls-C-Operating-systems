@@ -332,10 +332,10 @@ int main(int argc, char *argv[])
 
         printf("Il client mi ha inviato un messaggio che dice che ci sono '%s' file da ricevere\n", n_msg.msg_body);
         //numero di file
-        int n = string_to_int(n_msg.msg_body);
+        int filenr = string_to_int(n_msg.msg_body);
         // inizializzo la matrice contenente i pezzi di file
-        matriceFile = (message_t **)malloc(n * sizeof(message_t *));
-        for (int i = 0; i < n; i++)
+        matriceFile = (message_t **)malloc(filenr * sizeof(message_t *));
+        for (int i = 0; i < filenr; i++)
             matriceFile[i] = (message_t *)malloc(4 * sizeof(message_t));
 
         message_t empty;
@@ -344,11 +344,11 @@ int main(int argc, char *argv[])
         for (int i = 0; i < BUFFER_SZ + 1; i++)
             empty.file_path[i] = '\0';
         // riempio la matrice con una struttura che mi dice se le celle sono vuote
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < filenr; i++)
             for (int j = 0; j < 4; j++)
                 matriceFile[i][j] = empty;
 
-        printf("Tradotto in numero e' %d (teoricamente lo stesso valore su terminale)\n", n);
+        printf("Tradotto in numero e' %d (teoricamente lo stesso valore su terminale)\n", filenr);
 
         // inizializzazione semaforo dei figli
         for (int i = 0; i < 2; i++)
@@ -364,7 +364,7 @@ int main(int argc, char *argv[])
         Aspetta che tutti i processi figlio di client_0 abbiano suddiviso il
         proprio file in 4 parti prima di mandarle sulle IPC o FIFO
         */
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < filenr; i++)
             semSignal(semid, 5);
 
         // scrive un messaggio di conferma su ShdMem
@@ -394,7 +394,7 @@ int main(int argc, char *argv[])
         // > Il file verrà chiamato con lo stesso nome e percorso del file originale ma con l'aggiunta del postfisso "_out"
         int arrivedParts = 0;
         //int n_tries = 0;
-        while (arrivedParts < n * 4)
+        while (arrivedParts < filenr * 4)
         {
 
             // memorizza il PID del processo mittente, il nome del file con percorso completo ed il pezzo
@@ -406,8 +406,8 @@ int main(int argc, char *argv[])
             {
                 printf("[Parte1, del file %s spedita dal processo %d tramite FIFO1]\n%s\n", fifo1_message.file_path, fifo1_message.sender_pid, fifo1_message.msg_body);
                 semSignal(semid, 7);
-                aggiungiAMatrice(fifo1_message, n);
-                findAndMakeFullFiles(n);
+                aggiungiAMatrice(fifo1_message, filenr);
+                findAndMakeFullFiles(filenr);
                 arrivedParts++;
             }
 
@@ -416,8 +416,8 @@ int main(int argc, char *argv[])
             {
                 printf("[Parte2,del file %s spedita dal processo %d tramite FIFO2]\n%s\n", fifo2_message.file_path, fifo2_message.sender_pid, fifo2_message.msg_body);
                 semSignal(semid, 8);
-                aggiungiAMatrice(fifo2_message, n);
-                findAndMakeFullFiles(n);
+                aggiungiAMatrice(fifo2_message, filenr);
+                findAndMakeFullFiles(filenr);
                 arrivedParts++;
             }
 
@@ -426,8 +426,8 @@ int main(int argc, char *argv[])
             {
                 printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", message_queue_part.file_path, message_queue_part.sender_pid, message_queue_part.msg_body);
                 semSignal(semid, 9);
-                aggiungiAMatrice(message_queue_part, n);
-                findAndMakeFullFiles(n);
+                aggiungiAMatrice(message_queue_part, filenr);
+                findAndMakeFullFiles(filenr);
                 arrivedParts++;
             }
 
@@ -442,8 +442,8 @@ int main(int argc, char *argv[])
                     {
                         printf("Trovata posizione da leggere %d, messaggio: '%s'\n", i, shm_message[i].msg_body);
                         shm_flag[i] = 0;
-                        aggiungiAMatrice(shm_message[i], n);
-                        findAndMakeFullFiles(n);
+                        aggiungiAMatrice(shm_message[i], filenr);
+                        findAndMakeFullFiles(filenr);
                         arrivedParts++;
                     }
                 }
@@ -471,14 +471,14 @@ int main(int argc, char *argv[])
         print_msg("Rendi fifo bloccanti\n");
         semWait(semid, 3);
         semWaitZero(semid, 3);
-        blockFD(fifo1_fd, 1);
-        blockFD(fifo2_fd, 1);
+        //blockFD(fifo1_fd, 1);
+        //blockFD(fifo2_fd, 1);
         semWait(semid, 4);
         semWaitZero(semid, 4);
         print_msg("Rese fifo bloccanti\n");
 
         // libera memoria della matrice buffer
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < filenr; i++)
         {
             free(matriceFile[i]);
         }

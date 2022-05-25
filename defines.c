@@ -44,15 +44,17 @@ bool arrayContainsAllTrue(bool arr[], int len){
 
 int blockFD(int fd, int blocking) {
     /* Save the current flags */
+    //https://www.gnu.org/software/libc/manual/html_node/Getting-File-Status-Flags.html
     int flags = fcntl(fd, F_GETFL, 0);
+    /* If reading the flags failed, return error indication now. */
     if (flags == -1)
         return 0;
-
+/* Set just the flag we want to set. */
     if (blocking)
         flags &= ~O_NONBLOCK;
     else
         flags |= O_NONBLOCK;
-
+/* Store modified flag word in the descriptor. */
     return fcntl(fd, F_SETFL, flags) != -1;
 }
 
