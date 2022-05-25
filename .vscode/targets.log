@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue May 24 08:06:28 2022
+# Make data base, printed on Wed May 25 08:23:01 2022
 
 # Variables
 
@@ -89,7 +89,7 @@ VSCODE_CWD = /home/lleshaj/System-calls-C-Sistemi-operativi
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/5454_1653402837062/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
+PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/39154_1653492165145/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
 # makefile (from 'Makefile', line 8)
 SERVER_SRCS = message_queue.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c server.c
 # environment
@@ -147,7 +147,7 @@ VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /home/lleshaj/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
-FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/5454_1653402837062
+FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/39154_1653492165145
 # environment
 LOGNAME = lleshaj
 # environment
@@ -179,7 +179,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-9131d03e-87c0-4f46-859c-a31e70268727.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-246aba81-098a-4a72-8fcc-6d683d7f7c08.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -245,11 +245,11 @@ LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ea62afeb_a1ff_426b_a18a_426a5bd28e7f
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/121c6f00_386d_4486_a055_1b047e43966e
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.87
+GNOME_TERMINAL_SERVICE = :1.1316
 # environment
 FNM_ARCH = x64
 # default
@@ -271,7 +271,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 5861
+VSCODE_PID = 39354
 # variable set hash-table stats:
 # Load=131/1024=13%, Rehash=0, Collisions=21/169=12%
 
@@ -472,6 +472,6 @@ obj/defines.o:
 # strcache performance: lookups = 75 / hit rate = 29%
 # hash-table stats:
 # Load=53/8192=1%, Rehash=0, Collisions=1/75=1%
-# Finished Make data base on Tue May 24 08:06:28 2022
+# Finished Make data base on Wed May 25 08:23:01 2022
 
  

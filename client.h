@@ -78,10 +78,10 @@ char * int_to_string(int value);
 /**
  * Restituisce vero se due stringhe sono uguali
  *
- * @param a Stringa da confrontare
- * @param b Stringa da confrontare
- * @return true a e b sono uguali
- * @return false a e b sono diverse
+ * @param string1 Stringa da confrontare
+ * @param string2 Stringa da confrontare
+ * @return true string1 e string2 sono uguali
+ * @return false string1 e string2 sono diverse
  *
 */
-bool strEquals(char *a, char *b);
+bool strEquals(char *string1, char *string2);

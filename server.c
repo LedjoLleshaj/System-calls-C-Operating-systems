@@ -115,10 +115,11 @@ int string_to_int(char *string)
     return atoi(string);
 }
 
-void aggiungiAMatrice(message_t a, int righe)
+void aggiungiAMatrice(message_t a, int filenr)
 {
     bool added = false;
-    for (int i = 0; i < righe && added == false; i++)
+    //controlls if file is already there
+    for (int i = 0; i < filenr && added == false; i++)
         for (int j = 0; j < 4 && added == false; j++)
         {
             if (strcmp(matriceFile[i][j].file_path, a.file_path) == 0)
@@ -127,10 +128,10 @@ void aggiungiAMatrice(message_t a, int righe)
                 added = true;
             }
         }
-
-    for (int i = 0; i < righe && added == false; i++)
+    //add the file on the first empty row
+    for (int i = 0; i < filenr && added == false; i++)
     {
-        // cerco la prima riga vuota
+        // find the first empty row
         if (matriceFile[i][0].mtype == EMPTY_MTYPE && matriceFile[i][1].mtype == EMPTY_MTYPE && matriceFile[i][2].mtype == EMPTY_MTYPE && matriceFile[i][3].mtype == EMPTY_MTYPE)
         {
             matriceFile[i][a.mtype - 2] = a;
@@ -330,21 +331,22 @@ int main(int argc, char *argv[])
         }
 
         printf("Il client mi ha inviato un messaggio che dice che ci sono '%s' file da ricevere\n", n_msg.msg_body);
+        //numero di file
         int n = string_to_int(n_msg.msg_body);
         // inizializzo la matrice contenente i pezzi di file
         matriceFile = (message_t **)malloc(n * sizeof(message_t *));
         for (int i = 0; i < n; i++)
             matriceFile[i] = (message_t *)malloc(4 * sizeof(message_t));
 
-        message_t vuoto;
-        vuoto.mtype = EMPTY_MTYPE;
+        message_t empty;
+        empty.mtype = EMPTY_MTYPE;
         // inizializzo i valori del percorso per evitare di fare confronti con null
         for (int i = 0; i < BUFFER_SZ + 1; i++)
-            vuoto.file_path[i] = '\0';
+            empty.file_path[i] = '\0';
         // riempio la matrice con una struttura che mi dice se le celle sono vuote
         for (int i = 0; i < n; i++)
             for (int j = 0; j < 4; j++)
-                matriceFile[i][j] = vuoto;
+                matriceFile[i][j] = empty;
 
         printf("Tradotto in numero e' %d (teoricamente lo stesso valore su terminale)\n", n);
 
@@ -390,43 +392,43 @@ int main(int argc, char *argv[])
         // salva le 4 parti in un file di testo in cui ognuna delle quattro parti e’ separata dalla successiva da una riga
         // bianca (carattere newline) ed ha l’intestazione
         // > Il file verrà chiamato con lo stesso nome e percorso del file originale ma con l'aggiunta del postfisso "_out"
-        int arrived_parts_counter = 0;
-        int n_tries = 0;
-        while (arrived_parts_counter < n * 4)
+        int arrivedParts = 0;
+        //int n_tries = 0;
+        while (arrivedParts < n * 4)
         {
 
             // memorizza il PID del processo mittente, il nome del file con percorso completo ed il pezzo
             // di file trasmesso
-            message_t supporto1, supporto2, supporto3;
+            message_t fifo1_message, fifo2_message, message_queue_part;
 
             // leggo da fifo1 la prima parte del file
-            if (read(fifo1_fd, &supporto1, sizeof(supporto1)) != -1)
+            if (read(fifo1_fd, &fifo1_message, sizeof(fifo1_message)) != -1)
             {
-                printf("[Parte1, del file %s spedita dal processo %d tramite FIFO1]\n%s\n", supporto1.file_path, supporto1.sender_pid, supporto1.msg_body);
+                printf("[Parte1, del file %s spedita dal processo %d tramite FIFO1]\n%s\n", fifo1_message.file_path, fifo1_message.sender_pid, fifo1_message.msg_body);
                 semSignal(semid, 7);
-                aggiungiAMatrice(supporto1, n);
+                aggiungiAMatrice(fifo1_message, n);
                 findAndMakeFullFiles(n);
-                arrived_parts_counter++;
+                arrivedParts++;
             }
 
             // leggo da fifo2 la seconda parte del file
-            if (read(fifo2_fd, &supporto2, sizeof(supporto2)) != -1)
+            if (read(fifo2_fd, &fifo2_message, sizeof(fifo2_message)) != -1)
             {
-                printf("[Parte2,del file %s spedita dal processo %d tramite FIFO2]\n%s\n", supporto2.file_path, supporto2.sender_pid, supporto2.msg_body);
+                printf("[Parte2,del file %s spedita dal processo %d tramite FIFO2]\n%s\n", fifo2_message.file_path, fifo2_message.sender_pid, fifo2_message.msg_body);
                 semSignal(semid, 8);
-                aggiungiAMatrice(supporto2, n);
+                aggiungiAMatrice(fifo2_message, n);
                 findAndMakeFullFiles(n);
-                arrived_parts_counter++;
+                arrivedParts++;
             }
 
             // leggo dalla coda di messaggi la terza parte del file
-            if (msgrcv(msqid, &supporto3, sizeof(struct message_t) - sizeof(long), MSGQUEUE_PART, IPC_NOWAIT) != -1)
+            if (msgrcv(msqid, &message_queue_part, sizeof(struct message_t) - sizeof(long), MSGQUEUE_PART, IPC_NOWAIT) != -1)
             {
-                printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", supporto3.file_path, supporto3.sender_pid, supporto3.msg_body);
+                printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", message_queue_part.file_path, message_queue_part.sender_pid, message_queue_part.msg_body);
                 semSignal(semid, 9);
-                aggiungiAMatrice(supporto3, n);
+                aggiungiAMatrice(message_queue_part, n);
                 findAndMakeFullFiles(n);
-                arrived_parts_counter++;
+                arrivedParts++;
             }
 
             // leggi dalla memoria condivisa
@@ -442,19 +444,20 @@ int main(int argc, char *argv[])
                         shm_flag[i] = 0;
                         aggiungiAMatrice(shm_message[i], n);
                         findAndMakeFullFiles(n);
-                        arrived_parts_counter++;
+                        arrivedParts++;
                     }
                 }
                 print_msg("Tenta di uscire nella memoria condivisa\n");
                 semSignal(semid, 6);
                 print_msg("Sono uscito dalla memoria condivisa\n");
             }
-
+                /*
             if (n_tries % 5000 == 0)
             {
-                printf("Ancora un altro tentativo... Counter = %d\n", arrived_parts_counter);
+                printf("Ancora un altro tentativo... Counter = %d\n", arrivedParts);
             }
             n_tries++;
+            */
         }
 
         // quando ha ricevuto e salvato tutti i file invia un messaggio di terminazione sulla coda di
@@ -483,7 +486,7 @@ int main(int argc, char *argv[])
 
         // si rimette in attesa su FIFO 1 di un nuovo valore n tornando all'inizio del ciclo
         print_msg("\n");
-        print_msg("==========================================================\n");
+        print_msg("============FINISHED ELABORATING THE FILES================================\n");
         print_msg("\n");
     }
 
