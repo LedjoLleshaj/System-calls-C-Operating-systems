@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon May 30 13:59:05 2022
+# Make data base, printed on Tue May 31 02:09:44 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 9:65261
+JOURNAL_STREAM = 9:65192
 # makefile (from 'Makefile', line 1)
 CFLAGS = -Wall -std=gnu99
 # environment
@@ -75,7 +75,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-MANAGERPID = 962
+MANAGERPID = 879
 # environment
 FNM_NODE_DIST_MIRROR = https://nodejs.org/dist
 # makefile (from 'Makefile', line 9)
@@ -89,13 +89,13 @@ VSCODE_CWD = /home/lleshaj/System-calls-C-Sistemi-operativi
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/5229_1653944321649/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
+PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/3839_1653988159605/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
 # makefile (from 'Makefile', line 8)
 SERVER_SRCS = message_queue.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c server.c
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1497,unix/ubuntu:/tmp/.ICE-unix/1497
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1343,unix/ubuntu:/tmp/.ICE-unix/1343
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -109,7 +109,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = d4f480303dd14e94b2f0f9268d532002
+INVOCATION_ID = 71e2d1dcd5f344d682168caafd15b598
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -129,7 +129,7 @@ PWD = /home/lleshaj/System-calls-C-Sistemi-operativi
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1266
+SSH_AGENT_PID = 1228
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -147,7 +147,7 @@ VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /home/lleshaj/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
-FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/5229_1653944321649
+FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/3839_1653988159605
 # environment
 LOGNAME = lleshaj
 # environment
@@ -179,7 +179,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-84928313-4982-4aaa-bc07-a3edba636ecd.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-857d0bef-7e75-47bf-b2f6-fa66757165e9.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -245,11 +245,11 @@ LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/a5f754e6_f966_485b_a312_daf4b2dad8ad
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/2d3ffa03_cc8f_4706_8544_28dcfeb88dd9
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.96
+GNOME_TERMINAL_SERVICE = :1.95
 # environment
 FNM_ARCH = x64
 # default
@@ -271,13 +271,13 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 6633
+VSCODE_PID = 4050
 # variable set hash-table stats:
 # Load=131/1024=13%, Rehash=0, Collisions=21/169=12%
 
- 
 # Pattern-specific Variable Values
 
+ 
 # No pattern-specific variable values.
 
 # Directories
@@ -466,6 +466,6 @@ obj/defines.o:
 # strcache performance: lookups = 72 / hit rate = 30%
 # hash-table stats:
 # Load=50/8192=1%, Rehash=0, Collisions=1/72=1%
-# Finished Make data base on Mon May 30 13:59:05 2022
+# Finished Make data base on Tue May 31 02:09:44 2022
 
  

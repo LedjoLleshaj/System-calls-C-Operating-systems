@@ -360,20 +360,15 @@ int main(int argc, char *argv[])
                 matriceFile[i][j] = empty;
 
         // prepare semaphore set for the communication
-        for (int i = 0; i < 2; i++)
-        {
-            semSignal(semidFifo, 0);
-            semSignal(semidFifo, 1);
-            semSignal(semidFifo, 2);
-            semSignal(semidFifo, 3);
-        }
+        short unsigned int setValFifoSem[4] = {2, 2, 2, 2};
+        semSetAll(semidFifo, setValFifoSem);
 
         /*
-            set it equal to the number of files/processes
-            and wait for the other processes to finish their work
+             set it equal to the number of files/processes
+             and wait for the other processes to finish their work
         */
-        for (int i = 0; i < filenr; i++)
-            semSignal(semid, 1);
+        semSetVal(semid, 1, filenr);
+
 
         // write a confirmation message to the client
         message_t received_msg = {.msg_body = "OK", .mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
