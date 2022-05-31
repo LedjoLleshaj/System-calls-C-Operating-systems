@@ -2,6 +2,7 @@
 /// @brief Contains FILE structs and functions.
 #pragma once
 
+#include <stdbool.h>
 /**
  * Node of a linked list of filePath.
  */
