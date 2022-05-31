@@ -1,55 +1,54 @@
 /// @file server.h
-/// @brief Contiene la definizioni di variabili
-///         e funzioni specifiche del SERVER.
-
+/// @brief Server functions and neccecary data structures from defines.h
 #pragma once
 
 #include "defines.h"
 
 /**
- * @brief Chiude tutte le IPC e termina
+ * @brief CLose all the IPCs and exit the program
  *
- * @param sig Intero che rappresenta il segnale catturato dalla funzione
+ * @param sig - signal number
  */
 void SIGINTSignalHandler(int sig);
 
 /**
- * Converte stringa in intero.
+ * @brief Convert a string to int
  *
- * @param string Stringa da convertire in intero
- * @return int Valore intero ottenuto convertendo la stringa in input
-*/
-int string_to_int(char * string);
+ * @param string - string to convert
+ * @return int - converted string
+ */
+int string_to_int(char *string);
 
 /**
- * Aggiunge un messaggio alla matrice buffer.
- * Il buffer verra' usato per recuperare i pezzi di file
- * quando verra' ricostruito il file di output.
+ * @brief Adds a message to the buffer array.
+ * The buffer will be used to retrieve the pieces of files
+ * when the output file is rebuilt.
  *
- * @param a Messaggio da inserire nel buffer
- * @param righe Numero di righe nella matrice
-*/
-void aggiungiAMatrice(message_t a,int righe);
+ * @param a message to insert in array
+ * @param righe - number of rows in the array
+ */
+void addToMatrix(message_t a, int righe);
 
 /**
- * Trova nella matrice buffer 4 pezzi di un file
- * e poi li usa per creare e scrivere un file di output.
+ * @brief Find 4 pieces of a file in the buffer matrix
+ * and then uses them to create and write an output file.
  *
- * @param righe Numero di righe nella matrice
-*/
+ * @param righe - number of rows in the array
+ *
+ */
 void findAndMakeFullFiles(int righe);
 
 /**
- * Costruisce la stringa da scrivere nel file di output.
+ * @brief Constructs the string to be written to the output file.
  *
- * @param a Messaggio contenente il pezzo di file arrivato dal client
- * @return char* Stringa pronta per essere scritta su file
-*/
-char * costruisciStringa(message_t a);
+ * @param a Message that came from server and that has to be written
+ * @return char* - string to be written to the output file
+ *
+ */
+char *prepareString(message_t a);
 
 /**
- * Esegue operazioni principali del server.
- *
- * terminazione effettuata con SIGINT: Al termine chiudi tutte le IPC.
-*/
-int main(int argc, char * argv[]);
+ * @brief Execute operations
+ *  termination performed with SIGINT: At the end close all IPCs.
+ */
+int main(int argc, char *argv[]);

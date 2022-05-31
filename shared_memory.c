@@ -1,6 +1,5 @@
 // @file shared_memory.c
-/// @brief Contiene l'implementazione delle funzioni
-///         specifiche per la gestione della MEMORIA CONDIVISA.
+/// @brief Shared memory functions
 
 #include <stdlib.h>
 #include <sys/shm.h>

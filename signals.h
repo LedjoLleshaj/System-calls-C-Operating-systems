@@ -1,22 +1,21 @@
 /// @file signals.h
-/// @brief Contiene la definizioni di variabili e funzioni
-///         specifiche per la gestione dei SEGNALI.
+/// @brief Signal handling functions
+///
 
 #pragma once
 
 /**
- * Blocca tutti i segnali meno SIGINT e SIGUSR1:
- * - creando un set di tutti i segnali
- * - togliendo SIGINT e SIGUSR1 dal set
- * - impostando la maschera per bloccare i segnali del set
+ * Block all signals except SIGINT and SIGUSR1:
+ * - creating a set of all signals
+ * - removing SIGINT and SIGUSR1 from the set
+ * - setting the mask to block the signals of the set
  *
-*/
+ */
 void allowOnlySIGINT_SIGUSR1();
 
-
 /**
- * Blocca tutti i segnali:
- * - creando un set di tutti i segnali
- * - impostando la maschera per bloccare i segnali del set
-*/
+ * Block all signals:
+ * - creating a set of all signals
+ * - setting the mask to block the signals of the set
+ */
 void blockAllSignals();

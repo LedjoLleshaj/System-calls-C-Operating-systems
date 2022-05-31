@@ -1,131 +1,126 @@
 /// @file semaphore.h
-/// @brief Contiene la definizioni di variabili e funzioni
-///         specifiche per la gestione dei SEMAFORI.
-
+/// @brief Semaphore functions
 #pragma once
 
 /**
- * Union usata dalla system call semctl().
-*/
-union semun {
-    /// usato se si lavora su un singolo semaforo.
-    /// Usato dalla operazione SETVAL
+ * Union used from the system call semctl().
+ */
+union semun
+{
+    /// Used if working on a single semaphore.
+    /// Used by the SETVAL operation
     int val;
 
-    /// usato per lavorare sullo stato globale del semaforo.
-    /// Usato dalle operazioni IPC_STAT e IPC_SET
-    struct semid_ds * buf;
+    /// Used to work on the global state of the semaphore.
+    /// Used by the IPC_STAT and IPC_SET operations
+    struct semid_ds *buf;
 
-    /// per eseguire operazioni su tutti i semafori.
-    /// Usato dalle operazioni GETALL e SETALL
-    unsigned short * array;
+    /// to perform operations on all semaphores.
+    /// Used by the GETALL and SETALL operations
+    unsigned short *array;
 };
 
-
 /**
- * @brief Ottiene un insieme di semafori gia' creato
+ * @brief Obtains the id of a created semaphore.
  *
- * @param key Chiave IPC
- * @param n_sem Numero semafori da ottenere/creare
-*/
+ * @param key IPC key
+ * @param n_sem number of semaphores
+ */
 int semGetID(key_t key, int n_sem);
 
 /**
- * @brief Crea un insieme di semafori
+ * @brief Create a set of semaphores.
  *
- * @param key Chiave IPC
- * @param n_sem Numero semafori da ottenere/creare
-*/
+ * @param key IPC key
+ * @param n_sem Numero di semafori
+ */
 int semGetCreate(key_t key, int n_sem);
 
-
 /**
- * @brief Funzione di supporto per manipolare i valori di un set di semafori.
+ * @brief Wrapper function for manipulating the values of a set of semaphores.
  *
- * @param semid Identificatore del set di semafori
- * @param sem_num Indice di un semaforo nel set
- * @param sem_op Operazione eseguita sul semaforo sem_num
-*/
+ * @param semid  ID of the set of semaphores
+ * @param sem_num  Index of the semaphore to be manipulated
+ * @param sem_op Operation to be performed on the semaphore
+ */
 void semOp(int semid, unsigned short sem_num, short sem_op);
 
 /**
- * Funzione di supporto per manipolare i valori di un set di semafori in modo non bloccante.
- * Restituisce -1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti.
+ * Wrapper function for manipulating the values of a set of semaphores in a non-blocking way.
+ * Returns -1 if the semaphore attempted to block the process, 0 otherwise.
  *
- * @param semid Identificatore del set di semafori
- * @param sem_num Indice di un semaforo nel set
- * @param sem_op Operazione eseguita sul semaforo sem_num
- * @return -1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti
-*/
+ * @param semid ID of the set of semaphores
+ * @param sem_num Index of the semaphore to be manipulated
+ * @param sem_op Operation to be performed on the semaphore
+ *
+ * @return -1 if the semaphore attempted to block the process, 0 otherwise.
+ */
 int semOp_NOWAIT(int semid, unsigned short sem_num, short sem_op);
 
 /**
- * Attende che il semaforo sem_num raggiunga il valore zero.
- * > Prima di usarla per sincronizzare processi richiamare semWait sullo stesso semaforo.
+ * Waits for the sem_num semaphore to reach zero.
+ * Before using it to synchronize processes call semWait on the same semaphore.
  *
- * @param semid Identificatore del set di semafori
- * @param sem_num Indice di un semaforo nel set
-*/
+ * @param semid ID of the set of semaphores
+ * @param sem_num Index of the semaphore to be manipulated
+ *
+ */
 void semWaitZero(int semid, int sem_num);
 
-
 /**
- * @brief Esegue la wait sul semaforo sem_num: decrementa il valore di 1 ed eventualmente mette in attesa il processo.
+ * @brief It executes the wait on semaphore sem_num: it decreases the value by 1 and eventually puts the process on hold.
  *
- * @param semid Identificatore del set di semafori
- * @param sem_num Indice di un semaforo nel set
-*/
+ * @param semid ID of the set of semaphores
+ * @param sem_num Index of the semaphore to be manipulated
+ */
 void semWait(int semid, int sem_num);
 
 /**
- * Esegue la wait non bloccante sul semaforo sem_num: tenta di decrementare il suo valore di 1.
- * Restituisce -1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti.
+ * Performs the non-blocking wait on sem_num semaphore: attempts to decrease its value by 1.
+ * Returns -1 if the semaphore attempted to block the process, 0 otherwise.
  *
- * @param semid Identificatore del set di semafori
- * @param sem_num Indice di un semaforo nel set
- * @return -1 se il semaforo ha tentato di bloccare il processo, 0 altrimenti
-*/
+ * @param semid ID of the set of semaphores
+ * @param sem_num Index of the semaphore to be manipulated
+ * @return -1 if the semaphore attempted to block the process, 0 otherwise.
+ */
 int semWait_NOWAIT(int semid, int sem_num);
 
 /**
- * @brief Esegue la signal sul semaforo sem_num: incrementa il valore di 1.
+ * @brief Executes the signal on the semaphore sem_num: increases the value by 1.
  *
- * @param semid Identificatore del set di semafori
- * @param sem_num Indice di un semaforo nel set
-*/
+ * @param semid ID of the set of semaphores
+ * @param sem_num Index of the semaphore to be manipulated
+ */
 void semSignal(int semid, int sem_num);
 
 /**
- * @brief Inizializza il valore del semaforo sem_num al valore val.
+ * @brief Initializes the semaphore value sem_num to the value val.
  *
- * @param semid Identificatore del set di semafori
- * @param sem_num Indice di un semaforo nel set
- * @param val Valore a cui impostare il semaforo sem_num
-*/
+ * @param semid ID of the set of semaphores
+ * @param sem_num Index of the semaphore to be manipulated
+ * @param val Value to be set
+ */
 void semSetVal(int semid, int sem_num, int val);
 
-
 /**
- * @brief Inizializza i valori del set di semafori semid ai valori in values.
+ * @brief Initializes the values of the semid semaphore set to the values in values.
  *
- * @param semid Identificatore del set di semafori
- * @param values Array di valori a cui impostare ogni semaforo del set
-*/
+ * @param semid ID of the set of semaphores
+ * @param values Array in which semaphore values are stored
+ */
 void semSetAll(int semid, short unsigned int values[]);
 
-
 /**
- * @brief Cancella il set di semafori svegliando eventuali processi in attesa.
+ * @brief Clears the set of semaphores by waking any waiting processes.
  *
- * @param semid Identificatore del set di semafori
+ * @param semid ID of the set of semaphores
  */
 void semDelete(int semid);
 
-
 /**
- * @brief Imposta i permessi su un set di semafori.
+ * @brief Set permissions on the semaphore set.
  *
- * @param semid Identificatore del set di semafori
- * @param arg Contiene i permessi da impostare
-*/
+ * @param semid ID of the set of semaphores
+ * @param arg Permissions to be set
+ */
 void semSetPerm(int semid, struct semid_ds arg);

@@ -23,7 +23,7 @@ int create_fifo(char * path, char mode) {
     int fifo1_fd = -1;
 
     make_fifo(path);
-    print_msg("Ho creato/ottenuto la FIFO\n");
+    //print_msg("Created/Obtained the FIFO\n");
 
     if (mode == 'r') {
         fifo1_fd = open(path, O_RDONLY);

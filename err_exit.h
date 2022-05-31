@@ -1,5 +1,5 @@
 /// @file err_exit.h
-/// @brief Contiene la definizione della funzione di stampa degli errori.
+/// @brief Contains functions to exit the program with an error message.
 
 #pragma once
 

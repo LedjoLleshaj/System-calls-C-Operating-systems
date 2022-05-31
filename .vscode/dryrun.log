@@ -1,7 +1,19 @@
-make --dry-run --keep-going --print-directory
+make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/lleshaj/System-calls-C-Sistemi-operativi'
- 
-make: Nothing to be done for 'all'.
- 
+mkdir -p obj
+cc -Wall -std=gnu99  -o obj/message_queue.o -c message_queue.c
+cc -Wall -std=gnu99  -o obj/files.o -c files.c
+cc -Wall -std=gnu99  -o obj/signals.o -c signals.c
+cc -Wall -std=gnu99  -o obj/defines.o -c defines.c
+cc -Wall -std=gnu99  -o obj/err_exit.o -c err_exit.c
+cc -Wall -std=gnu99  -o obj/shared_memory.o -c shared_memory.c
+cc -Wall -std=gnu99  -o obj/semaphore.o -c semaphore.c
+cc -Wall -std=gnu99  -o obj/fifo.o -c fifo.c
+cc -Wall -std=gnu99  -o obj/client.o -c client.c
+echo "Making executable: "client_0
+cc obj/message_queue.o obj/files.o obj/signals.o obj/defines.o obj/err_exit.o obj/shared_memory.o obj/semaphore.o obj/fifo.o obj/client.o -o client_0  -lm
+cc -Wall -std=gnu99  -o obj/server.o -c server.c
+echo "Making executable: "server
+cc obj/message_queue.o obj/defines.o obj/err_exit.o obj/shared_memory.o obj/semaphore.o obj/fifo.o obj/server.o -o server  -lm
 make: Leaving directory '/home/lleshaj/System-calls-C-Sistemi-operativi'
  

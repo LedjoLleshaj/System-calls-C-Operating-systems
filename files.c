@@ -13,7 +13,7 @@ void print_list(files_list *head)
 {
     files_list *current = head;
 
-    printf("File nella lista:\n");
+    printf("Files in the list:\n");
     int i = 0;
     while (current != NULL)
     {
@@ -49,7 +49,7 @@ files_list *append(files_list *head, char *path)
     // step 2. copy the current word
     strcpy(next->path, path);
 
-    // printf("Sto aggiungendo %s che diventera': %s\n", path, next->path);
+    // printf("Adding %s that will become': %s\n", path, next->path);
 
     if (head == NULL)
     {
@@ -121,7 +121,7 @@ int checkFileSize(char *filePath)
 
 int checkFileName(char *fileName)
 {
-    // 1 se il nome del file inizia con "sendme_" e !contains "_out", altrimenti 0
+     //if filename contain "_sendme" && !contains _out return true
     
     return StartsWith_EndsWith(fileName, "sendme_" , "_out");
 }
@@ -173,7 +173,7 @@ files_list *find_sendme_files(char *searchPath, files_list *head)
         }
         else if (dentry->d_type == DT_DIR)
         {
-            // exetend current searchPath with the directory name
+            // extend current searchPath with the directory name
             size_t lastPath = append2Path(searchPath, dentry->d_name);
             // call search method
             head = find_sendme_files(searchPath, head);

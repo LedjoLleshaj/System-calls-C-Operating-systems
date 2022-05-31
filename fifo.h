@@ -1,23 +1,22 @@
 /// @file fifo.h
-/// @brief Contiene la definizioni di variabili e
-///         funzioni specifiche per la gestione delle FIFO.
+/// @brief Contains FIFO structs and functions.
 
 #pragma once
 
 
 /**
- * @brief Crea o ottiene una IPC FIFO usando mkfifo.
+ * @brief Create or get a FIFO IPC using mkfifo.
  *
- * @param path Percorso file usato dalla FIFO.
+ * @param path Path to the FIFO
 */
 void make_fifo(char * path);
 
 
 /**
- * @brief Facilita la creazione di una FIFO (o ne ottiene una esistente) in modalita' lettura o scrittura.
+ * @brief Makes it easoer to create a FIFO (or obtains an existing one) in read or write mode.
  *
- * @param path Percorso file usato dalla FIFO.
- * @param mode 'r' (read) oppure 'w' (write)
- * @return int Descrittore della FIFO
+ * @param path Path to the FIFO
+ * @param mode 'r' (read) or 'w' (write)
+ * @return int File descriptor
  */
 int create_fifo(char * path, char mode);

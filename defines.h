@@ -1,6 +1,5 @@
 /// @file defines.h
-/// @brief Contiene la definizioni di variabili
-///         e funzioni specifiche del progetto.
+/// @brief Contains the definitions used in the program.
 
 #pragma once
 
@@ -8,116 +7,114 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 
-/// Buffer usato da getcwd()
+/// Buffer used from getcwd()
 #define BUFFER_SZ 255
 
 extern char CURRENT_DIRECTORY[BUFFER_SZ];
 
-/// Percorso file FIFO 1
+/// FIFO path
 #define FIFO1_PATH "/tmp/fifo1_file.txt"
-/// Percorso file FIFO 2
+/// FIFO path
 #define FIFO2_PATH "/tmp/fifo2_file.txt"
-/// mtype messaggio che contiene numero di file "sendme_"
+/// mtype message that contains the total number of files "sendme_"
 #define FILE_NR_MTYPE 1
-/// mtype messaggio che contiene prima parte del contenuto del file "sendme_"
+/// mtype message that contains first part of the file "sendme_"
 #define FIFO1_PART 2
-/// mtype messaggio che contiene seconda parte del contenuto del file "sendme_"
+/// mtype message that contains second part of the file "sendme_"
 #define FIFO2_PART 3
-/// mtype messaggio che contiene terza parte del contenuto del file "sendme_"
+/// mtype message that contains third part of the file "sendme_"
 #define MSGQUEUE_PART 4
-/// mtype messaggio che contiene quarta parte del contenuto del file "sendme_"
+/// mtype message that contains fourth part of the file "sendme_"
 #define SHARED_MEMORY_PART 5
-/// mtype messaggio che contiene il messaggio di fine proveniente dal server
+/// mtype message that contains finish msg from server
 #define DONE 6
-/// mtype messaggio che contiene il valore usato per inizializzare la matrice contenente i file finali
+/// mtype message that contains the value used to initialize
 #define EMPTY_MTYPE -1
 
-/// numero massimo di messaggi per canale di comunicazione
+/// maximum number of messages per communication channel
 #define MAX_MSG_PER_CHANNEL 50
 
-// -- Macro suddivisione messaggi
+// > 4 KB -> 4096 byte -> 1024 characters of 1 byte each for the 4 parts of the messages
 
-// > 4 KB -> 4096 byte -> 1024 caratteri da 1 byte ciascuno per le 4 parti dei messaggi
-
-/// dimensione massima del messaggio/file da inviare
+/// maximum size of the message / file to send
 #define MSG_MAX_SZ 4096
-/// numero parti in cui suddividere il messaggio
+/// number of parts into which to divide the message
 #define MSG_PARTS_NUM 4
-/// dimensione massima di una porzione di messaggio
+/// maximum size of a message part
 #define MSG_BUFFER_SZ (MSG_MAX_SZ / MSG_PARTS_NUM)
 
 /**
- * Rappresenta un messaggio contenente
- * una porzione del contenuto di un file,
- * il numero di file inviati dal client
- * oppure il messaggio "ok" quando il server ha ricevuto il numero di file.
-*/
-typedef struct message_t {
+ * Rapresents a message containing
+ * a portion of the content of a file,
+ * the number of files sent by the client
+ * or the "ok" message when the server has received the file number.
+ */
+typedef struct message_t
+{
 
-    /// tipo del messaggio: campo usato dalla coda dei messaggi
+    /// message type: field used by the message queue
     long mtype;
 
-    /// PID del mittente del messaggio
+    /// PID of the message sender
     pid_t sender_pid;
 
-    /// Percorso file
-    char file_path[BUFFER_SZ+2];
+    /// file path
+    char file_path[BUFFER_SZ + 2];
 
-    /// Contenuto messaggio
-    char msg_body[MSG_BUFFER_SZ+2];
+    /// Message content
+    char msg_body[MSG_BUFFER_SZ + 2];
 
 } message_t;
 
-
 /**
- * Restituisce la prima chiave IPC
- * ottenuta con get_project_ipc_key().
+ * Returns the first IPC key
+ * obtained with get_project_ipc_key ().
  *
- * @return key_t Chiave IPC
-*/
+ * @return key_t IPC key
+ * @see get_project_ipc_key ()
+ *
+ */
 key_t get_ipc_key();
 
-
 /**
- * Restituisce la seconda chiave IPC
- * ottenuta con get_project_ipc_key().
+ * Returns the second IPC key
+ * obtained with get_project_ipc_key ().
  *
- * @return key_t Chiave IPC
-*/
+ * @return key_t IPC key
+ *
+ */
 key_t get_ipc_key2();
 
-
 /**
- * Restituisce una chiave IPC generica per il progetto
- * ottenuta con ftok sulla cartella con gli eseguibili.
+ * Returns a generic IPC key for the project
+ * obtained with ftok on the folder with the executables.
  *
- * @return key_t Chiave IPC
-*/
+ * @return key_t IPC key
+ *
+ */
 key_t get_project_ipc_key(char proj_id);
 
-
 /**
- * @brief Restituisce vero se l'array contiene tutti true
+ * @brief Return true if the arrya is all true
  *
- * @param arr array di booleani
- * @param len lunghezza array
- * @return true arr contiene tutti true
- * @return false arr contiene almeno un false
-*/
+ * @param arr array of booleans
+ * @param len length of the array
+ * @return true if all the elements of the array are true
+ * @return false otherwise
+ */
 bool arrayContainsAllTrue(bool arr[], int len);
 
-
 /**
- * @brief Rende bloccante oppure non bloccante un file descriptor.
+ * @brief Makes a file descriptor blocking or non-blocking.
  *
  * @param fd file descriptor
- * @param blocking 0: non bloccante, 1: bloccante
- * @return int Vale 0 se fallisce
+ * @param blocking 0: non blocking, 1: blocking
+ * @return int 0 if it fails
  */
 int blockFD(int fd, int blocking);
 
 /**
- * @brief Visualizza sullo standard output un messaggio utilizzando la write
- * @param msg messaggio da visualizzare
-*/
-void print_msg(char * msg);
+ * @brief Displays a message on standard output using write
+ * @param msg message to display
+ */
+void print_msg(char *msg);

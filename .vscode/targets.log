@@ -1,70 +1,39 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.2.1
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
- 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
- 
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
- 
-# Make data base, printed on Wed May 25 14:15:29 2022
- 
+# Make data base, printed on Mon May 30 13:59:05 2022
 
 # Variables
- 
 
- 
 # 'override' directive
- 
 GNUMAKEFLAGS := 
- 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
- 
 # environment
- 
 PAPERSIZE = a4
- 
 # environment
- 
 DESKTOP_SESSION = ubuntu
- 
 # default
- 
 .SHELLFLAGS := -c
- 
 # environment
- 
 XDG_SESSION_CLASS = user
- 
 # environment
- 
 XDG_SESSION_TYPE = x11
- 
 # environment
- 
 VSCODE_LOG_NATIVE = false
- 
 # environment
- 
 NVM_INC = /home/lleshaj/.nvm/versions/node/v16.14.2/include/node
- 
 # automatic
- 
 ?D = $(patsubst %/,%,$(dir $?))
- 
 # makefile (from 'Makefile', line 2)
- 
 INCLUDES = -I .
- 
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -82,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 9:64513
+JOURNAL_STREAM = 9:65261
 # makefile (from 'Makefile', line 1)
 CFLAGS = -Wall -std=gnu99
 # environment
@@ -93,7 +62,6 @@ MAKEFILE_LIST :=  Makefile
 @F = $(notdir $@)
 # environment
 IM_CONFIG_PHASE = 1
- 
 # environment
 USERNAME = lleshaj
 # environment
@@ -107,7 +75,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-MANAGERPID = 810
+MANAGERPID = 962
 # environment
 FNM_NODE_DIST_MIRROR = https://nodejs.org/dist
 # makefile (from 'Makefile', line 9)
@@ -121,13 +89,13 @@ VSCODE_CWD = /home/lleshaj/System-calls-C-Sistemi-operativi
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/59735_1653511761589/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
+PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/5229_1653944321649/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
 # makefile (from 'Makefile', line 8)
 SERVER_SRCS = message_queue.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c server.c
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1243,unix/ubuntu:/tmp/.ICE-unix/1243
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1497,unix/ubuntu:/tmp/.ICE-unix/1497
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -141,7 +109,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 0a364301afe2451a8b5414f7e4208867
+INVOCATION_ID = d4f480303dd14e94b2f0f9268d532002
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -161,7 +129,7 @@ PWD = /home/lleshaj/System-calls-C-Sistemi-operativi
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1126
+SSH_AGENT_PID = 1266
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -179,7 +147,7 @@ VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /home/lleshaj/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
-FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/59735_1653511761589
+FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/5229_1653944321649
 # environment
 LOGNAME = lleshaj
 # environment
@@ -211,7 +179,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-214ca7de-542d-4ebf-9289-91801d4e60c8.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-84928313-4982-4aaa-bc07-a3edba636ecd.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -277,11 +245,11 @@ LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/72c29022_93e1_42ec_8e0f_77285a79db34
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/a5f754e6_f966_485b_a312_daf4b2dad8ad
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.1727
+GNOME_TERMINAL_SERVICE = :1.96
 # environment
 FNM_ARCH = x64
 # default
@@ -303,19 +271,20 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 59934
+VSCODE_PID = 6633
 # variable set hash-table stats:
-# Load=131/1024=13%, Rehash=0, Collisions=21/165=13%
+# Load=131/1024=13%, Rehash=0, Collisions=21/169=12%
 
+ 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
 # Directories
 
-# . (device 2049, inode 451048): 32 files, no impossibilities.
+# . (device 2049, inode 451048): 27 files, no impossibilities.
 
-# 32 files, no impossibilities in 1 directories.
+# 27 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -328,82 +297,50 @@ obj/%.o: %.c
 # Files
 
 # Not a target:
-fifo.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-24 14:45:28.529479663
-#  File has been updated.
-#  Successfully updated.
+obj/fifo.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-obj/fifo.o: fifo.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'fifo'
-#  Last modified 2022-05-25 14:14:55.877256083
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
-
-obj/server.o: server.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'server'
-#  Last modified 2022-05-25 14:14:56.105734844
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+# Not a target:
+obj/server.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 all: obj client_0 server
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
-
-# Not a target:
-defines.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-25 10:09:13.617352024
-#  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 
 .PHONY: run clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
- 
 client_0: obj/message_queue.o obj/files.o obj/signals.o obj/defines.o obj/err_exit.o obj/shared_memory.o obj/semaphore.o obj/fifo.o obj/client.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-25 14:14:56.005524859
-#  File has been updated.
-#  Successfully updated.
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 14):
 	@echo "Making executable: "$@
 	@$(CC) $^ -o $@  -lm
 
 # Not a target:
-signals.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-24 14:05:04.159353096
-#  File has been updated.
-#  Successfully updated.
+obj/shared_memory.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-err_exit.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-24 14:04:59.783375175
-#  File has been updated.
-#  Successfully updated.
-
-obj/shared_memory.o: shared_memory.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'shared_memory'
-#  Last modified 2022-05-25 14:14:55.789071298
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 Makefile:
@@ -412,61 +349,52 @@ Makefile:
 #  File has been updated.
 #  Successfully updated.
 
-# Not a target:
-message_queue.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-25 13:54:50.313411829
-#  File has been updated.
-#  Successfully updated.
-
 server: obj/message_queue.o obj/defines.o obj/err_exit.o obj/shared_memory.o obj/semaphore.o obj/fifo.o obj/server.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-25 14:14:56.137802039
-#  File has been updated.
-#  Successfully updated.
+#  Modification time never checked.
+#  File has not been updated.
 #  recipe to execute (from 'Makefile', line 18):
 	@echo "Making executable: "$@
 	@$(CC) $^ -o $@  -lm
 
 # Not a target:
-semaphore.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-24 14:05:02.41136119
-#  File has been updated.
-#  Successfully updated.
-
-obj/message_queue.o: message_queue.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'message_queue'
-#  Last modified 2022-05-25 14:14:55.472407753
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
-
-# Not a target:
-client.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-25 13:26:05.291456809
-#  File has been updated.
-#  Successfully updated.
+obj/message_queue.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 obj:
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-25 14:14:56.085692847
+#  Implicit/static pattern stem: ''
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
 #  recipe to execute (from 'Makefile', line 23):
 	@mkdir -p $(OBJDIR)
 
-obj/signals.o: signals.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'signals'
-#  Last modified 2022-05-25 14:14:55.632743727
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+# Not a target:
+obj/signals.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
@@ -475,27 +403,10 @@ obj/signals.o: signals.c
 #  File has not been updated.
 
 # Not a target:
-files.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-25 14:14:34.259975614
-#  File has been updated.
-#  Successfully updated.
-
-obj/files.o: files.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'files'
-#  Last modified 2022-05-25 14:14:55.552575739
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
-
-# Not a target:
-server.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-25 13:48:41.032292449
-#  File has been updated.
-#  Successfully updated.
+obj/files.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 run:
 #  Phony target (prerequisite of .PHONY).
@@ -517,64 +428,44 @@ clean:
 	@ipcrm -a
 	@echo "Removed object files and executables..."
 
-obj/err_exit.o: err_exit.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'err_exit'
-#  Last modified 2022-05-25 14:14:55.744978905
-#  File has been updated.
-#  Successfully updated.
- 
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+# Not a target:
+obj/err_exit.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
-shared_memory.c:
-#  Implicit rule search has been done.
-#  Last modified 2022-05-24 14:05:03.159357604
-#  File has been updated.
-#  Successfully updated.
+obj/semaphore.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-obj/semaphore.o: semaphore.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'semaphore'
-#  Last modified 2022-05-25 14:14:55.829155292
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+# Not a target:
+obj/client.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-obj/client.o: client.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'client'
-#  Last modified 2022-05-25 14:14:55.965440866
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
-
-obj/defines.o: defines.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'defines'
-#  Last modified 2022-05-25 14:14:55.696878114
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+# Not a target:
+obj/defines.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # files hash-table stats:
-# Load=30/1024=3%, Rehash=0, Collisions=3/95=3%
+# Load=20/1024=2%, Rehash=0, Collisions=0/56=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 61 / storage = 615 B / avg = 10 B
-# current buf: size = 8162 B / used = 615 B / count = 61 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 50 / storage = 514 B / avg = 10 B
+# current buf: size = 8162 B / used = 514 B / count = 50 / avg = 10 B
 
-# strcache performance: lookups = 106 / hit rate = 42%
+# strcache performance: lookups = 72 / hit rate = 30%
 # hash-table stats:
-# Load=61/8192=1%, Rehash=0, Collisions=1/106=1%
-# Finished Make data base on Wed May 25 14:15:29 2022
+# Load=50/8192=1%, Rehash=0, Collisions=1/72=1%
+# Finished Make data base on Mon May 30 13:59:05 2022
 
  

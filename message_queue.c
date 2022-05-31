@@ -1,6 +1,5 @@
 /// @file message_queue.c
-/// @brief Contiene l'implementazione delle funzioni
-///         specifiche per la gestione delle CODE DEI MESSAGGI.
+/// @brief Message queue functions
 
 #include <sys/msg.h>
 #include <sys/msg.h>

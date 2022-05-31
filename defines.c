@@ -1,6 +1,5 @@
 /// @file defines.c
-/// @brief Contiene l'implementazione delle funzioni
-///         specifiche del progetto.
+/// @brief Contains the implementations of definitions of the project.
 
 #include <sys/ipc.h>
 #include <stdbool.h>

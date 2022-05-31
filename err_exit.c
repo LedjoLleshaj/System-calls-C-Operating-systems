@@ -1,5 +1,5 @@
 /// @file err_exit.c
-/// @brief Contiene l'implementazione della funzione di stampa degli errori.
+/// @brief This file contains the functions that are used to exit the program in case of errors.
 
 #include "err_exit.h"
 

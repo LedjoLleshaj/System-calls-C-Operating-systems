@@ -1,23 +1,21 @@
-
-/// @brief Contiene la definizioni di variabili e funzioni
-///         specifiche per la gestione delle CODE DEI MESSAGGI.
+/// @brief Message queue functions
 
 #pragma once
 
 #include <sys/msg.h>
 
 /**
- * @brief Restituisce statistiche della coda dei messaggi
+ * @brief Returns message queue statistics
  *
- * @param msqid Identifier coda dei messaggi
- * @return struct msqid_ds Struttura con statistiche della coda dei messaggi
+ * @param msqid - message queue id
+ * @return struct msqid_ds - Structure with message queue statistics
  */
 struct msqid_ds msqGetStats(int msqid);
 
 /**
- * @brief Imposta nuove configurazioni sulla coda dei messaggi
+ * @brief Set new configurations on the message queue
  *
- * @param msqid Identifier coda dei messaggi
- * @param ds Struttura con nuove statistiche della coda dei messaggi
+ * @param msqid - message queue id
+ * @param ds - new configurations
  */
 void msqSetStats(int msqid, struct msqid_ds ds);

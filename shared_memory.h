@@ -1,42 +1,37 @@
 /// @file shared_memory.h
-/// @brief Contiene la definizioni di variabili e funzioni
-///         specifiche per la gestione della MEMORIA CONDIVISA.
-
+/// @brief Shared memory functions
 #pragma once
 
 #include <sys/types.h>
 
 /**
- * @brief Ottiene l'id o crea una memoria condivisa.
+ * @brief Obtains and ID and creates a shared memory segment.
  *
- * @param shmKey Chiave IPC della memoria condivisa
- * @param size Dimensione della memoria condivisa
- * @return int Identificativo della memoria condivisa
-*/
+ * @param shmKey IPC key fo shared memory segment.
+ * @param size Size of shared memory segment.
+ * @return ID of shared memory segment.
+ */
 int sharedMemoryGet(key_t shmKey, size_t size);
 
-
 /**
- * @brief Recupera il puntatore alla memoria condivisa aggiungendola allo spazio degli indirizzi.
+ * @brief Retrieve the shared memory pointer by attaching it.
  *
- * @param shmid Identificativo della memoria condivisa
+ * @param shmid ID of shared memory segment.
  * @param shmflg Flag
- * @return void* Puntatore per accedere alla memoria condivisa
-*/
-void * sharedMemoryAttach(int shmid, int shmflg);
-
+ * @return void* pointer to shared memory segment.
+ */
+void *sharedMemoryAttach(int shmid, int shmflg);
 
 /**
- * @brief Scollega la memoria condivisa dallo spazio degli indirizzi.
+ * @brief Detach the shared memory from the address space.
  *
- * @param ptr_sh Puntatore per accedere alla memoria condivisa
-*/
+ * @param ptr_sh pointer to shared memory segment.
+ */
 void sharedMemoryDetach(void *ptr_sh);
 
-
 /**
- * @brief Elimina la memoria condivisa
+ * @brief Removes the shared memory segment.
  *
- * @param shmid Identificativo della memoria condivisa
-*/
+ * @param shmid ID of shared memory segment.
+ */
 void sharedMemoryRemove(int shmid);
