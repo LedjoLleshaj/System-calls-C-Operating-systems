@@ -169,8 +169,15 @@ void findAndMakeFullFiles(int righe)
             print_msg("[server.c:main] malloc failed\n");
             exit(1);
         }
-        strcpy(temp, matriceFile[i][0].file_path);
-        strcat(temp, "_out"); // add "_out" to the end of the path
+
+        // remove comment if you want to see the "_out after the extension"
+        /*
+        //strcpy(temp, matriceFile[i][0].file_path);
+        //strcat(temp, "_out"); // aggiungo _out
+        */
+        memset(temp, 0, (strlen(matriceFile[i][0].file_path) + 5) * sizeof(char));
+        strncpy(temp, matriceFile[i][0].file_path, strlen(matriceFile[i][0].file_path) - 4);
+        strcat(temp, "_out.txt"); // add "_out" to the end of the path
 
         // open the file in write mode and also O_TRUNC so if we need to overwrite a file
         int file = open(temp, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
