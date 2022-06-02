@@ -35,6 +35,11 @@ elif [[ "$*" == *"gen3"* ]]
       fi
     done
   echo "Test creati"
+elif [[ "$*" == *"compile"* ]]
+  then
+    sudo make clean > /dev/null
+    sudo make > /dev/null
+  echo "Compiled succesfully"
 fi
 
 if [[ "$*" ==  *"clean"* ]]
