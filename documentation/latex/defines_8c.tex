@@ -1,0 +1,138 @@
+\hypertarget{defines_8c}{}\doxysection{defines.\+c File Reference}
+\label{defines_8c}\index{defines.c@{defines.c}}
+
+
+Contains the implementations of definitions of the project.  
+
+
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}defines.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}err\+\_\+exit.\+h\char`\"{}}\newline
+Include dependency graph for defines.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{defines_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8c_a2d341373a96ffea0944553e5452cdbca}{get\+\_\+ipc\+\_\+key}} ()
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8c_afd25e0dffe44c8dd59ae86caabb94287}{get\+\_\+ipc\+\_\+key2}} ()
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8c_abe68b7232c057100c2e21586906436d7}{get\+\_\+project\+\_\+ipc\+\_\+key}} (char proj\+\_\+id)
+\item 
+bool \mbox{\hyperlink{defines_8c_ac281b05b7a90ba292f5748cbfe3c389d}{array\+Contains\+All\+True}} (bool arr\mbox{[}$\,$\mbox{]}, int len)
+\begin{DoxyCompactList}\small\item\em Return true if the arrya is all true. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{defines_8c_aea9b93cad897755a46cb9e3373ba8cc2}{block\+FD}} (int fd, int blocking)
+\begin{DoxyCompactList}\small\item\em Makes a file descriptor blocking or non-\/blocking. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{defines_8c_a2ce7c4d064c3b1a3f182c3e830a4c31d}{print\+\_\+msg}} (char $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Displays a message on standard output using write. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the implementations of definitions of the project. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{defines_8c_ac281b05b7a90ba292f5748cbfe3c389d}\label{defines_8c_ac281b05b7a90ba292f5748cbfe3c389d}} 
+\index{defines.c@{defines.c}!arrayContainsAllTrue@{arrayContainsAllTrue}}
+\index{arrayContainsAllTrue@{arrayContainsAllTrue}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{arrayContainsAllTrue()}{arrayContainsAllTrue()}}
+{\footnotesize\ttfamily bool array\+Contains\+All\+True (\begin{DoxyParamCaption}\item[{bool}]{arr\mbox{[}$\,$\mbox{]},  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+
+
+Return true if the arrya is all true. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em arr} & array of booleans \\
+\hline
+{\em len} & length of the array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if all the elements of the array are true 
+
+false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8c_aea9b93cad897755a46cb9e3373ba8cc2}\label{defines_8c_aea9b93cad897755a46cb9e3373ba8cc2}} 
+\index{defines.c@{defines.c}!blockFD@{blockFD}}
+\index{blockFD@{blockFD}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{blockFD()}{blockFD()}}
+{\footnotesize\ttfamily int block\+FD (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int}]{blocking }\end{DoxyParamCaption})}
+
+
+
+Makes a file descriptor blocking or non-\/blocking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & file descriptor \\
+\hline
+{\em blocking} & 0\+: non blocking, 1\+: blocking \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 0 if it fails 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8c_a2d341373a96ffea0944553e5452cdbca}\label{defines_8c_a2d341373a96ffea0944553e5452cdbca}} 
+\index{defines.c@{defines.c}!get\_ipc\_key@{get\_ipc\_key}}
+\index{get\_ipc\_key@{get\_ipc\_key}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{get\_ipc\_key()}{get\_ipc\_key()}}
+{\footnotesize\ttfamily key\+\_\+t get\+\_\+ipc\+\_\+key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the first I\+PC key obtained with get\+\_\+project\+\_\+ipc\+\_\+key ().
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t I\+PC key 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{defines_8h_abe68b7232c057100c2e21586906436d7}{get\+\_\+project\+\_\+ipc\+\_\+key}} () 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{defines_8c_afd25e0dffe44c8dd59ae86caabb94287}\label{defines_8c_afd25e0dffe44c8dd59ae86caabb94287}} 
+\index{defines.c@{defines.c}!get\_ipc\_key2@{get\_ipc\_key2}}
+\index{get\_ipc\_key2@{get\_ipc\_key2}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{get\_ipc\_key2()}{get\_ipc\_key2()}}
+{\footnotesize\ttfamily key\+\_\+t get\+\_\+ipc\+\_\+key2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the second I\+PC key obtained with get\+\_\+project\+\_\+ipc\+\_\+key ().
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t I\+PC key 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8c_abe68b7232c057100c2e21586906436d7}\label{defines_8c_abe68b7232c057100c2e21586906436d7}} 
+\index{defines.c@{defines.c}!get\_project\_ipc\_key@{get\_project\_ipc\_key}}
+\index{get\_project\_ipc\_key@{get\_project\_ipc\_key}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{get\_project\_ipc\_key()}{get\_project\_ipc\_key()}}
+{\footnotesize\ttfamily key\+\_\+t get\+\_\+project\+\_\+ipc\+\_\+key (\begin{DoxyParamCaption}\item[{char}]{proj\+\_\+id }\end{DoxyParamCaption})}
+
+Returns a generic I\+PC key for the project obtained with ftok on the folder with the executables.
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t I\+PC key 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8c_a2ce7c4d064c3b1a3f182c3e830a4c31d}\label{defines_8c_a2ce7c4d064c3b1a3f182c3e830a4c31d}} 
+\index{defines.c@{defines.c}!print\_msg@{print\_msg}}
+\index{print\_msg@{print\_msg}!defines.c@{defines.c}}
+\doxysubsubsection{\texorpdfstring{print\_msg()}{print\_msg()}}
+{\footnotesize\ttfamily void print\+\_\+msg (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Displays a message on standard output using write. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & message to display \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,113 @@
+\hypertarget{shared__memory_8h}{}\doxysection{shared\+\_\+memory.\+h File Reference}
+\label{shared__memory_8h}\index{shared\_memory.h@{shared\_memory.h}}
+
+
+Shared memory functions.  
+
+
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+Include dependency graph for shared\+\_\+memory.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{shared__memory_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{shared__memory_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{shared__memory_8h_a676f6d663afd0bd346df98c9630f806c}{shared\+Memory\+Get}} (key\+\_\+t shm\+Key, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Obtains and ID and creates a shared memory segment. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{shared__memory_8h_a7988e71b1a4af49d229f1f95c8de5b3e}{shared\+Memory\+Attach}} (int \mbox{\hyperlink{server_8c_ac8807d215d2ee6d9779d76aeb1147430}{shmid}}, int shmflg)
+\begin{DoxyCompactList}\small\item\em Retrieve the shared memory pointer by attaching it. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{shared__memory_8h_a81088e39cc12026d6f0803f30146da72}{shared\+Memory\+Detach}} (void $\ast$ptr\+\_\+sh)
+\begin{DoxyCompactList}\small\item\em Detach the shared memory from the address space. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{shared__memory_8h_a7b1001a71433ae63fe460f5fdb221ee3}{shared\+Memory\+Remove}} (int \mbox{\hyperlink{server_8c_ac8807d215d2ee6d9779d76aeb1147430}{shmid}})
+\begin{DoxyCompactList}\small\item\em Removes the shared memory segment. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shared memory functions. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{shared__memory_8h_a7988e71b1a4af49d229f1f95c8de5b3e}\label{shared__memory_8h_a7988e71b1a4af49d229f1f95c8de5b3e}} 
+\index{shared\_memory.h@{shared\_memory.h}!sharedMemoryAttach@{sharedMemoryAttach}}
+\index{sharedMemoryAttach@{sharedMemoryAttach}!shared\_memory.h@{shared\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sharedMemoryAttach()}{sharedMemoryAttach()}}
+{\footnotesize\ttfamily void$\ast$ shared\+Memory\+Attach (\begin{DoxyParamCaption}\item[{int}]{shmid,  }\item[{int}]{shmflg }\end{DoxyParamCaption})}
+
+
+
+Retrieve the shared memory pointer by attaching it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shmid} & ID of shared memory segment. \\
+\hline
+{\em shmflg} & Flag \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void$\ast$ pointer to shared memory segment. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{shared__memory_8h_a81088e39cc12026d6f0803f30146da72}\label{shared__memory_8h_a81088e39cc12026d6f0803f30146da72}} 
+\index{shared\_memory.h@{shared\_memory.h}!sharedMemoryDetach@{sharedMemoryDetach}}
+\index{sharedMemoryDetach@{sharedMemoryDetach}!shared\_memory.h@{shared\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sharedMemoryDetach()}{sharedMemoryDetach()}}
+{\footnotesize\ttfamily void shared\+Memory\+Detach (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr\+\_\+sh }\end{DoxyParamCaption})}
+
+
+
+Detach the shared memory from the address space. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptr\+\_\+sh} & pointer to shared memory segment. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{shared__memory_8h_a676f6d663afd0bd346df98c9630f806c}\label{shared__memory_8h_a676f6d663afd0bd346df98c9630f806c}} 
+\index{shared\_memory.h@{shared\_memory.h}!sharedMemoryGet@{sharedMemoryGet}}
+\index{sharedMemoryGet@{sharedMemoryGet}!shared\_memory.h@{shared\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sharedMemoryGet()}{sharedMemoryGet()}}
+{\footnotesize\ttfamily int shared\+Memory\+Get (\begin{DoxyParamCaption}\item[{key\+\_\+t}]{shm\+Key,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Obtains and ID and creates a shared memory segment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shm\+Key} & I\+PC key fo shared memory segment. \\
+\hline
+{\em size} & Size of shared memory segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ID of shared memory segment.
+\end{DoxyReturn}
+Obtains and ID and creates a shared memory segment. \mbox{\Hypertarget{shared__memory_8h_a7b1001a71433ae63fe460f5fdb221ee3}\label{shared__memory_8h_a7b1001a71433ae63fe460f5fdb221ee3}} 
+\index{shared\_memory.h@{shared\_memory.h}!sharedMemoryRemove@{sharedMemoryRemove}}
+\index{sharedMemoryRemove@{sharedMemoryRemove}!shared\_memory.h@{shared\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sharedMemoryRemove()}{sharedMemoryRemove()}}
+{\footnotesize\ttfamily void shared\+Memory\+Remove (\begin{DoxyParamCaption}\item[{int}]{shmid }\end{DoxyParamCaption})}
+
+
+
+Removes the shared memory segment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shmid} & ID of shared memory segment. \\
+\hline
+\end{DoxyParams}

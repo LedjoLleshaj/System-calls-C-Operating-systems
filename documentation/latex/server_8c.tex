@@ -1,0 +1,217 @@
+\hypertarget{server_8c}{}\doxysection{server.\+c File Reference}
+\label{server_8c}\index{server.c@{server.c}}
+
+
+Contains the main function of the server.  
+
+
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/msg.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}err\+\_\+exit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}defines.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}shared\+\_\+memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}semaphore.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}fifo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}message\+\_\+queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{server_8c_a48d605ff689f470746c858648f0a98c2}{S\+I\+G\+I\+N\+T\+Signal\+Handler}} (int sig)
+\begin{DoxyCompactList}\small\item\em C\+Lose all the I\+P\+Cs and exit the program. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{server_8c_ab53aa0eb44ad55d2e189f18d3bd6017b}{string\+\_\+to\+\_\+int}} (char $\ast$string)
+\begin{DoxyCompactList}\small\item\em Convert a string to int. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{server_8c_a4450af0b39eff4084a86a7f9451e866e}{add\+To\+Matrix}} (\mbox{\hyperlink{structmessage__t}{message\+\_\+t}} a, int filenr)
+\begin{DoxyCompactList}\small\item\em Adds a message to the buffer array. The buffer will be used to retrieve the pieces of files when the output file is rebuilt. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{server_8c_a6a3979b89e7153de6f4e9c4308d60403}{find\+And\+Make\+Full\+Files}} (int righe)
+\begin{DoxyCompactList}\small\item\em Find 4 pieces of a file in the buffer matrix and then uses them to create and write an output file. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{server_8c_a4e6720aaa086c84a4a489b3635fc9abb}{prepare\+String}} (\mbox{\hyperlink{structmessage__t}{message\+\_\+t}} a)
+\begin{DoxyCompactList}\small\item\em Constructs the string to be written to the output file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{server_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Execute operations termination performed with S\+I\+G\+I\+NT\+: At the end close all I\+P\+Cs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{server_8c_a77a24092b59397ed6c2aad5c0de0cefd}{C\+U\+R\+R\+E\+N\+T\+\_\+\+D\+I\+R\+E\+C\+T\+O\+RY}} \mbox{[}\mbox{\hyperlink{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}{B\+U\+F\+F\+E\+R\+\_\+\+SZ}}\mbox{]} = \char`\"{}\char`\"{}
+\begin{DoxyCompactList}\small\item\em Execution path of the server. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}\label{server_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}} 
+int \mbox{\hyperlink{server_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}{fifo1\+\_\+fd}} = -\/1
+\begin{DoxyCompactList}\small\item\em file descriptor of the server\textquotesingle{}s F\+I\+FO 1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a4a1b7b9ae118e79117db0755b4588077}\label{server_8c_a4a1b7b9ae118e79117db0755b4588077}} 
+int \mbox{\hyperlink{server_8c_a4a1b7b9ae118e79117db0755b4588077}{fifo2\+\_\+fd}} = -\/1
+\begin{DoxyCompactList}\small\item\em file descriptor of the server\textquotesingle{}s F\+I\+FO 2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_ae73e6a837794db6e63f23db2d64a8130}\label{server_8c_ae73e6a837794db6e63f23db2d64a8130}} 
+int \mbox{\hyperlink{server_8c_ae73e6a837794db6e63f23db2d64a8130}{msqid}} = -\/1
+\begin{DoxyCompactList}\small\item\em Message queue identifier. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a7c35ac5305085cf7360645b8d52988b5}\label{server_8c_a7c35ac5305085cf7360645b8d52988b5}} 
+int \mbox{\hyperlink{server_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier of the semaphore. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a45855624a1e5beb7859522cacbc8ca15}\label{server_8c_a45855624a1e5beb7859522cacbc8ca15}} 
+int \mbox{\hyperlink{server_8c_a45855624a1e5beb7859522cacbc8ca15}{semid\+Fifo}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier of the semaphore for the fifos. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_ac8807d215d2ee6d9779d76aeb1147430}\label{server_8c_ac8807d215d2ee6d9779d76aeb1147430}} 
+int \mbox{\hyperlink{server_8c_ac8807d215d2ee6d9779d76aeb1147430}{shmid}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier of the shared memory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a97cb27d8106b9e8eb81b1733b1d2b817}\label{server_8c_a97cb27d8106b9e8eb81b1733b1d2b817}} 
+\mbox{\hyperlink{structmessage__t}{message\+\_\+t}} $\ast$ \mbox{\hyperlink{server_8c_a97cb27d8106b9e8eb81b1733b1d2b817}{shm\+\_\+message}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em pointer to the shared memory that contains the messages. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a738b6f050b1d576fbd0ecdf567f2ff70}\label{server_8c_a738b6f050b1d576fbd0ecdf567f2ff70}} 
+int \mbox{\hyperlink{server_8c_a738b6f050b1d576fbd0ecdf567f2ff70}{shm\+\_\+flag\+\_\+\+ID}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier to the shared memory flags \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a8501ee19bc291abf0c77a6d2416ab5e5}\label{server_8c_a8501ee19bc291abf0c77a6d2416ab5e5}} 
+int $\ast$ \mbox{\hyperlink{server_8c_a8501ee19bc291abf0c77a6d2416ab5e5}{shm\+\_\+flag}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em pointer to the shared memory that contains the flags. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{server_8c_a97275ead849f1a920eb670a7ae981a48}\label{server_8c_a97275ead849f1a920eb670a7ae981a48}} 
+\mbox{\hyperlink{structmessage__t}{message\+\_\+t}} $\ast$$\ast$ \mbox{\hyperlink{server_8c_a97275ead849f1a920eb670a7ae981a48}{matrice\+File}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em two-\/dimensional array that for every line contains the four parts of the files. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the main function of the server. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{server_8c_a4450af0b39eff4084a86a7f9451e866e}\label{server_8c_a4450af0b39eff4084a86a7f9451e866e}} 
+\index{server.c@{server.c}!addToMatrix@{addToMatrix}}
+\index{addToMatrix@{addToMatrix}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{addToMatrix()}{addToMatrix()}}
+{\footnotesize\ttfamily void add\+To\+Matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__t}{message\+\_\+t}}}]{a,  }\item[{int}]{righe }\end{DoxyParamCaption})}
+
+
+
+Adds a message to the buffer array. The buffer will be used to retrieve the pieces of files when the output file is rebuilt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & message to insert in array \\
+\hline
+{\em righe} & -\/ number of rows in the array \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{server_8c_a6a3979b89e7153de6f4e9c4308d60403}\label{server_8c_a6a3979b89e7153de6f4e9c4308d60403}} 
+\index{server.c@{server.c}!findAndMakeFullFiles@{findAndMakeFullFiles}}
+\index{findAndMakeFullFiles@{findAndMakeFullFiles}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{findAndMakeFullFiles()}{findAndMakeFullFiles()}}
+{\footnotesize\ttfamily void find\+And\+Make\+Full\+Files (\begin{DoxyParamCaption}\item[{int}]{righe }\end{DoxyParamCaption})}
+
+
+
+Find 4 pieces of a file in the buffer matrix and then uses them to create and write an output file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em righe} & -\/ number of rows in the array \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{server_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{server_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{server.c@{server.c}!main@{main}}
+\index{main@{main}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Execute operations termination performed with S\+I\+G\+I\+NT\+: At the end close all I\+P\+Cs. 
+
+Memorizza il percorso passato come parametro, gestisce segnali e handler, attende i segnali S\+I\+G\+I\+NT o S\+I\+G\+U\+S\+R1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Numero argomenti passati da linea di comando (compreso il nome dell\textquotesingle{}eseguibile) \\
+\hline
+{\em argv} & Array di argomenti passati da linea di comando \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Exit code dell\textquotesingle{}intero programma 
+\end{DoxyReturn}
+\mbox{\Hypertarget{server_8c_a4e6720aaa086c84a4a489b3635fc9abb}\label{server_8c_a4e6720aaa086c84a4a489b3635fc9abb}} 
+\index{server.c@{server.c}!prepareString@{prepareString}}
+\index{prepareString@{prepareString}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{prepareString()}{prepareString()}}
+{\footnotesize\ttfamily char$\ast$ prepare\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmessage__t}{message\+\_\+t}}}]{a }\end{DoxyParamCaption})}
+
+
+
+Constructs the string to be written to the output file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Message that came from server and that has to be written \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char$\ast$ -\/ string to be written to the output file 
+\end{DoxyReturn}
+\mbox{\Hypertarget{server_8c_a48d605ff689f470746c858648f0a98c2}\label{server_8c_a48d605ff689f470746c858648f0a98c2}} 
+\index{server.c@{server.c}!SIGINTSignalHandler@{SIGINTSignalHandler}}
+\index{SIGINTSignalHandler@{SIGINTSignalHandler}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{SIGINTSignalHandler()}{SIGINTSignalHandler()}}
+{\footnotesize\ttfamily void S\+I\+G\+I\+N\+T\+Signal\+Handler (\begin{DoxyParamCaption}\item[{int}]{sig }\end{DoxyParamCaption})}
+
+
+
+C\+Lose all the I\+P\+Cs and exit the program. 
+
+Handler del segnale S\+I\+G\+I\+NT.
+
+Non fa niente, permette solo al processo di risvegliarsi dal pause().
+
+Le funzionalita\textquotesingle{} principali vengono eseguite da \mbox{\hyperlink{client_8h_a8c7084a254c7cd640d66e647795ff8f6}{operazioni\+\_\+client0()}} e non qui per il seguente motivo\+: \href{https://man7.org/linux/man-pages/man7/signal-safety.7.html}{\texttt{ https\+://man7.\+org/linux/man-\/pages/man7/signal-\/safety.\+7.\+html}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em sig} & Valore intero corrispondente a S\+I\+G\+I\+NT \\
+\hline
+\end{DoxyParams}
+When performing buffered I/O on a file, the stdio functions must maintain a statically allocated data buffer along with associated counters and indexes (or pointers) that record the amount of data and the current position in the buffer. Suppose that the main program is in the middle of a call to a stdio function such as printf(3) where the buffer and associated variables have been partially updated. If, at that moment, the program is interrupted by a signal handler that also calls printf(3), then the second call to printf(3) will operate on inconsistent data, with unpredictable results.\mbox{\Hypertarget{server_8c_ab53aa0eb44ad55d2e189f18d3bd6017b}\label{server_8c_ab53aa0eb44ad55d2e189f18d3bd6017b}} 
+\index{server.c@{server.c}!string\_to\_int@{string\_to\_int}}
+\index{string\_to\_int@{string\_to\_int}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{string\_to\_int()}{string\_to\_int()}}
+{\footnotesize\ttfamily int string\+\_\+to\+\_\+int (\begin{DoxyParamCaption}\item[{char $\ast$}]{string }\end{DoxyParamCaption})}
+
+
+
+Convert a string to int. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em string} & -\/ string to convert \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ converted string 
+\end{DoxyReturn}
+Converts a string to an integer.
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{server_8c_a77a24092b59397ed6c2aad5c0de0cefd}\label{server_8c_a77a24092b59397ed6c2aad5c0de0cefd}} 
+\index{server.c@{server.c}!CURRENT\_DIRECTORY@{CURRENT\_DIRECTORY}}
+\index{CURRENT\_DIRECTORY@{CURRENT\_DIRECTORY}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_DIRECTORY}{CURRENT\_DIRECTORY}}
+{\footnotesize\ttfamily char C\+U\+R\+R\+E\+N\+T\+\_\+\+D\+I\+R\+E\+C\+T\+O\+RY\mbox{[}\mbox{\hyperlink{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}{B\+U\+F\+F\+E\+R\+\_\+\+SZ}}\mbox{]} = \char`\"{}\char`\"{}}
+
+
+
+Execution path of the server. 
+
+current working directory. 

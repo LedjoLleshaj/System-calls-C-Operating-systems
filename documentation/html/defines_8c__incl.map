@@ -1,0 +1,11 @@
+<map id="defines.c" name="defines.c">
+<area shape="rect" id="node1" title="Contains the implementations of definitions of the project." alt="" coords="270,5,350,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,84,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="334,155,417,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="188,80,251,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="275,80,345,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="370,80,445,107"/>
+<area shape="rect" id="node7" href="$defines_8h.html" title="Contains the definitions used in the program." alt="" coords="83,80,164,107"/>
+<area shape="rect" id="node9" href="$err__exit_8h.html" title="Contains functions to exit the program with an error message." alt="" coords="520,80,604,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="109,155,205,181"/>
+</map>

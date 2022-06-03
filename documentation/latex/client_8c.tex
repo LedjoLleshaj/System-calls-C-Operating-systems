@@ -1,0 +1,247 @@
+\hypertarget{client_8c}{}\doxysection{client.\+c File Reference}
+\label{client_8c}\index{client.c@{client.c}}
+
+
+Contiene l\textquotesingle{}implementazione del client.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$sys/msg.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}defines.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}err\+\_\+exit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}signals.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}files.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}client.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}semaphore.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}shared\+\_\+memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}fifo.\+h\char`\"{}}\newline
+Include dependency graph for client.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{client_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{client_8c_a748983b7ce27515a3ad116ada4334c4e}{int\+\_\+to\+\_\+string}} (int value)
+\item 
+bool \mbox{\hyperlink{client_8c_a0c711b3b2108bc5ddb5ceece99e0afa4}{str\+Equals}} (char $\ast$string1, char $\ast$string2)
+\item 
+void \mbox{\hyperlink{client_8c_a48d605ff689f470746c858648f0a98c2}{S\+I\+G\+I\+N\+T\+Signal\+Handler}} (int sig)
+\begin{DoxyCompactList}\small\item\em C\+Lose all the I\+P\+Cs and exit the program. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{client_8c_a8c7084a254c7cd640d66e647795ff8f6}{operazioni\+\_\+client0}} ()
+\item 
+void \mbox{\hyperlink{client_8c_a50b22adcb76198fcd9402a97ff4711bf}{S\+I\+G\+U\+S\+R1\+Signal\+Handler}} (int sig)
+\begin{DoxyCompactList}\small\item\em Handler del segnale S\+I\+G\+U\+S\+R1\+: chiude le risorse del client 0 e termina la sua esecuzione. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{client_8c_a55586f2b7e9b3620294cf78cda8abdad}{dividi}} (int fd, char $\ast$buf, size\+\_\+t count, char $\ast$file\+Path, int parte)
+\begin{DoxyCompactList}\small\item\em Divide in 4 parti il contenuto del file da inviare al server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{client_8c_a54b47b58f228d7bc9827d2919687e25a}{operazioni\+\_\+figlio}} (char $\ast$file\+Path)
+\begin{DoxyCompactList}\small\item\em Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{client_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Execute operations termination performed with S\+I\+G\+I\+NT\+: At the end close all I\+P\+Cs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{client_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}\label{client_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}} 
+int \mbox{\hyperlink{client_8c_a0e51f6e74ef591eef5a08e4a5a2d5ea8}{fifo1\+\_\+fd}} = -\/1
+\begin{DoxyCompactList}\small\item\em file descriptor of the server\textquotesingle{}s F\+I\+FO 1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_a4a1b7b9ae118e79117db0755b4588077}\label{client_8c_a4a1b7b9ae118e79117db0755b4588077}} 
+int \mbox{\hyperlink{client_8c_a4a1b7b9ae118e79117db0755b4588077}{fifo2\+\_\+fd}} = -\/1
+\begin{DoxyCompactList}\small\item\em file descriptor of the server\textquotesingle{}s F\+I\+FO 2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_ae73e6a837794db6e63f23db2d64a8130}\label{client_8c_ae73e6a837794db6e63f23db2d64a8130}} 
+int \mbox{\hyperlink{client_8c_ae73e6a837794db6e63f23db2d64a8130}{msqid}} = -\/1
+\begin{DoxyCompactList}\small\item\em Message queue identifier. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_a7c35ac5305085cf7360645b8d52988b5}\label{client_8c_a7c35ac5305085cf7360645b8d52988b5}} 
+int \mbox{\hyperlink{client_8c_a7c35ac5305085cf7360645b8d52988b5}{semid}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier of the semaphore. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_a45855624a1e5beb7859522cacbc8ca15}\label{client_8c_a45855624a1e5beb7859522cacbc8ca15}} 
+int \mbox{\hyperlink{client_8c_a45855624a1e5beb7859522cacbc8ca15}{semid\+Fifo}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier of the semaphore for the fifos. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_ac8807d215d2ee6d9779d76aeb1147430}\label{client_8c_ac8807d215d2ee6d9779d76aeb1147430}} 
+int \mbox{\hyperlink{client_8c_ac8807d215d2ee6d9779d76aeb1147430}{shmid}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier of the shared memory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_a97cb27d8106b9e8eb81b1733b1d2b817}\label{client_8c_a97cb27d8106b9e8eb81b1733b1d2b817}} 
+\mbox{\hyperlink{structmessage__t}{message\+\_\+t}} $\ast$ \mbox{\hyperlink{client_8c_a97cb27d8106b9e8eb81b1733b1d2b817}{shm\+\_\+message}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em pointer to the shared memory that contains the messages. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_a738b6f050b1d576fbd0ecdf567f2ff70}\label{client_8c_a738b6f050b1d576fbd0ecdf567f2ff70}} 
+int \mbox{\hyperlink{client_8c_a738b6f050b1d576fbd0ecdf567f2ff70}{shm\+\_\+flag\+\_\+\+ID}} = -\/1
+\begin{DoxyCompactList}\small\item\em identifier to the shared memory flags \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_a8501ee19bc291abf0c77a6d2416ab5e5}\label{client_8c_a8501ee19bc291abf0c77a6d2416ab5e5}} 
+int $\ast$ \mbox{\hyperlink{client_8c_a8501ee19bc291abf0c77a6d2416ab5e5}{shm\+\_\+flag}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em pointer to the shared memory that contains the flags. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_a77a24092b59397ed6c2aad5c0de0cefd}\label{client_8c_a77a24092b59397ed6c2aad5c0de0cefd}} 
+char \mbox{\hyperlink{client_8c_a77a24092b59397ed6c2aad5c0de0cefd}{C\+U\+R\+R\+E\+N\+T\+\_\+\+D\+I\+R\+E\+C\+T\+O\+RY}} \mbox{[}\mbox{\hyperlink{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}{B\+U\+F\+F\+E\+R\+\_\+\+SZ}}\mbox{]} = \char`\"{}\char`\"{}
+\begin{DoxyCompactList}\small\item\em current working directory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{client_8c_ab68195a262278b18e5dc84f677ad434d}\label{client_8c_ab68195a262278b18e5dc84f677ad434d}} 
+char $\ast$ \mbox{\hyperlink{client_8c_ab68195a262278b18e5dc84f677ad434d}{search\+Path}} = N\+U\+LL
+\begin{DoxyCompactList}\small\item\em contains the path that was passed as a parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contiene l\textquotesingle{}implementazione del client. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Spostare le funzioni non main fuori dal file \mbox{\hyperlink{client_8c}{client.\+c}} ? (ad esempio una opzione per la funzione \mbox{\hyperlink{client_8c_a55586f2b7e9b3620294cf78cda8abdad}{dividi()}} e\textquotesingle{} metterla in files.\+c) \end{DoxyRefDesc}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{client_8c_a55586f2b7e9b3620294cf78cda8abdad}\label{client_8c_a55586f2b7e9b3620294cf78cda8abdad}} 
+\index{client.c@{client.c}!dividi@{dividi}}
+\index{dividi@{dividi}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{dividi()}{dividi()}}
+{\footnotesize\ttfamily void dividi (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{count,  }\item[{char $\ast$}]{file\+Path,  }\item[{int}]{parte }\end{DoxyParamCaption})}
+
+
+
+Divide in 4 parti il contenuto del file da inviare al server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & File descriptor del file da inviare \\
+\hline
+{\em buf} & Buffer in cui memorizzare la porzione del messaggio \\
+\hline
+{\em count} & Dimensione della porzione di messaggio \\
+\hline
+{\em file\+Path} & Percorso del file da suddividere \\
+\hline
+{\em parte} & Numero identificativo della porzione di messaggio \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{client_8c_a748983b7ce27515a3ad116ada4334c4e}\label{client_8c_a748983b7ce27515a3ad116ada4334c4e}} 
+\index{client.c@{client.c}!int\_to\_string@{int\_to\_string}}
+\index{int\_to\_string@{int\_to\_string}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{int\_to\_string()}{int\_to\_string()}}
+{\footnotesize\ttfamily char$\ast$ int\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+Converte un intero in stringa. \begin{quote}
+E\textquotesingle{} necessaria la free() dopo aver terminato l\textquotesingle{}uso della stringa. \end{quote}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Valore intero da convertire in stringa \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char$\ast$ Stringa contenente il valore 
+\end{DoxyReturn}
+\mbox{\Hypertarget{client_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{client_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{client.c@{client.c}!main@{main}}
+\index{main@{main}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Execute operations termination performed with S\+I\+G\+I\+NT\+: At the end close all I\+P\+Cs. 
+
+Memorizza il percorso passato come parametro, gestisce segnali e handler, attende i segnali S\+I\+G\+I\+NT o S\+I\+G\+U\+S\+R1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Numero argomenti passati da linea di comando (compreso il nome dell\textquotesingle{}eseguibile) \\
+\hline
+{\em argv} & Array di argomenti passati da linea di comando \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Exit code dell\textquotesingle{}intero programma 
+\end{DoxyReturn}
+\mbox{\Hypertarget{client_8c_a8c7084a254c7cd640d66e647795ff8f6}\label{client_8c_a8c7084a254c7cd640d66e647795ff8f6}} 
+\index{client.c@{client.c}!operazioni\_client0@{operazioni\_client0}}
+\index{operazioni\_client0@{operazioni\_client0}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{operazioni\_client0()}{operazioni\_client0()}}
+{\footnotesize\ttfamily void operazioni\+\_\+client0 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Esegue tutte le funzionalita\textquotesingle{} principali del client 0.
+
+Non vengono eseguite in \mbox{\hyperlink{client_8h_a48d605ff689f470746c858648f0a98c2}{S\+I\+G\+I\+N\+T\+Signal\+Handler()}} per il seguente motivo\+: \href{https://man7.org/linux/man-pages/man7/signal-safety.7.html}{\texttt{ https\+://man7.\+org/linux/man-\/pages/man7/signal-\/safety.\+7.\+html}}
+
+\begin{DoxyNote}{Note}
+Il client 0 deve attendere i processi figlio? La specifica indica solo che bisogna attendere il messaggio di fine dal server... Attualmente prima si attendere il messaggio di fine e poi si aspetta che tutti i figlio terminino. 
+\end{DoxyNote}
+\mbox{\Hypertarget{client_8c_a54b47b58f228d7bc9827d2919687e25a}\label{client_8c_a54b47b58f228d7bc9827d2919687e25a}} 
+\index{client.c@{client.c}!operazioni\_figlio@{operazioni\_figlio}}
+\index{operazioni\_figlio@{operazioni\_figlio}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{operazioni\_figlio()}{operazioni\_figlio()}}
+{\footnotesize\ttfamily void operazioni\+\_\+figlio (\begin{DoxyParamCaption}\item[{char $\ast$}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & Percorso del file che il client deve suddividere e mandare al server. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{client_8c_a48d605ff689f470746c858648f0a98c2}\label{client_8c_a48d605ff689f470746c858648f0a98c2}} 
+\index{client.c@{client.c}!SIGINTSignalHandler@{SIGINTSignalHandler}}
+\index{SIGINTSignalHandler@{SIGINTSignalHandler}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{SIGINTSignalHandler()}{SIGINTSignalHandler()}}
+{\footnotesize\ttfamily void S\+I\+G\+I\+N\+T\+Signal\+Handler (\begin{DoxyParamCaption}\item[{int}]{sig }\end{DoxyParamCaption})}
+
+
+
+C\+Lose all the I\+P\+Cs and exit the program. 
+
+Handler del segnale S\+I\+G\+I\+NT.
+
+Non fa niente, permette solo al processo di risvegliarsi dal pause().
+
+Le funzionalita\textquotesingle{} principali vengono eseguite da \mbox{\hyperlink{client_8h_a8c7084a254c7cd640d66e647795ff8f6}{operazioni\+\_\+client0()}} e non qui per il seguente motivo\+: \href{https://man7.org/linux/man-pages/man7/signal-safety.7.html}{\texttt{ https\+://man7.\+org/linux/man-\/pages/man7/signal-\/safety.\+7.\+html}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em sig} & Valore intero corrispondente a S\+I\+G\+I\+NT \\
+\hline
+\end{DoxyParams}
+When performing buffered I/O on a file, the stdio functions must maintain a statically allocated data buffer along with associated counters and indexes (or pointers) that record the amount of data and the current position in the buffer. Suppose that the main program is in the middle of a call to a stdio function such as printf(3) where the buffer and associated variables have been partially updated. If, at that moment, the program is interrupted by a signal handler that also calls printf(3), then the second call to printf(3) will operate on inconsistent data, with unpredictable results.\mbox{\Hypertarget{client_8c_a50b22adcb76198fcd9402a97ff4711bf}\label{client_8c_a50b22adcb76198fcd9402a97ff4711bf}} 
+\index{client.c@{client.c}!SIGUSR1SignalHandler@{SIGUSR1SignalHandler}}
+\index{SIGUSR1SignalHandler@{SIGUSR1SignalHandler}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{SIGUSR1SignalHandler()}{SIGUSR1SignalHandler()}}
+{\footnotesize\ttfamily void S\+I\+G\+U\+S\+R1\+Signal\+Handler (\begin{DoxyParamCaption}\item[{int}]{sig }\end{DoxyParamCaption})}
+
+
+
+Handler del segnale S\+I\+G\+U\+S\+R1\+: chiude le risorse del client 0 e termina la sua esecuzione. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sig} & Valore intero corrispondente a S\+I\+G\+U\+S\+R1 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{client_8c_a0c711b3b2108bc5ddb5ceece99e0afa4}\label{client_8c_a0c711b3b2108bc5ddb5ceece99e0afa4}} 
+\index{client.c@{client.c}!strEquals@{strEquals}}
+\index{strEquals@{strEquals}!client.c@{client.c}}
+\doxysubsubsection{\texorpdfstring{strEquals()}{strEquals()}}
+{\footnotesize\ttfamily bool str\+Equals (\begin{DoxyParamCaption}\item[{char $\ast$}]{string1,  }\item[{char $\ast$}]{string2 }\end{DoxyParamCaption})}
+
+Restituisce vero se due stringhe sono uguali
+
+
+\begin{DoxyParams}{Parameters}
+{\em string1} & Stringa da confrontare \\
+\hline
+{\em string2} & Stringa da confrontare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true string1 e string2 sono uguali 
+
+false string1 e string2 sono diverse 
+\end{DoxyReturn}

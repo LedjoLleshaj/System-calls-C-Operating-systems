@@ -1,0 +1,225 @@
+\hypertarget{defines_8h}{}\doxysection{defines.\+h File Reference}
+\label{defines_8h}\index{defines.h@{defines.h}}
+
+
+Contains the definitions used in the program.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\newline
+Include dependency graph for defines.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{defines_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{defines_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmessage__t}{message\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}\label{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}} 
+\#define \mbox{\hyperlink{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}{B\+U\+F\+F\+E\+R\+\_\+\+SZ}}~255
+\begin{DoxyCompactList}\small\item\em Buffer used from getcwd() \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a1e79a43e6110ccf4b3e3fcacc6e1a07e}\label{defines_8h_a1e79a43e6110ccf4b3e3fcacc6e1a07e}} 
+\#define \mbox{\hyperlink{defines_8h_a1e79a43e6110ccf4b3e3fcacc6e1a07e}{F\+I\+F\+O1\+\_\+\+P\+A\+TH}}~\char`\"{}/tmp/fifo1\+\_\+file.\+txt\char`\"{}
+\begin{DoxyCompactList}\small\item\em F\+I\+FO path. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a04902929b62d6decfed3e7ef544a5cdb}\label{defines_8h_a04902929b62d6decfed3e7ef544a5cdb}} 
+\#define \mbox{\hyperlink{defines_8h_a04902929b62d6decfed3e7ef544a5cdb}{F\+I\+F\+O2\+\_\+\+P\+A\+TH}}~\char`\"{}/tmp/fifo2\+\_\+file.\+txt\char`\"{}
+\begin{DoxyCompactList}\small\item\em F\+I\+FO path. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a349f7df17f5deac12c3a36f71ef47577}\label{defines_8h_a349f7df17f5deac12c3a36f71ef47577}} 
+\#define \mbox{\hyperlink{defines_8h_a349f7df17f5deac12c3a36f71ef47577}{F\+I\+L\+E\+\_\+\+N\+R\+\_\+\+M\+T\+Y\+PE}}~1
+\begin{DoxyCompactList}\small\item\em mtype message that contains the total number of files \char`\"{}sendme\+\_\+\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a608bff9abd5221ecbbbca9078075c041}\label{defines_8h_a608bff9abd5221ecbbbca9078075c041}} 
+\#define \mbox{\hyperlink{defines_8h_a608bff9abd5221ecbbbca9078075c041}{F\+I\+F\+O1\+\_\+\+P\+A\+RT}}~2
+\begin{DoxyCompactList}\small\item\em mtype message that contains first part of the file \char`\"{}sendme\+\_\+\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_aa61863d63eee7ea0146e415857c84cbd}\label{defines_8h_aa61863d63eee7ea0146e415857c84cbd}} 
+\#define \mbox{\hyperlink{defines_8h_aa61863d63eee7ea0146e415857c84cbd}{F\+I\+F\+O2\+\_\+\+P\+A\+RT}}~3
+\begin{DoxyCompactList}\small\item\em mtype message that contains second part of the file \char`\"{}sendme\+\_\+\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_af851d1de30c58030df373b5e88d5c474}\label{defines_8h_af851d1de30c58030df373b5e88d5c474}} 
+\#define \mbox{\hyperlink{defines_8h_af851d1de30c58030df373b5e88d5c474}{M\+S\+G\+Q\+U\+E\+U\+E\+\_\+\+P\+A\+RT}}~4
+\begin{DoxyCompactList}\small\item\em mtype message that contains third part of the file \char`\"{}sendme\+\_\+\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_ada9977fa227baccbfdd236c1aea1ed2f}\label{defines_8h_ada9977fa227baccbfdd236c1aea1ed2f}} 
+\#define \mbox{\hyperlink{defines_8h_ada9977fa227baccbfdd236c1aea1ed2f}{S\+H\+A\+R\+E\+D\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+P\+A\+RT}}~5
+\begin{DoxyCompactList}\small\item\em mtype message that contains fourth part of the file \char`\"{}sendme\+\_\+\char`\"{} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_abe6b865c045f3e7c6892ef4f15ff5779}\label{defines_8h_abe6b865c045f3e7c6892ef4f15ff5779}} 
+\#define \mbox{\hyperlink{defines_8h_abe6b865c045f3e7c6892ef4f15ff5779}{D\+O\+NE}}~6
+\begin{DoxyCompactList}\small\item\em mtype message that contains finish msg from server \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_aba5fde78b7109b27966758926358b08d}\label{defines_8h_aba5fde78b7109b27966758926358b08d}} 
+\#define \mbox{\hyperlink{defines_8h_aba5fde78b7109b27966758926358b08d}{E\+M\+P\+T\+Y\+\_\+\+M\+T\+Y\+PE}}~-\/1
+\begin{DoxyCompactList}\small\item\em mtype message that contains the value used to initialize \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a145b4c29c9494d8356c6108d9bf39aca}\label{defines_8h_a145b4c29c9494d8356c6108d9bf39aca}} 
+\#define \mbox{\hyperlink{defines_8h_a145b4c29c9494d8356c6108d9bf39aca}{M\+A\+X\+\_\+\+M\+S\+G\+\_\+\+P\+E\+R\+\_\+\+C\+H\+A\+N\+N\+EL}}~50
+\begin{DoxyCompactList}\small\item\em maximum number of messages per communication channel \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a0b8b71c287c99c2bd2e36f6bc95a005e}\label{defines_8h_a0b8b71c287c99c2bd2e36f6bc95a005e}} 
+\#define \mbox{\hyperlink{defines_8h_a0b8b71c287c99c2bd2e36f6bc95a005e}{M\+S\+G\+\_\+\+M\+A\+X\+\_\+\+SZ}}~4096
+\begin{DoxyCompactList}\small\item\em maximum size of the message / file to send \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a2f72e71f34fb7e6074d029377ab31918}\label{defines_8h_a2f72e71f34fb7e6074d029377ab31918}} 
+\#define \mbox{\hyperlink{defines_8h_a2f72e71f34fb7e6074d029377ab31918}{M\+S\+G\+\_\+\+P\+A\+R\+T\+S\+\_\+\+N\+UM}}~4
+\begin{DoxyCompactList}\small\item\em number of parts into which to divide the message \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{defines_8h_a46b84a677ff2bcf693b89247e39d75f7}\label{defines_8h_a46b84a677ff2bcf693b89247e39d75f7}} 
+\#define \mbox{\hyperlink{defines_8h_a46b84a677ff2bcf693b89247e39d75f7}{M\+S\+G\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+SZ}}~(\mbox{\hyperlink{defines_8h_a0b8b71c287c99c2bd2e36f6bc95a005e}{M\+S\+G\+\_\+\+M\+A\+X\+\_\+\+SZ}} / \mbox{\hyperlink{defines_8h_a2f72e71f34fb7e6074d029377ab31918}{M\+S\+G\+\_\+\+P\+A\+R\+T\+S\+\_\+\+N\+UM}})
+\begin{DoxyCompactList}\small\item\em maximum size of a message part \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structmessage__t}{message\+\_\+t}} \mbox{\hyperlink{defines_8h_adba1cc438bbfd876f22e899ef7f497f1}{message\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8h_a2d341373a96ffea0944553e5452cdbca}{get\+\_\+ipc\+\_\+key}} ()
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8h_afd25e0dffe44c8dd59ae86caabb94287}{get\+\_\+ipc\+\_\+key2}} ()
+\item 
+key\+\_\+t \mbox{\hyperlink{defines_8h_abe68b7232c057100c2e21586906436d7}{get\+\_\+project\+\_\+ipc\+\_\+key}} (char proj\+\_\+id)
+\item 
+bool \mbox{\hyperlink{defines_8h_ac281b05b7a90ba292f5748cbfe3c389d}{array\+Contains\+All\+True}} (bool arr\mbox{[}$\,$\mbox{]}, int len)
+\begin{DoxyCompactList}\small\item\em Return true if the arrya is all true. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{defines_8h_aea9b93cad897755a46cb9e3373ba8cc2}{block\+FD}} (int fd, int blocking)
+\begin{DoxyCompactList}\small\item\em Makes a file descriptor blocking or non-\/blocking. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{defines_8h_a2ce7c4d064c3b1a3f182c3e830a4c31d}{print\+\_\+msg}} (char $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Displays a message on standard output using write. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{defines_8h_a77a24092b59397ed6c2aad5c0de0cefd}{C\+U\+R\+R\+E\+N\+T\+\_\+\+D\+I\+R\+E\+C\+T\+O\+RY}} \mbox{[}\mbox{\hyperlink{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}{B\+U\+F\+F\+E\+R\+\_\+\+SZ}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em current working directory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the definitions used in the program. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{defines_8h_adba1cc438bbfd876f22e899ef7f497f1}\label{defines_8h_adba1cc438bbfd876f22e899ef7f497f1}} 
+\index{defines.h@{defines.h}!message\_t@{message\_t}}
+\index{message\_t@{message\_t}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{message\_t}{message\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structmessage__t}{message\+\_\+t}} \mbox{\hyperlink{structmessage__t}{message\+\_\+t}}}
+
+Rapresents a message containing a portion of the content of a file, the number of files sent by the client or the \char`\"{}ok\char`\"{} message when the server has received the file number. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{defines_8h_ac281b05b7a90ba292f5748cbfe3c389d}\label{defines_8h_ac281b05b7a90ba292f5748cbfe3c389d}} 
+\index{defines.h@{defines.h}!arrayContainsAllTrue@{arrayContainsAllTrue}}
+\index{arrayContainsAllTrue@{arrayContainsAllTrue}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{arrayContainsAllTrue()}{arrayContainsAllTrue()}}
+{\footnotesize\ttfamily bool array\+Contains\+All\+True (\begin{DoxyParamCaption}\item[{bool}]{arr\mbox{[}$\,$\mbox{]},  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+
+
+Return true if the arrya is all true. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em arr} & array of booleans \\
+\hline
+{\em len} & length of the array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if all the elements of the array are true 
+
+false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8h_aea9b93cad897755a46cb9e3373ba8cc2}\label{defines_8h_aea9b93cad897755a46cb9e3373ba8cc2}} 
+\index{defines.h@{defines.h}!blockFD@{blockFD}}
+\index{blockFD@{blockFD}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{blockFD()}{blockFD()}}
+{\footnotesize\ttfamily int block\+FD (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int}]{blocking }\end{DoxyParamCaption})}
+
+
+
+Makes a file descriptor blocking or non-\/blocking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & file descriptor \\
+\hline
+{\em blocking} & 0\+: non blocking, 1\+: blocking \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 0 if it fails 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8h_a2d341373a96ffea0944553e5452cdbca}\label{defines_8h_a2d341373a96ffea0944553e5452cdbca}} 
+\index{defines.h@{defines.h}!get\_ipc\_key@{get\_ipc\_key}}
+\index{get\_ipc\_key@{get\_ipc\_key}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{get\_ipc\_key()}{get\_ipc\_key()}}
+{\footnotesize\ttfamily key\+\_\+t get\+\_\+ipc\+\_\+key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the first I\+PC key obtained with get\+\_\+project\+\_\+ipc\+\_\+key ().
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t I\+PC key 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{defines_8h_abe68b7232c057100c2e21586906436d7}{get\+\_\+project\+\_\+ipc\+\_\+key}} () 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{defines_8h_afd25e0dffe44c8dd59ae86caabb94287}\label{defines_8h_afd25e0dffe44c8dd59ae86caabb94287}} 
+\index{defines.h@{defines.h}!get\_ipc\_key2@{get\_ipc\_key2}}
+\index{get\_ipc\_key2@{get\_ipc\_key2}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{get\_ipc\_key2()}{get\_ipc\_key2()}}
+{\footnotesize\ttfamily key\+\_\+t get\+\_\+ipc\+\_\+key2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the second I\+PC key obtained with get\+\_\+project\+\_\+ipc\+\_\+key ().
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t I\+PC key 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8h_abe68b7232c057100c2e21586906436d7}\label{defines_8h_abe68b7232c057100c2e21586906436d7}} 
+\index{defines.h@{defines.h}!get\_project\_ipc\_key@{get\_project\_ipc\_key}}
+\index{get\_project\_ipc\_key@{get\_project\_ipc\_key}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{get\_project\_ipc\_key()}{get\_project\_ipc\_key()}}
+{\footnotesize\ttfamily key\+\_\+t get\+\_\+project\+\_\+ipc\+\_\+key (\begin{DoxyParamCaption}\item[{char}]{proj\+\_\+id }\end{DoxyParamCaption})}
+
+Returns a generic I\+PC key for the project obtained with ftok on the folder with the executables.
+
+\begin{DoxyReturn}{Returns}
+key\+\_\+t I\+PC key 
+\end{DoxyReturn}
+\mbox{\Hypertarget{defines_8h_a2ce7c4d064c3b1a3f182c3e830a4c31d}\label{defines_8h_a2ce7c4d064c3b1a3f182c3e830a4c31d}} 
+\index{defines.h@{defines.h}!print\_msg@{print\_msg}}
+\index{print\_msg@{print\_msg}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{print\_msg()}{print\_msg()}}
+{\footnotesize\ttfamily void print\+\_\+msg (\begin{DoxyParamCaption}\item[{char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Displays a message on standard output using write. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & message to display \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{defines_8h_a77a24092b59397ed6c2aad5c0de0cefd}\label{defines_8h_a77a24092b59397ed6c2aad5c0de0cefd}} 
+\index{defines.h@{defines.h}!CURRENT\_DIRECTORY@{CURRENT\_DIRECTORY}}
+\index{CURRENT\_DIRECTORY@{CURRENT\_DIRECTORY}!defines.h@{defines.h}}
+\doxysubsubsection{\texorpdfstring{CURRENT\_DIRECTORY}{CURRENT\_DIRECTORY}}
+{\footnotesize\ttfamily char C\+U\+R\+R\+E\+N\+T\+\_\+\+D\+I\+R\+E\+C\+T\+O\+RY\mbox{[}\mbox{\hyperlink{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}{B\+U\+F\+F\+E\+R\+\_\+\+SZ}}\mbox{]}}
+
+
+
+current working directory. 
+
+current working directory. 

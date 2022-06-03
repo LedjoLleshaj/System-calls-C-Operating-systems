@@ -1,0 +1,54 @@
+\hypertarget{signals_8c}{}\doxysection{signals.\+c File Reference}
+\label{signals_8c}\index{signals.c@{signals.c}}
+
+
+Signal handling functions.  
+
+
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}signals.\+h\char`\"{}}\newline
+Include dependency graph for signals.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{signals_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{signals_8c_a3b7032794518ece1c0e32e7a03548798}{allow\+Only\+S\+I\+G\+I\+N\+T\+\_\+\+S\+I\+G\+U\+S\+R1}} ()
+\item 
+void \mbox{\hyperlink{signals_8c_a616410f7652d46678365cf3b383cc767}{block\+All\+Signals}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Signal handling functions. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{signals_8c_a3b7032794518ece1c0e32e7a03548798}\label{signals_8c_a3b7032794518ece1c0e32e7a03548798}} 
+\index{signals.c@{signals.c}!allowOnlySIGINT\_SIGUSR1@{allowOnlySIGINT\_SIGUSR1}}
+\index{allowOnlySIGINT\_SIGUSR1@{allowOnlySIGINT\_SIGUSR1}!signals.c@{signals.c}}
+\doxysubsubsection{\texorpdfstring{allowOnlySIGINT\_SIGUSR1()}{allowOnlySIGINT\_SIGUSR1()}}
+{\footnotesize\ttfamily void allow\+Only\+S\+I\+G\+I\+N\+T\+\_\+\+S\+I\+G\+U\+S\+R1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Block all signals except S\+I\+G\+I\+NT and S\+I\+G\+U\+S\+R1\+:
+\begin{DoxyItemize}
+\item creating a set of all signals
+\item removing S\+I\+G\+I\+NT and S\+I\+G\+U\+S\+R1 from the set
+\item setting the mask to block the signals of the set 
+\end{DoxyItemize}\mbox{\Hypertarget{signals_8c_a616410f7652d46678365cf3b383cc767}\label{signals_8c_a616410f7652d46678365cf3b383cc767}} 
+\index{signals.c@{signals.c}!blockAllSignals@{blockAllSignals}}
+\index{blockAllSignals@{blockAllSignals}!signals.c@{signals.c}}
+\doxysubsubsection{\texorpdfstring{blockAllSignals()}{blockAllSignals()}}
+{\footnotesize\ttfamily void block\+All\+Signals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Block all signals\+:
+\begin{DoxyItemize}
+\item creating a set of all signals
+\item setting the mask to block the signals of the set 
+\end{DoxyItemize}

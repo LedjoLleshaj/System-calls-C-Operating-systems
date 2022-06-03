@@ -1,0 +1,258 @@
+\hypertarget{files_8h}{}\doxysection{files.\+h File Reference}
+\label{files_8h}\index{files.h@{files.h}}
+
+
+Contains F\+I\+LE structs and functions.  
+
+
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for files.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=142pt]{files_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{files_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structfiles__list}{files\+\_\+list}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structfiles__list}{files\+\_\+list}} \mbox{\hyperlink{files_8h_aaefb4e4badd7574a0042e5863078970c}{files\+\_\+list}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{files_8h_a1cdd9b5b37408e31d80f31e474a71483}{print\+\_\+list}} (\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$head)
+\begin{DoxyCompactList}\small\item\em Displays the contents of the linked list of file\+Path. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{files_8h_a21b51584b636c81767ed74b8a527ffd3}{append2\+Path}} (char $\ast$path, char $\ast$directory)
+\begin{DoxyCompactList}\small\item\em Concatenate the directory folder to the path path. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{files_8h_abaeb0d4b0769de848fb761315ad007a0}{Starts\+With\+\_\+\+Ends\+With}} (const char $\ast$filename, const char $\ast$sendme, const char $\ast$out)
+\begin{DoxyCompactList}\small\item\em Check file properties. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$ \mbox{\hyperlink{files_8h_a6a46f37bcdbf048db0fba5bb3e0e6342}{append}} (\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$head, char $\ast$path)
+\begin{DoxyCompactList}\small\item\em Append a new node to the linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{files_8h_a786a7b6f9c01e8489d7196a79f5f3862}{free\+\_\+list}} (\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$head)
+\begin{DoxyCompactList}\small\item\em Frees the H\+E\+AP memory occupied by the file\+Path list. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{files_8h_a3ba19f05c37434e7f20facff3445651a}{count\+\_\+files}} (\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$head)
+\begin{DoxyCompactList}\small\item\em Counts the number of files in the linked list of file\+Path. \end{DoxyCompactList}\item 
+long \mbox{\hyperlink{files_8h_a096f8e9259afb2839ebe6822364f9928}{get\+File\+Size}} (char $\ast$file\+Path)
+\begin{DoxyCompactList}\small\item\em Returns the size in bytes of the file with path file\+Path. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{files_8h_a5ac4517096592013308a3252f3226f60}{check\+File\+Size}} (char $\ast$file\+Path)
+\begin{DoxyCompactList}\small\item\em Returns 1 if the path has the size $<$= 4 KB, 0 otherwise. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{files_8h_a675d61c6bfe0d9ddd1be59233dfd7d5c}{check\+File\+Name}} (char $\ast$file\+Name)
+\begin{DoxyCompactList}\small\item\em Returns 1 if the filename begins with \char`\"{}sendme\+\_\+\char`\"{} and! Contains \char`\"{}\+\_\+out\char`\"{}, 0 otherwise. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$ \mbox{\hyperlink{files_8h_a627e4b202ea71f3bd241ccf562449bd6}{find\+\_\+sendme\+\_\+files}} (char $\ast$\mbox{\hyperlink{client_8c_ab68195a262278b18e5dc84f677ad434d}{search\+Path}}, \mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$head)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains F\+I\+LE structs and functions. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{files_8h_aaefb4e4badd7574a0042e5863078970c}\label{files_8h_aaefb4e4badd7574a0042e5863078970c}} 
+\index{files.h@{files.h}!files\_list@{files\_list}}
+\index{files\_list@{files\_list}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{files\_list}{files\_list}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structfiles__list}{files\+\_\+list}} \mbox{\hyperlink{structfiles__list}{files\+\_\+list}}}
+
+Node of a linked list of file\+Path. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{files_8h_a6a46f37bcdbf048db0fba5bb3e0e6342}\label{files_8h_a6a46f37bcdbf048db0fba5bb3e0e6342}} 
+\index{files.h@{files.h}!append@{append}}
+\index{append@{append}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfiles__list}{files\+\_\+list}}$\ast$ append (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$}]{head,  }\item[{char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Append a new node to the linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & pointer to the head of the linked list \\
+\hline
+{\em path} & filepath to add to the linked list\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+files\+\_\+list$\ast$ pointer to the head of the linked list 
+\end{DoxyReturn}
+\mbox{\Hypertarget{files_8h_a21b51584b636c81767ed74b8a527ffd3}\label{files_8h_a21b51584b636c81767ed74b8a527ffd3}} 
+\index{files.h@{files.h}!append2Path@{append2Path}}
+\index{append2Path@{append2Path}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{append2Path()}{append2Path()}}
+{\footnotesize\ttfamily size\+\_\+t append2\+Path (\begin{DoxyParamCaption}\item[{char $\ast$}]{path,  }\item[{char $\ast$}]{directory }\end{DoxyParamCaption})}
+
+
+
+Concatenate the directory folder to the path path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Root path to add directories to \\
+\hline
+{\em directory} & Folder name to add to the path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+size\+\_\+t Char direcotry size 
+\end{DoxyReturn}
+\mbox{\Hypertarget{files_8h_a675d61c6bfe0d9ddd1be59233dfd7d5c}\label{files_8h_a675d61c6bfe0d9ddd1be59233dfd7d5c}} 
+\index{files.h@{files.h}!checkFileName@{checkFileName}}
+\index{checkFileName@{checkFileName}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{checkFileName()}{checkFileName()}}
+{\footnotesize\ttfamily int check\+File\+Name (\begin{DoxyParamCaption}\item[{char $\ast$}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns 1 if the filename begins with \char`\"{}sendme\+\_\+\char`\"{} and! Contains \char`\"{}\+\_\+out\char`\"{}, 0 otherwise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & filepath to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int returns 1 if the filename begins with \char`\"{}sendme\+\_\+\char`\"{} and! Contains \char`\"{}\+\_\+out\char`\"{}, 0 otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{files_8h_a5ac4517096592013308a3252f3226f60}\label{files_8h_a5ac4517096592013308a3252f3226f60}} 
+\index{files.h@{files.h}!checkFileSize@{checkFileSize}}
+\index{checkFileSize@{checkFileSize}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{checkFileSize()}{checkFileSize()}}
+{\footnotesize\ttfamily int check\+File\+Size (\begin{DoxyParamCaption}\item[{char $\ast$}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Returns 1 if the path has the size $<$= 4 KB, 0 otherwise. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & filepath to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int returns 1 if the path has the size $<$= 4 KB, 0 otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{files_8h_a3ba19f05c37434e7f20facff3445651a}\label{files_8h_a3ba19f05c37434e7f20facff3445651a}} 
+\index{files.h@{files.h}!count\_files@{count\_files}}
+\index{count\_files@{count\_files}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{count\_files()}{count\_files()}}
+{\footnotesize\ttfamily int count\+\_\+files (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$}]{head }\end{DoxyParamCaption})}
+
+
+
+Counts the number of files in the linked list of file\+Path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & pointer to the head of the linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Numbers of file 
+\end{DoxyReturn}
+\mbox{\Hypertarget{files_8h_a627e4b202ea71f3bd241ccf562449bd6}\label{files_8h_a627e4b202ea71f3bd241ccf562449bd6}} 
+\index{files.h@{files.h}!find\_sendme\_files@{find\_sendme\_files}}
+\index{find\_sendme\_files@{find\_sendme\_files}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{find\_sendme\_files()}{find\_sendme\_files()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfiles__list}{files\+\_\+list}}$\ast$ find\+\_\+sendme\+\_\+files (\begin{DoxyParamCaption}\item[{char $\ast$}]{search\+Path,  }\item[{\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$}]{head }\end{DoxyParamCaption})}
+
+Search recursively in the search\+Path path for files starting with \char`\"{}sendme\+\_\+\char`\"{} and! Contains \char`\"{}\+\_\+out\char`\"{} and which have the size $<$= 4 KB.
+
+
+\begin{DoxyParams}{Parameters}
+{\em search\+Path} & path to search in \\
+\hline
+{\em head} & pointer to the head of the linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+files\+\_\+list$\ast$ pointer to the head of the linked list whose elements have the neccessary properties 
+\end{DoxyReturn}
+\mbox{\Hypertarget{files_8h_a786a7b6f9c01e8489d7196a79f5f3862}\label{files_8h_a786a7b6f9c01e8489d7196a79f5f3862}} 
+\index{files.h@{files.h}!free\_list@{free\_list}}
+\index{free\_list@{free\_list}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{free\_list()}{free\_list()}}
+{\footnotesize\ttfamily void free\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$}]{head }\end{DoxyParamCaption})}
+
+
+
+Frees the H\+E\+AP memory occupied by the file\+Path list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & pointer to the head of the linked list \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{files_8h_a096f8e9259afb2839ebe6822364f9928}\label{files_8h_a096f8e9259afb2839ebe6822364f9928}} 
+\index{files.h@{files.h}!getFileSize@{getFileSize}}
+\index{getFileSize@{getFileSize}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{getFileSize()}{getFileSize()}}
+{\footnotesize\ttfamily long get\+File\+Size (\begin{DoxyParamCaption}\item[{char $\ast$}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Returns the size in bytes of the file with path file\+Path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & filepath to the file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+long file size in bytes 
+\end{DoxyReturn}
+\mbox{\Hypertarget{files_8h_a1cdd9b5b37408e31d80f31e474a71483}\label{files_8h_a1cdd9b5b37408e31d80f31e474a71483}} 
+\index{files.h@{files.h}!print\_list@{print\_list}}
+\index{print\_list@{print\_list}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{print\_list()}{print\_list()}}
+{\footnotesize\ttfamily void print\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfiles__list}{files\+\_\+list}} $\ast$}]{head }\end{DoxyParamCaption})}
+
+
+
+Displays the contents of the linked list of file\+Path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & pointer to the head of the linked list \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{files_8h_abaeb0d4b0769de848fb761315ad007a0}\label{files_8h_abaeb0d4b0769de848fb761315ad007a0}} 
+\index{files.h@{files.h}!StartsWith\_EndsWith@{StartsWith\_EndsWith}}
+\index{StartsWith\_EndsWith@{StartsWith\_EndsWith}!files.h@{files.h}}
+\doxysubsubsection{\texorpdfstring{StartsWith\_EndsWith()}{StartsWith\_EndsWith()}}
+{\footnotesize\ttfamily bool Starts\+With\+\_\+\+Ends\+With (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{const char $\ast$}]{sendme,  }\item[{const char $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Check file properties. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+{\em sendme} & \\
+\hline
+{\em out} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true is the filename starts with \char`\"{}\+\_\+sendme\char`\"{} and !contains \char`\"{}\+\_\+out\char`\"{} 
+
+false otherwise 
+\end{DoxyReturn}

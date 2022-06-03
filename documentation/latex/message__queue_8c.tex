@@ -1,0 +1,72 @@
+\hypertarget{message__queue_8c}{}\doxysection{message\+\_\+queue.\+c File Reference}
+\label{message__queue_8c}\index{message\_queue.c@{message\_queue.c}}
+
+
+Message queue functions.  
+
+
+{\ttfamily \#include $<$sys/msg.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}err\+\_\+exit.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}message\+\_\+queue.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}defines.\+h\char`\"{}}\newline
+Include dependency graph for message\+\_\+queue.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{message__queue_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct msqid\+\_\+ds \mbox{\hyperlink{message__queue_8c_afebbb2a5c42d6a8bd4c95ab012c1dc8a}{msq\+Get\+Stats}} (int \mbox{\hyperlink{server_8c_ae73e6a837794db6e63f23db2d64a8130}{msqid}})
+\begin{DoxyCompactList}\small\item\em Message queue functions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{message__queue_8c_aded429c9008be24df92b60660cc0acfe}{msq\+Set\+Stats}} (int \mbox{\hyperlink{server_8c_ae73e6a837794db6e63f23db2d64a8130}{msqid}}, struct msqid\+\_\+ds ds)
+\begin{DoxyCompactList}\small\item\em Set new configurations on the message queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Message queue functions. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{message__queue_8c_afebbb2a5c42d6a8bd4c95ab012c1dc8a}\label{message__queue_8c_afebbb2a5c42d6a8bd4c95ab012c1dc8a}} 
+\index{message\_queue.c@{message\_queue.c}!msqGetStats@{msqGetStats}}
+\index{msqGetStats@{msqGetStats}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{msqGetStats()}{msqGetStats()}}
+{\footnotesize\ttfamily struct msqid\+\_\+ds msq\+Get\+Stats (\begin{DoxyParamCaption}\item[{int}]{msqid }\end{DoxyParamCaption})}
+
+
+
+Message queue functions. 
+
+Returns message queue statistics
+
+
+\begin{DoxyParams}{Parameters}
+{\em msqid} & -\/ message queue id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+struct msqid\+\_\+ds -\/ Structure with message queue statistics 
+\end{DoxyReturn}
+\mbox{\Hypertarget{message__queue_8c_aded429c9008be24df92b60660cc0acfe}\label{message__queue_8c_aded429c9008be24df92b60660cc0acfe}} 
+\index{message\_queue.c@{message\_queue.c}!msqSetStats@{msqSetStats}}
+\index{msqSetStats@{msqSetStats}!message\_queue.c@{message\_queue.c}}
+\doxysubsubsection{\texorpdfstring{msqSetStats()}{msqSetStats()}}
+{\footnotesize\ttfamily void msq\+Set\+Stats (\begin{DoxyParamCaption}\item[{int}]{msqid,  }\item[{struct msqid\+\_\+ds}]{ds }\end{DoxyParamCaption})}
+
+
+
+Set new configurations on the message queue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msqid} & -\/ message queue id \\
+\hline
+{\em ds} & -\/ new configurations \\
+\hline
+\end{DoxyParams}

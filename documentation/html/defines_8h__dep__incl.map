@@ -1,0 +1,8 @@
+<map id="defines.h" name="defines.h">
+<area shape="rect" id="node1" title="Contains the definitions used in the program." alt="" coords="231,5,313,32"/>
+<area shape="rect" id="node2" href="$client_8c.html" title="Contiene l&#39;implementazione del client." alt="" coords="5,80,75,107"/>
+<area shape="rect" id="node3" href="$defines_8c.html" title="Contains the implementations of definitions of the project." alt="" coords="99,80,179,107"/>
+<area shape="rect" id="node4" href="$message__queue_8c.html" title="Message queue functions." alt="" coords="203,80,341,107"/>
+<area shape="rect" id="node5" href="$server_8c.html" title="Contains the main function of the server." alt="" coords="379,155,453,181"/>
+<area shape="rect" id="node6" href="$server_8h.html" title="Server functions and neccecary data structures from defines.h." alt="" coords="416,80,491,107"/>
+</map>

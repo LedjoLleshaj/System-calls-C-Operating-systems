@@ -1,0 +1,29 @@
+\hypertarget{structmessage__t}{}\doxysection{message\+\_\+t Struct Reference}
+\label{structmessage__t}\index{message\_t@{message\_t}}
+
+
+{\ttfamily \#include $<$defines.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structmessage__t_a699527a8d4e7c2a5f5a75ea0abb0bddf}\label{structmessage__t_a699527a8d4e7c2a5f5a75ea0abb0bddf}} 
+long \mbox{\hyperlink{structmessage__t_a699527a8d4e7c2a5f5a75ea0abb0bddf}{mtype}}
+\begin{DoxyCompactList}\small\item\em message type\+: field used by the message queue \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmessage__t_a1057fb136a540f15ea6d31c3df4f31e8}\label{structmessage__t_a1057fb136a540f15ea6d31c3df4f31e8}} 
+pid\+\_\+t \mbox{\hyperlink{structmessage__t_a1057fb136a540f15ea6d31c3df4f31e8}{sender\+\_\+pid}}
+\begin{DoxyCompactList}\small\item\em P\+ID of the message sender. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmessage__t_a9bb3d947c9289d7e6547e2cfbc7cfbe9}\label{structmessage__t_a9bb3d947c9289d7e6547e2cfbc7cfbe9}} 
+char \mbox{\hyperlink{structmessage__t_a9bb3d947c9289d7e6547e2cfbc7cfbe9}{file\+\_\+path}} \mbox{[}\mbox{\hyperlink{defines_8h_a22ad48d95fdd6689ea92e17ca5bbfccb}{B\+U\+F\+F\+E\+R\+\_\+\+SZ}}+2\mbox{]}
+\begin{DoxyCompactList}\small\item\em file path \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmessage__t_adcef7e5933d882f952667e587103977b}\label{structmessage__t_adcef7e5933d882f952667e587103977b}} 
+char \mbox{\hyperlink{structmessage__t_adcef7e5933d882f952667e587103977b}{msg\+\_\+body}} \mbox{[}\mbox{\hyperlink{defines_8h_a46b84a677ff2bcf693b89247e39d75f7}{M\+S\+G\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+SZ}}+2\mbox{]}
+\begin{DoxyCompactList}\small\item\em Message content. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Rapresents a message containing a portion of the content of a file, the number of files sent by the client or the \char`\"{}ok\char`\"{} message when the server has received the file number. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{defines_8h}{defines.\+h}}\end{DoxyCompactItemize}
