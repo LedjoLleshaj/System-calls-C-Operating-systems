@@ -51,7 +51,7 @@ message_t **matriceFile = NULL;
 
 void SIGINTSignalHandler(int sig)
 {
-    printf("=========>  Oh no you killed me  <===========\n\tClosing everything.\n");
+    print_msg("\n###########  Oh no you killed me!  #############\n\tClosing everything.\n");
     fflush(stdout);
     // close the fifos
     if (fifo1_fd != -1)
@@ -277,6 +277,10 @@ char *prepareString(message_t a)
 int main(int argc, char *argv[])
 {
 
+    print_msg("\n");
+    print_msg("###########   Server Started succesfully   ############\n");
+    print_msg("\n");
+
     // memorize the path of the executable for ftok()
     if (getcwd(CURRENT_DIRECTORY, sizeof(CURRENT_DIRECTORY)) == NULL)
     {
@@ -291,7 +295,7 @@ int main(int argc, char *argv[])
 
     // print_msg("Setup of Signal Handler done!\n");
 
-    // printf("Recuperata la chiave IPC: %x\n", get_ipc_key());
+    // printf("Obtained the IPC keys: %x\n", get_ipc_key());
 
     // setup the shared memory
     shmid = sharedMemoryGet(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(message_t));
@@ -369,7 +373,6 @@ int main(int argc, char *argv[])
         */
         semSetVal(semid, 1, filenr);
 
-
         // write a confirmation message to the client
         message_t received_msg = {.msg_body = "OK", .mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
 
@@ -377,7 +380,7 @@ int main(int argc, char *argv[])
         semWait(semid, 0);
         shm_message[0] = received_msg;
         semSignal(semid, 0);
-        print_msg("Ho mandato al client il messaggio di conferma.\n");
+        print_msg("Sent to client the confirmation message.\n");
 
         // make fifo file descriptor nonblocking
         // print_msg("Rendi fifo non bloccanti\n");
@@ -404,7 +407,7 @@ int main(int argc, char *argv[])
             // read from fifo1 the first message part
             if (read(fifo1_fd, &fifo1_message, sizeof(fifo1_message)) != -1)
             {
-                printf("[Parte1, del file %s spedita dal processo %d tramite FIFO1]\n%s\n", fifo1_message.file_path, fifo1_message.sender_pid, fifo1_message.msg_body);
+                // printf("[Parte1, del file %s spedita dal processo %d tramite FIFO1]\n%s\n", fifo1_message.file_path, fifo1_message.sender_pid, fifo1_message.msg_body);
                 semSignal(semid, 3);
                 addToMatrix(fifo1_message, filenr);
                 findAndMakeFullFiles(filenr);
@@ -414,7 +417,7 @@ int main(int argc, char *argv[])
             // read from fifo2 the second message part
             if (read(fifo2_fd, &fifo2_message, sizeof(fifo2_message)) != -1)
             {
-                printf("[Parte2,del file %s spedita dal processo %d tramite FIFO2]\n%s\n", fifo2_message.file_path, fifo2_message.sender_pid, fifo2_message.msg_body);
+                // printf("[Parte2,del file %s spedita dal processo %d tramite FIFO2]\n%s\n", fifo2_message.file_path, fifo2_message.sender_pid, fifo2_message.msg_body);
                 semSignal(semid, 4);
                 addToMatrix(fifo2_message, filenr);
                 findAndMakeFullFiles(filenr);
@@ -424,7 +427,7 @@ int main(int argc, char *argv[])
             // read from the message queue the third message part
             if (msgrcv(msqid, &message_queue_part, sizeof(struct message_t) - sizeof(long), MSGQUEUE_PART, IPC_NOWAIT) != -1)
             {
-                printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", message_queue_part.file_path, message_queue_part.sender_pid, message_queue_part.msg_body);
+                // printf("[Parte3,del file %s spedita dal processo %d tramite MsgQueue]\n%s\n", message_queue_part.file_path, message_queue_part.sender_pid, message_queue_part.msg_body);
                 semSignal(semid, 5);
                 addToMatrix(message_queue_part, filenr);
                 findAndMakeFullFiles(filenr);
@@ -440,7 +443,7 @@ int main(int argc, char *argv[])
                 {
                     if (shm_flag[i] == 1)
                     {
-                        printf("\nSHAREDMEMORY cycle %d,\n\nTrovata posizione da leggere %d, messaggio: '%s'\n\n\n", i, i, shm_message[i].msg_body);
+                        // printf("\nSHAREDMEMORY cycle %d,\n\nTrovata posizione da leggere %d, messaggio: '%s'\n\n\n", i, i, shm_message[i].msg_body);
                         shm_flag[i] = 0;
                         addToMatrix(shm_message[i], filenr);
                         findAndMakeFullFiles(filenr);
@@ -479,7 +482,7 @@ int main(int argc, char *argv[])
 
         // it waits on FIFO 1 for a new value n returning to the beginning of the cycle
         print_msg("\n");
-        print_msg("============FINISHED ELABORATING THE FILES================================\n");
+        print_msg("###########   FINISHED ELABORATING THE FILES   ############\n");
         print_msg("\n");
     }
 

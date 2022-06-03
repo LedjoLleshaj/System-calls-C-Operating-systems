@@ -12,12 +12,12 @@
 
 
 key_t get_ipc_key() {
-    return get_project_ipc_key('b');
+    return get_project_ipc_key('A');
 }
 
 
 key_t get_ipc_key2() {
-    return get_project_ipc_key('G');
+    return get_project_ipc_key('L');
 }
 
 
