@@ -1,6 +1,6 @@
 <map id="semaphore.h" name="semaphore.h">
 <area shape="rect" id="node1" title="Semaphore functions." alt="" coords="99,5,205,32"/>
-<area shape="rect" id="node2" href="$client_8c.html" title="Contiene l&#39;implementazione del client." alt="" coords="5,80,75,107"/>
+<area shape="rect" id="node2" href="$client_8c.html" title="Client program." alt="" coords="5,80,75,107"/>
 <area shape="rect" id="node3" href="$semaphore_8c.html" title="Semaphore functions." alt="" coords="99,80,205,107"/>
 <area shape="rect" id="node4" href="$server_8c.html" title="Contains the main function of the server." alt="" coords="230,80,303,107"/>
 </map>
