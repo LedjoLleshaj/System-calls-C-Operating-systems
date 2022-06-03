@@ -1,87 +1,85 @@
 /// @file client.h
-/// @brief Contiene la definizioni di variabili
-///         e funzioni specifiche del CLIENT.
+/// @brief Client header file
 
 #pragma once
 
 /**
- * Esegue tutte le funzionalita' principali del client 0.
+ * 
  *
- * Non vengono eseguite in SIGINTSignalHandler() per il seguente motivo: https://man7.org/linux/man-pages/man7/signal-safety.7.html
+ * They are not executed in SIGINTSignalHandler () for the following reason: https://man7.org/linux/man-pages/man7/signal-safety.7.html
  *
  * 
- * @note Il client 0 deve attendere i processi figlio? La specifica indica solo che bisogna attendere il messaggio di fine dal server...
- *          Attualmente prima si attendere il messaggio di fine e poi si aspetta che tutti i figlio terminino.
+ * @note Does client 0 have to wait for child processes? The specification only indicates that you have to wait for the end message from the server 
+ * Currently, it first waits for the finish message and then all children are expected to finish.
  *
 */
 void operazioni_client0();
 
 /**
- * Handler del segnale SIGINT.
+ * SIGINT Handler.
  *
- * Non fa niente, permette solo al processo di risvegliarsi dal pause().
+ * It does nothing, it just allows the process to wake up from the pause ().
  *
- * Le funzionalita' principali vengono eseguite da operazioni_client0() e non qui per il seguente motivo: https://man7.org/linux/man-pages/man7/signal-safety.7.html
+ * Core functionality is performed by client0 () operations and not here for the following reason: https://man7.org/linux/man-pages/man7/signal-safety.7.html
  *
- * @param sig Valore intero corrispondente a SIGINT
+ * @param sig Integer value corresponding to SIGUSR1
 */
 void SIGINTSignalHandler(int sig);
 
 /**
- * @brief Handler del segnale SIGUSR1: chiude le risorse del client 0 e termina la sua esecuzione.
+ * @brief SIGUSR1 signal handler: closes client 0 resources and ends its execution.
  *
- * @param sig Valore intero corrispondente a SIGUSR1
+ * @param sig Integer value corresponding to SIGUSR1
 */
 void SIGUSR1SignalHandler(int sig);
 
 /**
- * @brief Divide in 4 parti il contenuto del file da inviare al server.
+ * @brief Divides in 4 part the content of the file.
  *
- * @param fd File descriptor del file da inviare
- * @param buf Buffer in cui memorizzare la porzione del messaggio
- * @param count Dimensione della porzione di messaggio
- * @param filePath Percorso del file da suddividere
- * @param parte Numero identificativo della porzione di messaggio
+ * @param fd  File descriptor of the file to divide.
+ * @param buf  Buffer to store the content of the file.
+ * @param count Number of bytes to read from the file.
+ * @param filePath Path of the file to divide.
+ * @param parte Number of the part to write.
 */
 void dividi(int fd, char *buf, size_t count, char *filePath, int parte);
 
 /**
- * @brief Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server.
+ * @brief Function performed by each Client i (children of Client 0) to send files to the server.
  *
- * @param filePath Percorso del file che il client deve suddividere e mandare al server.
+ * @param filePath  Path of the file to send.
  *
 */
 void operazioni_figlio(char * filePath);
 
 /**
- * Memorizza il percorso passato come parametro,
- * gestisce segnali e handler, attende i segnali SIGINT o SIGUSR1.
+ * Stores the path passed as a parameter,
+ * manages signals and handler, waits for SIGINT or SIGUSR1 signals.
  *
- * @param argc Numero argomenti passati da linea di comando (compreso il nome dell'eseguibile)
- * @param argv Array di argomenti passati da linea di comando
- * @return int Exit code dell'intero programma
+ * @param argc Number of arguments passed to the program
+ * @param argv Array of strings containing the arguments passed to the program
+ * @return int Exit code of the whole program
 */
 int main(int argc, char * argv[]);
 
 
 /**
- * Converte un intero in stringa.
- * > E' necessaria la free() dopo aver terminato l'uso della stringa.
+ * Converts integer to string.
+ * 
  *
- * @param value Valore intero da convertire in stringa
- * @return char* Stringa contenente il valore <value>
- *
+ * @param value  Integer to be converted
+ * @return char*  String representation of the integer
 */
 char * int_to_string(int value);
 
 
 /**
- * Restituisce vero se due stringhe sono uguali
+ * Return true if two string are equal
  *
- * @param string1 Stringa da confrontare
- * @param string2 Stringa da confrontare
- * @return true string1 e string2 sono uguali
- * @return false string1 e string2 sono diverse
+ *
+ * @param string1 First string to compare
+ * @param string2 Second string to compare
+ * @return true if the two strings are equal, false otherwise
  *
 */
 bool strEquals(char *string1, char *string2);

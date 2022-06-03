@@ -13,7 +13,7 @@ void make_fifo(char * path);
 
 
 /**
- * @brief Makes it easoer to create a FIFO (or obtains an existing one) in read or write mode.
+ * @brief Makes it easier to create a FIFO (or obtains an existing one) in read or write mode.
  *
  * @param path Path to the FIFO
  * @param mode 'r' (read) or 'w' (write)
