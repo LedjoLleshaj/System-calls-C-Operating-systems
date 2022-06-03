@@ -45,11 +45,11 @@ void \mbox{\hyperlink{client_8c_a48d605ff689f470746c858648f0a98c2}{S\+I\+G\+I\+N
 void \mbox{\hyperlink{client_8c_a8c7084a254c7cd640d66e647795ff8f6}{operazioni\+\_\+client0}} ()
 \item 
 void \mbox{\hyperlink{client_8c_a50b22adcb76198fcd9402a97ff4711bf}{S\+I\+G\+U\+S\+R1\+Signal\+Handler}} (int sig)
-\begin{DoxyCompactList}\small\item\em Handler del segnale S\+I\+G\+U\+S\+R1\+: chiude le risorse del client 0 e termina la sua esecuzione. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em S\+I\+G\+U\+S\+R1 signal handler\+: closes client 0 resources and ends its execution. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{client_8c_a55586f2b7e9b3620294cf78cda8abdad}{dividi}} (int fd, char $\ast$buf, size\+\_\+t count, char $\ast$file\+Path, int parte)
-\begin{DoxyCompactList}\small\item\em Divide in 4 parti il contenuto del file da inviare al server. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Divides in 4 part the content of the file. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{client_8c_a54b47b58f228d7bc9827d2919687e25a}{operazioni\+\_\+figlio}} (char $\ast$file\+Path)
-\begin{DoxyCompactList}\small\item\em Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Function performed by each Client i (children of Client 0) to send files to the server. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{client_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
 \begin{DoxyCompactList}\small\item\em Execute operations termination performed with S\+I\+G\+I\+NT\+: At the end close all I\+P\+Cs. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
@@ -106,19 +106,19 @@ Contiene l\textquotesingle{}implementazione del client.
 
 
 
-Divide in 4 parti il contenuto del file da inviare al server. 
+Divides in 4 part the content of the file. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em fd} & File descriptor del file da inviare \\
+{\em fd} & File descriptor of the file to divide. \\
 \hline
-{\em buf} & Buffer in cui memorizzare la porzione del messaggio \\
+{\em buf} & Buffer to store the content of the file. \\
 \hline
-{\em count} & Dimensione della porzione di messaggio \\
+{\em count} & Number of bytes to read from the file. \\
 \hline
-{\em file\+Path} & Percorso del file da suddividere \\
+{\em file\+Path} & Path of the file to divide. \\
 \hline
-{\em parte} & Numero identificativo della porzione di messaggio \\
+{\em parte} & Number of the part to write. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{client_8c_a748983b7ce27515a3ad116ada4334c4e}\label{client_8c_a748983b7ce27515a3ad116ada4334c4e}} 
@@ -127,17 +127,15 @@ Divide in 4 parti il contenuto del file da inviare al server.
 \doxysubsubsection{\texorpdfstring{int\_to\_string()}{int\_to\_string()}}
 {\footnotesize\ttfamily char$\ast$ int\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
 
-Converte un intero in stringa. \begin{quote}
-E\textquotesingle{} necessaria la free() dopo aver terminato l\textquotesingle{}uso della stringa. \end{quote}
-
+Converts integer to string.
 
 
 \begin{DoxyParams}{Parameters}
-{\em value} & Valore intero da convertire in stringa \\
+{\em value} & Integer to be converted \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-char$\ast$ Stringa contenente il valore 
+char$\ast$ String representation of the integer 
 \end{DoxyReturn}
 \mbox{\Hypertarget{client_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{client_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
 \index{client.c@{client.c}!main@{main}}
@@ -149,17 +147,17 @@ char$\ast$ Stringa contenente il valore
 
 Execute operations termination performed with S\+I\+G\+I\+NT\+: At the end close all I\+P\+Cs. 
 
-Memorizza il percorso passato come parametro, gestisce segnali e handler, attende i segnali S\+I\+G\+I\+NT o S\+I\+G\+U\+S\+R1.
+Stores the path passed as a parameter, manages signals and handler, waits for S\+I\+G\+I\+NT or S\+I\+G\+U\+S\+R1 signals.
 
 
 \begin{DoxyParams}{Parameters}
-{\em argc} & Numero argomenti passati da linea di comando (compreso il nome dell\textquotesingle{}eseguibile) \\
+{\em argc} & Number of arguments passed to the program \\
 \hline
-{\em argv} & Array di argomenti passati da linea di comando \\
+{\em argv} & Array of strings containing the arguments passed to the program \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-int Exit code dell\textquotesingle{}intero programma 
+int Exit code of the whole program 
 \end{DoxyReturn}
 \mbox{\Hypertarget{client_8c_a8c7084a254c7cd640d66e647795ff8f6}\label{client_8c_a8c7084a254c7cd640d66e647795ff8f6}} 
 \index{client.c@{client.c}!operazioni\_client0@{operazioni\_client0}}
@@ -167,12 +165,10 @@ int Exit code dell\textquotesingle{}intero programma
 \doxysubsubsection{\texorpdfstring{operazioni\_client0()}{operazioni\_client0()}}
 {\footnotesize\ttfamily void operazioni\+\_\+client0 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Esegue tutte le funzionalita\textquotesingle{} principali del client 0.
-
-Non vengono eseguite in \mbox{\hyperlink{client_8h_a48d605ff689f470746c858648f0a98c2}{S\+I\+G\+I\+N\+T\+Signal\+Handler()}} per il seguente motivo\+: \href{https://man7.org/linux/man-pages/man7/signal-safety.7.html}{\texttt{ https\+://man7.\+org/linux/man-\/pages/man7/signal-\/safety.\+7.\+html}}
+They are not executed in S\+I\+G\+I\+N\+T\+Signal\+Handler () for the following reason\+: \href{https://man7.org/linux/man-pages/man7/signal-safety.7.html}{\texttt{ https\+://man7.\+org/linux/man-\/pages/man7/signal-\/safety.\+7.\+html}}
 
 \begin{DoxyNote}{Note}
-Il client 0 deve attendere i processi figlio? La specifica indica solo che bisogna attendere il messaggio di fine dal server... Attualmente prima si attendere il messaggio di fine e poi si aspetta che tutti i figlio terminino. 
+Does client 0 have to wait for child processes? The specification only indicates that you have to wait for the end message from the server Currently, it first waits for the finish message and then all children are expected to finish. 
 \end{DoxyNote}
 \mbox{\Hypertarget{client_8c_a54b47b58f228d7bc9827d2919687e25a}\label{client_8c_a54b47b58f228d7bc9827d2919687e25a}} 
 \index{client.c@{client.c}!operazioni\_figlio@{operazioni\_figlio}}
@@ -182,11 +178,11 @@ Il client 0 deve attendere i processi figlio? La specifica indica solo che bisog
 
 
 
-Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server. 
+Function performed by each Client i (children of Client 0) to send files to the server. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em file\+Path} & Percorso del file che il client deve suddividere e mandare al server. \\
+{\em file\+Path} & Path of the file to send. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{client_8c_a48d605ff689f470746c858648f0a98c2}\label{client_8c_a48d605ff689f470746c858648f0a98c2}} 
@@ -199,15 +195,15 @@ Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al ser
 
 C\+Lose all the I\+P\+Cs and exit the program. 
 
-Handler del segnale S\+I\+G\+I\+NT.
+S\+I\+G\+I\+NT Handler.
 
-Non fa niente, permette solo al processo di risvegliarsi dal pause().
+It does nothing, it just allows the process to wake up from the pause ().
 
-Le funzionalita\textquotesingle{} principali vengono eseguite da \mbox{\hyperlink{client_8h_a8c7084a254c7cd640d66e647795ff8f6}{operazioni\+\_\+client0()}} e non qui per il seguente motivo\+: \href{https://man7.org/linux/man-pages/man7/signal-safety.7.html}{\texttt{ https\+://man7.\+org/linux/man-\/pages/man7/signal-\/safety.\+7.\+html}}
+Core functionality is performed by client0 () operations and not here for the following reason\+: \href{https://man7.org/linux/man-pages/man7/signal-safety.7.html}{\texttt{ https\+://man7.\+org/linux/man-\/pages/man7/signal-\/safety.\+7.\+html}}
 
 
 \begin{DoxyParams}{Parameters}
-{\em sig} & Valore intero corrispondente a S\+I\+G\+I\+NT \\
+{\em sig} & Integer value corresponding to S\+I\+G\+U\+S\+R1 \\
 \hline
 \end{DoxyParams}
 When performing buffered I/O on a file, the stdio functions must maintain a statically allocated data buffer along with associated counters and indexes (or pointers) that record the amount of data and the current position in the buffer. Suppose that the main program is in the middle of a call to a stdio function such as printf(3) where the buffer and associated variables have been partially updated. If, at that moment, the program is interrupted by a signal handler that also calls printf(3), then the second call to printf(3) will operate on inconsistent data, with unpredictable results.\mbox{\Hypertarget{client_8c_a50b22adcb76198fcd9402a97ff4711bf}\label{client_8c_a50b22adcb76198fcd9402a97ff4711bf}} 
@@ -218,11 +214,11 @@ When performing buffered I/O on a file, the stdio functions must maintain a stat
 
 
 
-Handler del segnale S\+I\+G\+U\+S\+R1\+: chiude le risorse del client 0 e termina la sua esecuzione. 
+S\+I\+G\+U\+S\+R1 signal handler\+: closes client 0 resources and ends its execution. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em sig} & Valore intero corrispondente a S\+I\+G\+U\+S\+R1 \\
+{\em sig} & Integer value corresponding to S\+I\+G\+U\+S\+R1 \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{client_8c_a0c711b3b2108bc5ddb5ceece99e0afa4}\label{client_8c_a0c711b3b2108bc5ddb5ceece99e0afa4}} 
@@ -231,17 +227,15 @@ Handler del segnale S\+I\+G\+U\+S\+R1\+: chiude le risorse del client 0 e termin
 \doxysubsubsection{\texorpdfstring{strEquals()}{strEquals()}}
 {\footnotesize\ttfamily bool str\+Equals (\begin{DoxyParamCaption}\item[{char $\ast$}]{string1,  }\item[{char $\ast$}]{string2 }\end{DoxyParamCaption})}
 
-Restituisce vero se due stringhe sono uguali
+Return true if two string are equal
 
 
 \begin{DoxyParams}{Parameters}
-{\em string1} & Stringa da confrontare \\
+{\em string1} & First string to compare \\
 \hline
-{\em string2} & Stringa da confrontare \\
+{\em string2} & Second string to compare \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-true string1 e string2 sono uguali 
-
-false string1 e string2 sono diverse 
+true if the two strings are equal, false otherwise 
 \end{DoxyReturn}

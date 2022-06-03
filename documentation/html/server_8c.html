@@ -280,15 +280,15 @@ int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ser
 </div><div class="memdoc">
 
 <p>Execute operations termination performed with SIGINT: At the end close all IPCs. </p>
-<p>Memorizza il percorso passato come parametro, gestisce segnali e handler, attende i segnali SIGINT o SIGUSR1.</p>
+<p>Stores the path passed as a parameter, manages signals and handler, waits for SIGINT or SIGUSR1 signals.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">argc</td><td>Numero argomenti passati da linea di comando (compreso il nome dell'eseguibile) </td></tr>
-    <tr><td class="paramname">argv</td><td>Array di argomenti passati da linea di comando </td></tr>
+    <tr><td class="paramname">argc</td><td>Number of arguments passed to the program </td></tr>
+    <tr><td class="paramname">argv</td><td>Array of strings containing the arguments passed to the program </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Exit code dell'intero programma </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int Exit code of the whole program </dd></dl>
 
 </div>
 </div>
@@ -336,12 +336,12 @@ int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ser
 </div><div class="memdoc">
 
 <p>CLose all the IPCs and exit the program. </p>
-<p>Handler del segnale SIGINT.</p>
-<p>Non fa niente, permette solo al processo di risvegliarsi dal pause().</p>
-<p>Le funzionalita' principali vengono eseguite da <a class="el" href="client_8h.html#a8c7084a254c7cd640d66e647795ff8f6">operazioni_client0()</a> e non qui per il seguente motivo: <a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html">https://man7.org/linux/man-pages/man7/signal-safety.7.html</a></p>
+<p>SIGINT Handler.</p>
+<p>It does nothing, it just allows the process to wake up from the pause ().</p>
+<p>Core functionality is performed by client0 () operations and not here for the following reason: <a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html">https://man7.org/linux/man-pages/man7/signal-safety.7.html</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sig</td><td>Valore intero corrispondente a SIGINT </td></tr>
+    <tr><td class="paramname">sig</td><td>Integer value corresponding to SIGUSR1 </td></tr>
   </table>
   </dd>
 </dl>

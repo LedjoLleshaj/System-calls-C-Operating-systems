@@ -16,7 +16,7 @@
 <area shape="rect" id="node17" href="$err__exit_8h.html" title="Contains functions to exit the program with an error message." alt="" coords="1229,80,1313,107"/>
 <area shape="rect" id="node18" href="$signals_8h.html" title="Signal handling functions." alt="" coords="1337,80,1417,107"/>
 <area shape="rect" id="node19" href="$files_8h.html" title="Contains FILE structs and functions." alt="" coords="96,80,157,107"/>
-<area shape="rect" id="node20" href="$client_8h.html" title="Contiene la definizioni di variabili e funzioni specifiche del CLIENT." alt="" coords="1547,80,1618,107"/>
+<area shape="rect" id="node20" href="$client_8h.html" title="Client header file." alt="" coords="1547,80,1618,107"/>
 <area shape="rect" id="node21" href="$semaphore_8h.html" title="Semaphore functions." alt="" coords="1643,80,1749,107"/>
 <area shape="rect" id="node22" href="$shared__memory_8h.html" title="Shared memory functions." alt="" coords="1773,80,1912,107"/>
 <area shape="rect" id="node23" href="$fifo_8h.html" title="Contains FIFO structs and functions." alt="" coords="1937,80,1991,107"/>

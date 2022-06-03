@@ -114,7 +114,7 @@ Include dependency graph for client.c:</div>
 <area shape="rect" href="err__exit_8h.html" title="Contains functions to exit the program with an error message." alt="" coords="1229,80,1313,107"/>
 <area shape="rect" href="signals_8h.html" title="Signal handling functions." alt="" coords="1337,80,1417,107"/>
 <area shape="rect" href="files_8h.html" title="Contains FILE structs and functions." alt="" coords="96,80,157,107"/>
-<area shape="rect" href="client_8h.html" title="Contiene la definizioni di variabili e funzioni specifiche del CLIENT." alt="" coords="1547,80,1618,107"/>
+<area shape="rect" href="client_8h.html" title="Client header file." alt="" coords="1547,80,1618,107"/>
 <area shape="rect" href="semaphore_8h.html" title="Semaphore functions." alt="" coords="1643,80,1749,107"/>
 <area shape="rect" href="shared__memory_8h.html" title="Shared memory functions." alt="" coords="1773,80,1912,107"/>
 <area shape="rect" href="fifo_8h.html" title="Contains FIFO structs and functions." alt="" coords="1937,80,1991,107"/>
@@ -135,13 +135,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a8c7084a254c7cd640d66e647795ff8f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="client_8c.html#a8c7084a254c7cd640d66e647795ff8f6">operazioni_client0</a> ()</td></tr>
 <tr class="separator:a8c7084a254c7cd640d66e647795ff8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50b22adcb76198fcd9402a97ff4711bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="client_8c.html#a50b22adcb76198fcd9402a97ff4711bf">SIGUSR1SignalHandler</a> (int sig)</td></tr>
-<tr class="memdesc:a50b22adcb76198fcd9402a97ff4711bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler del segnale SIGUSR1: chiude le risorse del client 0 e termina la sua esecuzione.  <a href="client_8c.html#a50b22adcb76198fcd9402a97ff4711bf">More...</a><br /></td></tr>
+<tr class="memdesc:a50b22adcb76198fcd9402a97ff4711bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">SIGUSR1 signal handler: closes client 0 resources and ends its execution.  <a href="client_8c.html#a50b22adcb76198fcd9402a97ff4711bf">More...</a><br /></td></tr>
 <tr class="separator:a50b22adcb76198fcd9402a97ff4711bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55586f2b7e9b3620294cf78cda8abdad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="client_8c.html#a55586f2b7e9b3620294cf78cda8abdad">dividi</a> (int fd, char *buf, size_t count, char *filePath, int parte)</td></tr>
-<tr class="memdesc:a55586f2b7e9b3620294cf78cda8abdad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide in 4 parti il contenuto del file da inviare al server.  <a href="client_8c.html#a55586f2b7e9b3620294cf78cda8abdad">More...</a><br /></td></tr>
+<tr class="memdesc:a55586f2b7e9b3620294cf78cda8abdad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divides in 4 part the content of the file.  <a href="client_8c.html#a55586f2b7e9b3620294cf78cda8abdad">More...</a><br /></td></tr>
 <tr class="separator:a55586f2b7e9b3620294cf78cda8abdad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54b47b58f228d7bc9827d2919687e25a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="client_8c.html#a54b47b58f228d7bc9827d2919687e25a">operazioni_figlio</a> (char *filePath)</td></tr>
-<tr class="memdesc:a54b47b58f228d7bc9827d2919687e25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server.  <a href="client_8c.html#a54b47b58f228d7bc9827d2919687e25a">More...</a><br /></td></tr>
+<tr class="memdesc:a54b47b58f228d7bc9827d2919687e25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function performed by each Client i (children of Client 0) to send files to the server.  <a href="client_8c.html#a54b47b58f228d7bc9827d2919687e25a">More...</a><br /></td></tr>
 <tr class="separator:a54b47b58f228d7bc9827d2919687e25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="client_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
 <tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute operations termination performed with SIGINT: At the end close all IPCs.  <a href="client_8c.html#a0ddf1224851353fc92bfbff6f499fa97">More...</a><br /></td></tr>
@@ -196,7 +196,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contiene l'implementazione del client. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Spostare le funzioni non main fuori dal file <a class="el" href="client_8c.html" title="Contiene l&#39;implementazione del client.">client.c</a> ? (ad esempio una opzione per la funzione <a class="el" href="client_8c.html#a55586f2b7e9b3620294cf78cda8abdad" title="Divide in 4 parti il contenuto del file da inviare al server.">dividi()</a> e' metterla in files.c) </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Spostare le funzioni non main fuori dal file <a class="el" href="client_8c.html" title="Contiene l&#39;implementazione del client.">client.c</a> ? (ad esempio una opzione per la funzione <a class="el" href="client_8c.html#a55586f2b7e9b3620294cf78cda8abdad" title="Divides in 4 part the content of the file.">dividi()</a> e' metterla in files.c) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a55586f2b7e9b3620294cf78cda8abdad"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55586f2b7e9b3620294cf78cda8abdad">&#9670;&nbsp;</a></span>dividi()</h2>
@@ -242,14 +242,14 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
       </table>
 </div><div class="memdoc">
 
-<p>Divide in 4 parti il contenuto del file da inviare al server. </p>
+<p>Divides in 4 part the content of the file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fd</td><td>File descriptor del file da inviare </td></tr>
-    <tr><td class="paramname">buf</td><td>Buffer in cui memorizzare la porzione del messaggio </td></tr>
-    <tr><td class="paramname">count</td><td>Dimensione della porzione di messaggio </td></tr>
-    <tr><td class="paramname">filePath</td><td>Percorso del file da suddividere </td></tr>
-    <tr><td class="paramname">parte</td><td>Numero identificativo della porzione di messaggio </td></tr>
+    <tr><td class="paramname">fd</td><td>File descriptor of the file to divide. </td></tr>
+    <tr><td class="paramname">buf</td><td>Buffer to store the content of the file. </td></tr>
+    <tr><td class="paramname">count</td><td>Number of bytes to read from the file. </td></tr>
+    <tr><td class="paramname">filePath</td><td>Path of the file to divide. </td></tr>
+    <tr><td class="paramname">parte</td><td>Number of the part to write. </td></tr>
   </table>
   </dd>
 </dl>
@@ -271,16 +271,14 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converte un intero in stringa. </p><blockquote class="doxtable">
-<p>E' necessaria la free() dopo aver terminato l'uso della stringa. </p>
-</blockquote>
+<p>Converts integer to string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>Valore intero da convertire in stringa </td></tr>
+    <tr><td class="paramname">value</td><td>Integer to be converted </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>char* Stringa contenente il valore </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>char* String representation of the integer </dd></dl>
 
 </div>
 </div>
@@ -311,15 +309,15 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </div><div class="memdoc">
 
 <p>Execute operations termination performed with SIGINT: At the end close all IPCs. </p>
-<p>Memorizza il percorso passato come parametro, gestisce segnali e handler, attende i segnali SIGINT o SIGUSR1.</p>
+<p>Stores the path passed as a parameter, manages signals and handler, waits for SIGINT or SIGUSR1 signals.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">argc</td><td>Numero argomenti passati da linea di comando (compreso il nome dell'eseguibile) </td></tr>
-    <tr><td class="paramname">argv</td><td>Array di argomenti passati da linea di comando </td></tr>
+    <tr><td class="paramname">argc</td><td>Number of arguments passed to the program </td></tr>
+    <tr><td class="paramname">argv</td><td>Array of strings containing the arguments passed to the program </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int Exit code dell'intero programma </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int Exit code of the whole program </dd></dl>
 
 </div>
 </div>
@@ -337,9 +335,8 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Esegue tutte le funzionalita' principali del client 0.</p>
-<p>Non vengono eseguite in <a class="el" href="client_8h.html#a48d605ff689f470746c858648f0a98c2">SIGINTSignalHandler()</a> per il seguente motivo: <a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html">https://man7.org/linux/man-pages/man7/signal-safety.7.html</a></p>
-<dl class="section note"><dt>Note</dt><dd>Il client 0 deve attendere i processi figlio? La specifica indica solo che bisogna attendere il messaggio di fine dal server... Attualmente prima si attendere il messaggio di fine e poi si aspetta che tutti i figlio terminino. </dd></dl>
+<p>They are not executed in SIGINTSignalHandler () for the following reason: <a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html">https://man7.org/linux/man-pages/man7/signal-safety.7.html</a></p>
+<dl class="section note"><dt>Note</dt><dd>Does client 0 have to wait for child processes? The specification only indicates that you have to wait for the end message from the server Currently, it first waits for the finish message and then all children are expected to finish. </dd></dl>
 
 </div>
 </div>
@@ -359,10 +356,10 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
       </table>
 </div><div class="memdoc">
 
-<p>Funzione eseguita da ogni Client i (figli di Client 0) per mandare i file al server. </p>
+<p>Function performed by each Client i (children of Client 0) to send files to the server. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filePath</td><td>Percorso del file che il client deve suddividere e mandare al server. </td></tr>
+    <tr><td class="paramname">filePath</td><td>Path of the file to send. </td></tr>
   </table>
   </dd>
 </dl>
@@ -386,12 +383,12 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </div><div class="memdoc">
 
 <p>CLose all the IPCs and exit the program. </p>
-<p>Handler del segnale SIGINT.</p>
-<p>Non fa niente, permette solo al processo di risvegliarsi dal pause().</p>
-<p>Le funzionalita' principali vengono eseguite da <a class="el" href="client_8h.html#a8c7084a254c7cd640d66e647795ff8f6">operazioni_client0()</a> e non qui per il seguente motivo: <a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html">https://man7.org/linux/man-pages/man7/signal-safety.7.html</a></p>
+<p>SIGINT Handler.</p>
+<p>It does nothing, it just allows the process to wake up from the pause ().</p>
+<p>Core functionality is performed by client0 () operations and not here for the following reason: <a href="https://man7.org/linux/man-pages/man7/signal-safety.7.html">https://man7.org/linux/man-pages/man7/signal-safety.7.html</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sig</td><td>Valore intero corrispondente a SIGINT </td></tr>
+    <tr><td class="paramname">sig</td><td>Integer value corresponding to SIGUSR1 </td></tr>
   </table>
   </dd>
 </dl>
@@ -415,10 +412,10 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
       </table>
 </div><div class="memdoc">
 
-<p>Handler del segnale SIGUSR1: chiude le risorse del client 0 e termina la sua esecuzione. </p>
+<p>SIGUSR1 signal handler: closes client 0 resources and ends its execution. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sig</td><td>Valore intero corrispondente a SIGUSR1 </td></tr>
+    <tr><td class="paramname">sig</td><td>Integer value corresponding to SIGUSR1 </td></tr>
   </table>
   </dd>
 </dl>
@@ -450,17 +447,15 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Restituisce vero se due stringhe sono uguali</p>
+<p>Return true if two string are equal</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string1</td><td>Stringa da confrontare </td></tr>
-    <tr><td class="paramname">string2</td><td>Stringa da confrontare </td></tr>
+    <tr><td class="paramname">string1</td><td>First string to compare </td></tr>
+    <tr><td class="paramname">string2</td><td>Second string to compare </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true string1 e string2 sono uguali </dd>
-<dd>
-false string1 e string2 sono diverse </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the two strings are equal, false otherwise </dd></dl>
 
 </div>
 </div>

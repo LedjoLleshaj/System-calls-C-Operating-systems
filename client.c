@@ -1,8 +1,7 @@
 /**
  * @file client.c
- * @brief Contiene l'implementazione del client.
+ * @brief Client program
  *
- * @todo Spostare le funzioni non main fuori dal file client.c ? (ad esempio una opzione per la funzione dividi() e' metterla in files.c)
  */
 
 #include <stdio.h>
