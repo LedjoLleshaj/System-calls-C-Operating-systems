@@ -1,0 +1,12 @@
+[Parte 1, del file /home/lleshaj/System-calls-C-Sistemi-operativi/tests/sendme_1.txt spedita dal processo 14564 tramite FIFO1]
+hel
+
+[Parte 2, del file /home/lleshaj/System-calls-C-Sistemi-operativi/tests/sendme_1.txt spedita dal processo 14564 tramite FIFO2]
+lo 
+
+[Parte 3, del file /home/lleshaj/System-calls-C-Sistemi-operativi/tests/sendme_1.txt spedita dal processo 14564 tramite MsgQueue]
+Wor
+
+[Parte 4, del file /home/lleshaj/System-calls-C-Sistemi-operativi/tests/sendme_1.txt spedita dal processo 14564 tramite ShdMem]
+ld!
+

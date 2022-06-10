@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jun  3 09:24:58 2022
+# Make data base, printed on Fri Jun 10 03:06:21 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 9:63726
+JOURNAL_STREAM = 9:65969
 # makefile (from 'Makefile', line 1)
 CFLAGS = -Wall -std=gnu99
 # environment
@@ -75,7 +75,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-MANAGERPID = 853
+MANAGERPID = 846
 # environment
 FNM_NODE_DIST_MIRROR = https://nodejs.org/dist
 # makefile (from 'Makefile', line 9)
@@ -89,13 +89,13 @@ VSCODE_CWD = /home/lleshaj/System-calls-C-Sistemi-operativi
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/20026_1654272067489/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
+PATH = /home/lleshaj/.nvm/versions/node/v16.14.2/bin:/run/user/1000/fnm_multishells/2981_1654855537930/bin:/home/lleshaj/.fnm:/home/lleshaj/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/lleshaj/.local/bin
 # makefile (from 'Makefile', line 8)
 SERVER_SRCS = message_queue.c defines.c err_exit.c shared_memory.c semaphore.c fifo.c server.c
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1266,unix/ubuntu:/tmp/.ICE-unix/1266
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1306,unix/ubuntu:/tmp/.ICE-unix/1306
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -109,7 +109,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 7964976bc5294689909d74e0078fbdcc
+INVOCATION_ID = 82bef103dc6d4a6698469209d630d598
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -129,7 +129,7 @@ PWD = /home/lleshaj/System-calls-C-Sistemi-operativi
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1156
+SSH_AGENT_PID = 1173
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -147,7 +147,7 @@ VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /home/lleshaj/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
-FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/20026_1654272067489
+FNM_MULTISHELL_PATH = /run/user/1000/fnm_multishells/2981_1654855537930
 # environment
 LOGNAME = lleshaj
 # environment
@@ -179,7 +179,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7f5cda11-dba2-40aa-a340-84c3de8ac666.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-2976d3be-e640-4a7e-af1a-c23eca656a91.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -223,8 +223,6 @@ GDK_BACKEND = x11
 # environment
 LC_PAPER = it_IT.UTF-8
 # environment
-NO_AT_BRIDGE = 1
-# environment
 LC_IDENTIFICATION = it_IT.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
@@ -247,11 +245,11 @@ LC_ALL = C
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/9aa5f7f9_51f4_4515_ae84_779ee094de97
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/f4c609b0_3c1a_4608_87aa_620eaba1ac20
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.175
+GNOME_TERMINAL_SERVICE = :1.79
 # environment
 FNM_ARCH = x64
 # default
@@ -273,12 +271,12 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 20282
+VSCODE_PID = 4058
 # variable set hash-table stats:
- 
-# Load=132/1024=13%, Rehash=0, Collisions=21/170=12%
+# Load=131/1024=13%, Rehash=0, Collisions=21/169=12%
 
 # Pattern-specific Variable Values
+ 
 
 # No pattern-specific variable values.
 
@@ -468,6 +466,6 @@ obj/defines.o:
 # strcache performance: lookups = 74 / hit rate = 29%
 # hash-table stats:
 # Load=52/8192=1%, Rehash=0, Collisions=1/74=1%
-# Finished Make data base on Fri Jun  3 09:24:58 2022
+# Finished Make data base on Fri Jun 10 03:06:21 2022
 
  
