@@ -1,6 +1,7 @@
 /// @file defines.c
 /// @brief Contains the implementations of definitions of the project.
 
+#include <stdio.h>
 #include <sys/ipc.h>
 #include <stdbool.h>
 #include <fcntl.h>
@@ -23,7 +24,10 @@ key_t get_ipc_key2() {
 
 key_t get_project_ipc_key(char proj_id) {
     key_t key = ftok(CURRENT_DIRECTORY, proj_id);
-
+    printf("%d\n", key);
+    if (write(STDOUT_FILENO, CURRENT_DIRECTORY, strlen(CURRENT_DIRECTORY)) == -1){
+        errExit("write stdout failed");
+    }
     if (key == -1)
         errExit("ftok failed");
 
