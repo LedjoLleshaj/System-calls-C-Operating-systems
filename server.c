@@ -298,16 +298,18 @@ int main(int argc, char *argv[])
     // printf("Obtained the IPC keys: %x\n", get_ipc_key());
 
     // setup the shared memory
+    print_msg("Shared memory key:  ");
     shmid = sharedMemoryGet(get_ipc_key(), MAX_MSG_PER_CHANNEL * sizeof(message_t));
     shm_message = (message_t *)sharedMemoryAttach(shmid, IPC_CREAT | S_IRUSR | S_IWUSR);
     // print_msg("Shared Memory:allocated and connected\n");
-
+    print_msg("Shared2 memory key:  ");
     shm_flag_ID = sharedMemoryGet(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
     shm_flag = (int *)sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
     // print_msg("Message Queue:allocated and connected\n");
 
     // setup the semaphores set
-    semid = semGetCreate(get_ipc_key(), 10);
+    print_msg("Semaphore memory key:  ");
+    semid = semGetCreate(get_ipc_key(), 6);
     short unsigned int semValues[6] = {1, 0, 1, 50, 50, 50};
     semSetAll(semid, semValues);
     // print_msg("Semaphores created and initialized\n");
@@ -320,10 +322,13 @@ int main(int argc, char *argv[])
     // print_msg("Connected to FIFO 2\n");
 
     // setup message queue
+    print_msg("\nMSg queue memory key:  ");
+
     msqid = msgget(get_ipc_key(), IPC_CREAT | S_IRUSR | S_IWUSR); // collegamento alla coda di messaggi
     // print_msg("Connected to message queue\n");
 
     // setup semaphore set
+    print_msg("\nSemaphore2 memory key:  ");
     semidFifo = semGetCreate(get_ipc_key2(), 4);
     short unsigned int semFifoValues[4] = {0, 0, 0, 0};
     semSetAll(semidFifo, semFifoValues);
