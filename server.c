@@ -45,7 +45,7 @@ message_t *shm_message = NULL;
 int shm_flag_ID = -1;
 /// pointer to the shared memory that contains the flags.
 int *shm_flag = NULL;
-
+pid_t sender_pid;
 /// two-dimensional array that for every line contains the four parts of the files.
 message_t **matriceFile = NULL;
 
@@ -107,6 +107,9 @@ void SIGINTSignalHandler(int sig)
 
     if (semidFifo != -1)
         semDelete(semidFifo);
+
+    //send SIGUSR1 to the client
+    kill(sender_pid, SIGUSR1);
 
     exit(0);
 }
@@ -180,7 +183,7 @@ void findAndMakeFullFiles(int righe)
         strcat(temp, "_out.txt"); // add "_out" to the end of the path
 
         // open the file in write mode and also O_TRUNC so if we need to overwrite a file
-        int file = open(temp, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+        int file = open(temp, O_WRONLY | O_CREAT | O_TRUNC /* | O_APPEND*/ , S_IRUSR | S_IWUSR);
 
         if (file == -1)
         {
@@ -310,6 +313,15 @@ int main(int argc, char *argv[])
     // setup the semaphores set
     print_msg("Semaphore memory key:  ");
     semid = semGetCreate(get_ipc_key(), 6);
+
+    /*
+    Sem 0 = mutex to send and receive the number of files to be processed Client->Fifo1->Server->SharedMemory->Client.
+    Sem 1 = incremented to the number of files and makes client wait untill all files have been divided in 4 and ready to send.
+    Sem 2 = mutex to send and receive the message via the shared memory.
+    Sem 3 = Limits the number of files inside the Fifo1 by 50 at the same time.
+    Sem 4 = Limits the number of files inside the Fifo2 by 50 at the same time.
+    Sem 5 = Limits the number of files inside the MsgQueue by 50 at the same time.
+    */
     short unsigned int semValues[6] = {1, 0, 1, 50, 50, 50};
     semSetAll(semid, semValues);
     // print_msg("Semaphores created and initialized\n");
@@ -341,7 +353,7 @@ int main(int argc, char *argv[])
 
     while (true)
     {
-        //  Wait for a the file number to arrive from client.
+        //  Wait for the file number to arrive from client.
         message_t n_msg;
         if (read(fifo1_fd, &n_msg, sizeof(message_t)) == -1)
         {
@@ -349,7 +361,8 @@ int main(int argc, char *argv[])
         }
 
         printf("The client sent me the file number '%s'.\n", n_msg.msg_body);
-
+        printf("Clients PID is\t\t %d\n", n_msg.sender_pid);
+        sender_pid = n_msg.sender_pid;
         // file number arrived, now we can start the communication
         int filenr = string_to_int(n_msg.msg_body);
         // printf("Tradotto in numero e' %d (teoricamente lo stesso valore su terminale)\n", filenr);
@@ -371,7 +384,6 @@ int main(int argc, char *argv[])
         // prepare semaphore set for the communication
         short unsigned int setValFifoSem[4] = {2, 2, 2, 2};
         semSetAll(semidFifo, setValFifoSem);
-
         /*
              set it equal to the number of files/processes
              and wait for the other processes to finish their work
@@ -379,7 +391,10 @@ int main(int argc, char *argv[])
         semSetVal(semid, 1, filenr);
 
         // write a confirmation message to the client
-        message_t received_msg = {.msg_body = "OK", .mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
+        message_t received_msg = {.msg_body = "OK", 
+                                  .mtype = FILE_NR_MTYPE, 
+                                  .sender_pid = getpid()
+                                 };
 
         // trying to enter the critical section on shared memory
         semWait(semid, 0);
