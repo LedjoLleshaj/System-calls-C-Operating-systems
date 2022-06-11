@@ -14,8 +14,12 @@ make
 
 ## How to run
 You need two terminals opened at the same time
-```./client_0 <path>```
-```./server ```
+```
+./client_0 <path>
+```
+```
+./server
+```
 
 
 ## How to terminate Client
