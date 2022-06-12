@@ -109,6 +109,15 @@ void operazioni_client0()
         shm_flag = (int *)sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
     //print_msg("Shared memory flags: allocated and connected\n");
 
+    //get shared memory stats using IPC_STAT
+    struct shmid_ds shmid_ds;
+    if (shmctl(shmid, IPC_STAT, &shmid_ds) < 0)
+    {
+        print_msg("[client.c:operazioni_client0] shmctl failed\n");
+        exit(1);
+    }
+    printf("Shared memory creator is %d\n", shmid_ds.shm_cpid);
+
     if (semid < 0)
         semid = semGetID(get_ipc_key(), 6);
     //print_msg("Semaphores: obtained the id of the set of semaphores\n");
@@ -165,7 +174,7 @@ void operazioni_client0()
 
     // count the number of files to send
     int filenr = count_files(sendme_files);
-    printf("ci sono %d file 'sendme_'\n", filenr);
+    printf("Ci sono %d file 'sendme_'\n", filenr);
 
     char *n_string = int_to_string(filenr);
     message_t n_msg = {.mtype = FILE_NR_MTYPE, .sender_pid = getpid()};
@@ -341,7 +350,7 @@ void operazioni_figlio(char *filePath)
         errExit("open failed");
     }
 
-    // get the number of charrs in the file
+    // get the number of chars in the file
     long numChar;
     numChar = lseek(fd, 0, SEEK_END);
 
@@ -389,6 +398,7 @@ void operazioni_figlio(char *filePath)
     {
 
         message_t supporto;
+        
         memset(&supporto, 0, sizeof(supporto));
 
         if (sent[0] == false)

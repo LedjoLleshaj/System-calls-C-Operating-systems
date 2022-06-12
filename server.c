@@ -108,8 +108,8 @@ void SIGINTSignalHandler(int sig)
     if (semidFifo != -1)
         semDelete(semidFifo);
 
-    //send SIGUSR1 to the client
-    kill(sender_pid, SIGUSR1);
+    // send SIGUSR1 to the client
+     kill(sender_pid, SIGUSR1);
 
     exit(0);
 }
@@ -183,7 +183,7 @@ void findAndMakeFullFiles(int righe)
         strcat(temp, "_out.txt"); // add "_out" to the end of the path
 
         // open the file in write mode and also O_TRUNC so if we need to overwrite a file
-        int file = open(temp, O_WRONLY | O_CREAT | O_TRUNC /* | O_APPEND*/ , S_IRUSR | S_IWUSR);
+        int file = open(temp, O_WRONLY | O_CREAT | O_TRUNC /* | O_APPEND*/, S_IRUSR | S_IWUSR);
 
         if (file == -1)
         {
@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
 {
 
     print_msg("\n");
-    print_msg("###########   Server Started succesfully   ############\n");
+    printf("###########   Server Started succesfully %d  ############\n", getpid());
     print_msg("\n");
 
     // memorize the path of the executable for ftok()
@@ -309,6 +309,13 @@ int main(int argc, char *argv[])
     shm_flag_ID = sharedMemoryGet(get_ipc_key2(), MAX_MSG_PER_CHANNEL * sizeof(int));
     shm_flag = (int *)sharedMemoryAttach(shm_flag_ID, S_IRUSR | S_IWUSR);
     // print_msg("Message Queue:allocated and connected\n");
+    struct shmid_ds shmid_ds;
+    if (shmctl(shmid, IPC_STAT, &shmid_ds) < 0)
+    {
+        print_msg("[server] shmctl failed\n");
+        exit(1);
+    }
+    printf("Shared memory creator is %d\n", shmid_ds.shm_cpid);
 
     // setup the semaphores set
     print_msg("Semaphore memory key:  ");
@@ -391,10 +398,9 @@ int main(int argc, char *argv[])
         semSetVal(semid, 1, filenr);
 
         // write a confirmation message to the client
-        message_t received_msg = {.msg_body = "OK", 
-                                  .mtype = FILE_NR_MTYPE, 
-                                  .sender_pid = getpid()
-                                 };
+        message_t received_msg = {.msg_body = "OK",
+                                  .mtype = FILE_NR_MTYPE,
+                                  .sender_pid = getpid()};
 
         // trying to enter the critical section on shared memory
         semWait(semid, 0);
