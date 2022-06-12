@@ -23,7 +23,7 @@ You need two terminals opened at the same time
 
 
 ## How to terminate Client
-1. Open a another terminal
+1. Open another terminal
 2. Execute the command below:
 
     ```bash
