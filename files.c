@@ -122,7 +122,6 @@ int checkFileSize(char *filePath)
 int checkFileName(char *fileName)
 {
      //if filename contain "_sendme" && !contains _out return true
-    
     return StartsWith_EndsWith(fileName, "sendme_" , "_out");
 }
 
