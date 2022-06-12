@@ -3,6 +3,8 @@
 #pragma once
 
 #include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
 /**
  * @brief Obtains and ID and creates a shared memory segment.
